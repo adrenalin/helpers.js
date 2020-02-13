@@ -12,12 +12,13 @@ class Config {
    *
    * @param { mixed } [path]          Array or string
    * @param { mixed } value           Any value that can be serialized as JSON
+   * @return { Config }               Self
    */
   set (path, value) {
     // Special case to set the full configuration
     if (isObject(path) && value == null) {
       this.values = merge(this.values, path)
-      return
+      return this
     }
 
     if (typeof path === 'string') {
@@ -46,6 +47,7 @@ class Config {
 
     // tmp[lastKey] = value
     this.values = merge(target, tmp)
+    return this
   }
 
   /**

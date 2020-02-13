@@ -160,32 +160,26 @@ describe('config', () => {
   })
 
   it('should set to root when path is an object and value is not set', (done) => {
-    const testValue = {
+    const testValue1 = {
       storage: {
-        key: 'value'
+        key1: 'value1'
+      }
+    }
+
+    const testValue2 = {
+      storage: {
+        key2: 'value2'
       }
     }
 
     const config = new Config()
     expect(config.get('storage')).to.eql(null)
 
-    config.set(testValue)
-    expect(config.get('storage')).to.eql(testValue.storage)
-    done()
-  })
+    config.set(testValue1)
+    config.set(testValue2)
 
-  it('should return full configuration if path is not defined', (done) => {
-    const testValue = {
-      storage: {
-        key: 'value'
-      }
-    }
-
-    const config = new Config()
-    expect(config.get('storage')).to.eql(null)
-
-    config.set(testValue)
-    expect(config.get()).to.eql(testValue)
+    expect(config.get('storage.key1')).to.eql(testValue1.storage.key1)
+    expect(config.get('storage.key2')).to.eql(testValue2.storage.key2)
     done()
   })
 
@@ -195,6 +189,12 @@ describe('config', () => {
 
     const config = new Config()
     expect(config.get('config.test')).to.be(testValue)
+    done()
+  })
+
+  it('should return self when setting a value', (done) => {
+    const config = new Config()
+    expect(config.set()).to.be(config)
     done()
   })
 })
