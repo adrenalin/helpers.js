@@ -189,21 +189,12 @@ describe('config', () => {
     done()
   })
 
-  // it('should return full configuration when there are no arguments', (done) => {
-  //   const testPath = 'copy-of-the-storage-object'
-  //   const testValue = {
-  //     storage: {
-  //       key: 'value'
-  //     }
-  //   }
-  //
-  //   const config = new Config()
-  //   expect(config.values).not.to.have.property(testPath[0])
-  //   config.set(testPath, testValue)
-  //
-  //   expect(config.get(testPath)).not.to.be(config.values[testPath])
-  //   expect(config.get(testPath)).to.eql(config.values[testPath])
-  //   expect(config.get(testPath)).to.eql(testValue)
-  //   done()
-  // })
+  it('should return environment variable if one has been defined', (done) => {
+    const testValue = 'test-value'
+    process.env.CONFIG_TEST = testValue
+
+    const config = new Config()
+    expect(config.get('config.test')).to.be(testValue)
+    done()
+  })
 })

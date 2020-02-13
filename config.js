@@ -1,5 +1,6 @@
 const merge = require('./merge')
 const isObject = require('./isObject')
+const typecastString = require('./typecastString')
 
 class Config {
   constructor () {
@@ -67,9 +68,19 @@ class Config {
     }
 
     path = path.slice()
+    const originalPath = path.slice()
+
     const lastKey = path.pop()
 
     let tmp = this.values
+
+    if (typeof process !== 'undefined') {
+      const envPath = originalPath.join('_').toUpperCase()
+
+      if (process.env[envPath] != null) {
+        return typecastString(process.env[envPath])
+      }
+    }
 
     path.map((key) => {
       if (tmp[key] == null) {
