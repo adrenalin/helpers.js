@@ -1,0 +1,19 @@
+{
+  "name": "helpersjs",
+  "version": "0.0.1",
+  "description": "Miscellaneous helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/adrenalin/helpersjs.git"
+  },
+  "author": "arttu@kaktus.cc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrenalin/helpersjs/issues"
+  },
+  "homepage": "https://github.com/adrenalin/helpersjs#readme"
+}
