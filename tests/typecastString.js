@@ -46,13 +46,17 @@ describe('typecastString', () => {
   it('should return various number formats', (done) => {
     expect(typecastString('1')).to.be(1)
     expect(typecastString('1.1')).to.be(1.1)
+    expect(typecastString('1,1')).to.be(1.1)
     expect(typecastString('0.1')).to.be(0.1)
+    expect(typecastString('0,1')).to.be(0.1)
 
     expect(typecastString('0')).to.be(0)
 
     expect(typecastString('-1')).to.be(-1)
     expect(typecastString('-1.1')).to.be(-1.1)
+    expect(typecastString('-1,1')).to.be(-1.1)
     expect(typecastString('-.1')).to.be(-0.1)
+    expect(typecastString('-,1')).to.be(-0.1)
     done()
   })
 })
