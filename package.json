@@ -4,7 +4,7 @@
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha tests/*.js tests/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/adrenalin/helpersjs/issues"
   },
-  "homepage": "https://github.com/adrenalin/helpersjs#readme"
+  "homepage": "https://github.com/adrenalin/helpersjs#readme",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^7.0.1"
+  }
 }
