@@ -48,12 +48,17 @@ describe('merge', () => {
     const o2 = {
       key2: {
         subkey2: 'subvalue2'
-      }
+      },
+      key3: [
+        'foo',
+        'bar'
+      ]
     }
 
     const merged = merge(o1, o2)
     expect(merged.key1).to.be(o1.key1)
     expect(merged.key2).to.eql({ subkey1: o1.key2.subkey1, subkey2: o2.key2.subkey2 })
+    expect(merged.key3).to.eql(o2.key3)
 
     done()
   })

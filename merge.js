@@ -45,7 +45,7 @@ module.exports = function merge (...args) {
       const value = source[key]
       if (isObject(value)) {
         target[key] = isObject(target[key]) ? merge(target[key], value) : value
-        return
+        continue
       }
 
       target[key] = value
