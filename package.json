@@ -1,6 +1,6 @@
 {
-  "name": "helpersjs",
-  "version": "0.0.3",
+  "name": "helpers.js",
+  "version": "0.0.4",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/adrenalin/helpersjs.git"
+    "url": "git+ssh://git@github.com/adrenalin/helpers.js.git"
   },
   "author": "arttu@kaktus.cc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adrenalin/helpersjs/issues"
+    "url": "https://github.com/adrenalin/helpers.js/issues"
   },
-  "homepage": "https://github.com/adrenalin/helpersjs#readme",
+  "homepage": "https://github.com/adrenalin/helpers.js#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "expect.js": "^0.3.1",

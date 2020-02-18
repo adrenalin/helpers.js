@@ -1,5 +1,6 @@
 const merge = require('./merge')
 const isObject = require('./isObject')
+const getValue = require('./getValue')
 const typecastString = require('./typecastString')
 
 class Config {
@@ -69,34 +70,15 @@ class Config {
       path = [path]
     }
 
-    path = path.slice()
-    const originalPath = path.slice()
-
-    const lastKey = path.pop()
-
-    let tmp = this.values
-
     if (typeof process !== 'undefined') {
-      const envPath = originalPath.join('_').toUpperCase()
+      const envPath = path.join('_').toUpperCase()
 
       if (process.env[envPath] != null) {
         return typecastString(process.env[envPath])
       }
     }
 
-    path.map((key) => {
-      if (tmp[key] == null) {
-        return defaultValue
-      }
-
-      tmp = tmp[key]
-    })
-
-    if (tmp[lastKey] == null) {
-      return defaultValue
-    }
-
-    return JSON.parse(JSON.stringify(tmp[lastKey]))
+    return JSON.parse(JSON.stringify(getValue(this.values, path, defaultValue)))
   }
 }
 
