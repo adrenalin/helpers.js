@@ -1,3 +1,4 @@
+exports.getClassName = require('./getClassName')
 exports.isObject = require('./isObject')
 exports.merge = require('./merge')
 exports.trim = require('./trim')
