@@ -1,0 +1,8 @@
+---
+language: node_js
+
+before_script:
+  - npm install -g mocha expect.js
+
+script:
+  - npm test
