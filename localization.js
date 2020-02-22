@@ -19,6 +19,47 @@ module.exports = class Localization {
     return 'paragraphcase'
   }
 
+  /**
+   * Convert case for a string
+   *
+   * @param { string } input          Input string
+   * @param { string } toCase         Case for the output
+   */
+  static toCase (input, toCase = null) {
+    switch (String(toCase).toLowerCase()) {
+      case 'upper':
+      case 'uppercase':
+      case Localization.UPPERCASE:
+        return input.toUpperCase()
+
+      case 'lower':
+      case 'lowercase':
+      case Localization.LOWERCASE:
+        return input.toLowerCase()
+
+      case 'title':
+      case 'titlecase':
+      case Localization.TITLECASE:
+        return input.replace(/\b(.)/g, (r, c) => {
+          return r.toUpperCase()
+        })
+
+      case 'paragraph':
+      case 'paragraphcase':
+      case Localization.PARAGRAPHCASE:
+        return input.replace(/(^.|\.\s+.)/g, (r, c) => {
+          return r.toUpperCase()
+        })
+    }
+
+    return input
+  }
+
+  /**
+   * Alias to the static toCase method
+   *
+   * @return { function }             Constructor.toCase function
+   */
   get toCase () {
     return Localization.toCase
   }
@@ -134,7 +175,7 @@ module.exports = class Localization {
       ...options
     }
 
-    const alias = getValue(locales, `${needle.key}.alias`)
+    const alias = this.getValue(needle.key, ['alias'])
 
     if (alias) {
       needle.key = alias
@@ -145,19 +186,15 @@ module.exports = class Localization {
       needle.default = locale.default || needle.key
     }
 
-    // Search paths for the locale
-    const paths = [
-      `${needle.key}.${language}`
+    // Search suffixes for the locale
+    const langs = [
+      language,
+      this.getFallbackLang()
     ]
 
-    // Use fallback language for the search if applicable
-    if (this.getFallbackLang()) {
-      paths.push(`${needle.key}.${this.getFallbackLang()}`)
-    }
-
-    const localized = Localization.toCase(getValue(
-      locales,
-      paths,
+    const localized = Localization.toCase(this.getValue(
+      needle.key,
+      langs,
       needle.default
     ), needle.case)
 
@@ -189,6 +226,29 @@ module.exports = class Localization {
   }
 
   /**
+   * Internal helper function to get value from the stored locales for n
+   * suffixes
+   *
+   * @param { string } locale           Locale key
+   * @param { array } suffixes          Set of suffixes
+   * @param { string } [defaultValue]   Default value if locale is not found
+   * @return { string }                 Value from the locales or locale itself
+   */
+  getValue (locale, suffixes, defaultValue) {
+    const paths = []
+
+    suffixes.map((suffix) => {
+      if (!suffix) {
+        return
+      }
+
+      paths.push(`${locale}.${suffix}`)
+    })
+
+    return getValue(locales, paths, defaultValue)
+  }
+
+  /**
    * Get a localized string in the set language
    *
    * @param { mixed } locale          Requested locale
@@ -201,38 +261,99 @@ module.exports = class Localization {
   }
 
   /**
-   * Convert case for a string
+   * Get decimal separator for the locale system
    *
-   * @param { string } input          Input string
-   * @param { string } toCase         Case for the output
+   * @param { string } language       Requested language
+   * @return { string }               Decimal separator
    */
-  static toCase (input, toCase = null) {
-    switch (String(toCase).toLowerCase()) {
-      case 'upper':
-      case 'uppercase':
-      case Localization.UPPERCASE:
-        return input.toUpperCase()
+  getDecimalSeparator (language = null) {
+    return this.getValue(
+      'decimalSeparator',
+      [
+        language || this.getLang(),
+        this.getFallbackLang()
+      ],
+      '.'
+    )
+  }
 
-      case 'lower':
-      case 'lowercase':
-      case Localization.LOWERCASE:
-        return input.toLowerCase()
+  /**
+   * Get thousands separator for the locale system
+   *
+   * @param { string } language       Requested language
+   * @return { string }               Thousands separator
+   */
+  getThousandSeparator (language = null) {
+    return this.getValue(
+      'thousandSeparator',
+      [
+        language || this.getLang(),
+        this.getFallbackLang()
+      ],
+      ','
+    )
+  }
 
-      case 'title':
-      case 'titlecase':
-      case Localization.TITLECASE:
-        return input.replace(/\b(.)/g, (r, c) => {
-          return r.toUpperCase()
-        })
+  /**
+   * Split string into chunks of the given size and merge them with the given
+   * separator string. Default chunk grouping order is from right to left.
+   *
+   * @param { string } str            Input string
+   * @param { number } length         Chunk length
+   * @param { string } separator      Separator between the chunks
+   * @param { boolean } [left]        Start chunks from left to right instead of right to left
+   * @return { string }               String split into chunks with the given separator
+   */
+  splitStringIntoChunks (str, length, separator, left = false) {
+    const rval = []
+    const input = left ? String(str).split('').reverse().join('') : String(str)
 
-      case 'paragraph':
-      case 'paragraphcase':
-      case Localization.PARAGRAPHCASE:
-        return input.replace(/(^.|\.\s+.)/g, (r, c) => {
-          return r.toUpperCase()
-        })
+    for (let i = 0; i < input.length; i++) {
+      if (i && i % length === 0) {
+        rval.push(separator)
+      }
+
+      rval.push(input.substr(input.length - i - 1, 1))
     }
 
-    return input
+    if (left) {
+      return rval.join('')
+    }
+
+    return rval.reverse().join('')
+  }
+
+  /**
+   * Format a number according to the locales
+   '
+   * @param { Number } value          Number to be formatted
+   * @param { mixed } options         Options or precision, lang
+   * @return { String }               Localized number
+   */
+  numberFormat (value, ...options) {
+    const opts = {
+      precision: typeof options[0] === 'number' ? options[0] : null,
+      lang: typeof options[1] === 'string' ? options[1] : this.getLang()
+    }
+
+    if (isObject(options[0])) {
+      if (options.length > 1) {
+        throw new Error('Either give a configuration object or spread by precision, language, decimal and thousand')
+      }
+
+      for (const key in options[0]) {
+        opts[key] = options[0][key]
+      }
+    }
+
+    opts.decimal = typeof options[2] === 'string' ? options[2] : this.getDecimalSeparator(opts.lang)
+    opts.thousand = typeof options[3] === 'string' ? options[3] : this.getThousandSeparator(opts.lang)
+
+    const parts = value.toFixed(opts.precision || 0).split('.')
+
+    const int = this.splitStringIntoChunks(parts[0], 3, opts.thousand, false)
+    const dec = parts[1] ? opts.decimal + this.splitStringIntoChunks(parts[1], 3, ' ', true) : ''
+
+    return `${int}${dec}`
   }
 }
