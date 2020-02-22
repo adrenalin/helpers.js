@@ -4,7 +4,8 @@
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha tests/*.js tests/**/*.js"
+    "test": "nyc mocha tests/*.js tests/**/*.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,10 @@ node_js:
   - 12
 
 before_script:
-  - npm install -g mocha expect.js
+  - npm install
 
 script:
   - npm test
+
+after_success:
+  - npm run coverage
