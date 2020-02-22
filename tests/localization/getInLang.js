@@ -236,6 +236,13 @@ describe('Localization getInLang', () => {
     done()
   })
 
+  it('should accept and convert numbers to strings', (done) => {
+    const l10n = new Localization()
+    expect(l10n.getInLang('en', 1)).to.be('1')
+    expect(l10n.getInLang('en', Math.PI)).to.be(Math.PI.toString())
+    done()
+  })
+
   it('should give the localized string with get', (done) => {
     const locales = {
       getTest: {
