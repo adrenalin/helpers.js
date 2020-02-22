@@ -6,6 +6,7 @@
  * @return { string }                 Unique class names
  */
 module.exports = function getClassName (input) {
+  // Support using spread arguments
   if (arguments.length > 1) {
     const args = []
 
@@ -23,7 +24,7 @@ module.exports = function getClassName (input) {
     }).join(' ')
   }
 
-  const values = []
+  const classNames = []
   input.split(' ').map((value) => {
     if (!value) {
       return
@@ -35,12 +36,13 @@ module.exports = function getClassName (input) {
       throw new Error(`Invalid class name "${value}"`)
     }
 
-    if (values.includes(value)) {
+    // Remove duplicates
+    if (classNames.includes(value)) {
       return
     }
 
-    values.push(value)
+    classNames.push(value)
   })
 
-  return values.join(' ')
+  return classNames.join(' ')
 }
