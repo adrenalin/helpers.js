@@ -82,22 +82,6 @@ describe('config', () => {
     done()
   })
 
-  it('should get a deep value with an array key', (done) => {
-    const testPath = [
-      'deep-path-set-as-array',
-      'path'
-    ]
-
-    const testValue = 'deep-path-set.path.to.value'
-
-    const config = new Config()
-    expect(config.values).not.to.have.property(testPath[0])
-    config.set(testPath, testValue)
-
-    expect(config.get(testPath)).to.be(testValue)
-    done()
-  })
-
   it('should get a deep value with a string key', (done) => {
     const testPath = [
       'deep-path-set-as-array',
@@ -125,6 +109,25 @@ describe('config', () => {
     const config = new Config()
     expect(config.get(testPath.join('.'))).to.eql(null)
     expect(config.get(testPath.join('.'), defaultValue)).to.be(defaultValue)
+    done()
+  })
+
+  it('should get the first match with an array of paths', (done) => {
+    const values = {
+      array: ['array'],
+      null: null,
+      undefined: undefined
+    }
+
+    const paths = [
+      'undefined',
+      'null',
+      'array'
+    ]
+
+    const config = new Config()
+    config.set(values)
+    expect(config.get(paths)).to.eql(values.array)
     done()
   })
 
