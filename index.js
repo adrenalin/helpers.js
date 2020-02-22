@@ -8,3 +8,5 @@ exports.typecastString = require('./typecastString')
 
 exports.config = require('./config').config
 exports.Config = require('./config').default
+
+exports.Localization = require('./localization')
