@@ -192,6 +192,26 @@ describe('config', () => {
     done()
   })
 
+  it('should return full configuration when no argument was given', (done) => {
+    const values = {
+      foo: {
+        bar: 'value'
+      },
+      foo2: 'bar2'
+    }
+
+    const config = new Config()
+    config.set(values)
+    expect(config.get()).to.eql(values)
+    done()
+  })
+
+  it('should throw an error when using an object as a path', (done) => {
+    const config = new Config()
+    expect(config.get).withArgs({ foo: 'bar' }).to.throwException()
+    done()
+  })
+
   it('should return self when setting a value', (done) => {
     const config = new Config()
     expect(config.set()).to.be(config)

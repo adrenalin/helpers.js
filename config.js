@@ -59,7 +59,7 @@ class Config {
    */
   get (path, defaultValue = null) {
     if (!path) {
-      return this.values
+      return JSON.parse(JSON.stringify(this.values))
     }
 
     if (typeof path === 'string') {
@@ -78,7 +78,7 @@ class Config {
       }
     }
 
-    return JSON.parse(JSON.stringify(getValue(this.values, path, defaultValue)))
+    return JSON.parse(JSON.stringify(getValue(this.values, path.join('.'), defaultValue)))
   }
 }
 
