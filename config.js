@@ -70,7 +70,7 @@ class Config {
       path = [path]
     }
 
-    if (typeof process !== 'undefined') {
+    if (typeof process !== 'undefined' && process.env) {
       const envPath = path.join('_').toUpperCase()
 
       if (process.env[envPath] != null) {
