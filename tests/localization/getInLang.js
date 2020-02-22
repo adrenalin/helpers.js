@@ -255,4 +255,24 @@ describe('Localization getInLang', () => {
 
     done()
   })
+
+  it('should give singular/plural strings with getByCount', (done) => {
+    const locales = {
+      getByCount1: {
+        en: 'Get by count: one'
+      },
+      getByCountN: {
+        en: 'Get by count: %s'
+      }
+    }
+
+    const l10n = new Localization()
+    l10n.registerLocales(locales)
+
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 0)).to.be('Get by count: 0')
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 1)).to.be(locales.getByCount1.en)
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 2)).to.be('Get by count: 2')
+
+    done()
+  })
 })

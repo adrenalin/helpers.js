@@ -268,6 +268,26 @@ module.exports = class Localization {
   }
 
   /**
+   * Get by count
+   *
+   * @param { string } singular       Singular locale key
+   * @param { string } plural         Plural locale key
+   * @param { number } amount         Amount
+   * @return { string }               Localized string
+   */
+  getByCount (singular, plural, amount, ...args) {
+    const locale = {
+      amount: amount,
+      quantifiers: {
+        1: singular,
+        default: plural
+      }
+    }
+
+    return this.get(locale, ...args)
+  }
+
+  /**
    * Get decimal separator for the locale system
    *
    * @param { string } language       Requested language
