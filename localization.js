@@ -1,6 +1,7 @@
 const getValue = require('./getValue')
 const isObject = require('./isObject')
 const splitStringIntoChunks = require('./splitStringIntoChunks')
+const strPad = require('./strPad')
 const locales = {}
 
 module.exports = class Localization {
@@ -304,6 +305,18 @@ module.exports = class Localization {
     const opts = {
       precision: typeof options[0] === 'number' ? options[0] : null,
       lang: typeof options[1] === 'string' ? options[1] : this.getLang()
+    }
+
+    if (opts.precision == null) {
+      const str = String(value)
+
+      if (str.match(/e\-[0-9]+$/)) { // eslint-disable-line no-useless-escape
+        opts.precision = Number(str.match(/e\-([0-9]+)$/)[1]) // eslint-disable-line no-useless-escape
+      }
+
+      if (str.match(/\.[0-9]+$/)) {
+        opts.precision = str.match(/\.([0-9]+)$/)[1].length
+      }
     }
 
     if (isObject(options[0])) {

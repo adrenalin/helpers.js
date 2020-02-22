@@ -82,4 +82,15 @@ describe('Localization numberFormat', () => {
     expect(l10n.numberFormat(0.00000001, 8, 'fi', ',', ' ')).to.be('0,000 000 01')
     done()
   })
+
+  it('should return grouped decimals even without the given precision', (done) => {
+    expect(l10n.numberFormat(0.00000001, null, 'fi', ',', ' ')).to.be('0,000 000 01')
+    expect(l10n.numberFormat(0.0001, null, 'fi', ',', ' ')).to.be('0,000 1')
+    done()
+  })
+
+  it('should return grouped decimals with large precision', (done) => {
+    expect(l10n.numberFormat(0.1, 8, 'fi', ',', ' ')).to.be('0,100 000 00')
+    done()
+  })
 })
