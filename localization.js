@@ -1,7 +1,6 @@
 const getValue = require('./getValue')
 const isObject = require('./isObject')
 const splitStringIntoChunks = require('./splitStringIntoChunks')
-const strPad = require('./strPad')
 const locales = {}
 
 module.exports = class Localization {
@@ -55,6 +54,47 @@ module.exports = class Localization {
     }
 
     return input
+  }
+
+  /**
+   * Register locales
+   *
+   * @param { object } data           Locales to be registered
+   * @return { Localization }         This instance
+   */
+  static registerLocales (data) {
+    if (!isObject(data)) {
+      throw new Error('registerLocales requires an object as its argument')
+    }
+
+    // Validate locale
+    for (const key in data) {
+      const value = data[key]
+      if (!isObject(value)) {
+        throw new Error('Invalid locale, each node has to be an object')
+      }
+
+      for (const lang in value) {
+        if (typeof value[lang] !== 'string') {
+          throw new Error('Invalid locale, each language node has to be a string')
+        }
+      }
+    }
+
+    for (const key in data) {
+      locales[key] = data[key]
+    }
+
+    return this
+  }
+
+  /**
+   * Alias to the static registerLocales method
+   *
+   * @return { function }             Constructor.toCase function
+   */
+  get registerLocales () {
+    return Localization.registerLocales
   }
 
   /**
@@ -125,38 +165,6 @@ module.exports = class Localization {
    */
   getFallbackLang () {
     return this.fallbackLang
-  }
-
-  /**
-   * Register locales
-   *
-   * @param { object } data           Locales to be registered
-   * @return { Localization }         This instance
-   */
-  registerLocales (data) {
-    if (!isObject(data)) {
-      throw new Error('registerLocales requires an object as its argument')
-    }
-
-    // Validate locale
-    for (const key in data) {
-      const value = data[key]
-      if (!isObject(value)) {
-        throw new Error('Invalid locale, each node has to be an object')
-      }
-
-      for (const lang in value) {
-        if (typeof value[lang] !== 'string') {
-          throw new Error('Invalid locale, each language node has to be a string')
-        }
-      }
-    }
-
-    for (const key in data) {
-      locales[key] = data[key]
-    }
-
-    return this
   }
 
   /**

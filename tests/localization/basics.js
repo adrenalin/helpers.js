@@ -19,6 +19,12 @@ describe('Localization basics', () => {
     done()
   })
 
+  it('should have a shorthand in a class instance', (done) => {
+    const l10n = new Localization()
+    expect(l10n.registerLocales).to.be(Localization.registerLocales)
+    done()
+  })
+
   it('should register locales', (done) => {
     const locales = {
       foo: {
