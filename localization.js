@@ -1,5 +1,6 @@
 const getValue = require('./getValue')
 const isObject = require('./isObject')
+const splitStringIntoChunks = require('./splitStringIntoChunks')
 const locales = {}
 
 module.exports = class Localization {
@@ -182,9 +183,7 @@ module.exports = class Localization {
     }
 
     // Set the default value if locale was not found
-    if (!needle.default) {
-      needle.default = locale.default || needle.key
-    }
+    needle.default = needle.default || locale.default || needle.key
 
     // Search suffixes for the locale
     const langs = [
@@ -295,35 +294,6 @@ module.exports = class Localization {
   }
 
   /**
-   * Split string into chunks of the given size and merge them with the given
-   * separator string. Default chunk grouping order is from right to left.
-   *
-   * @param { string } str            Input string
-   * @param { number } length         Chunk length
-   * @param { string } separator      Separator between the chunks
-   * @param { boolean } [left]        Start chunks from left to right instead of right to left
-   * @return { string }               String split into chunks with the given separator
-   */
-  splitStringIntoChunks (str, length, separator, left = false) {
-    const rval = []
-    const input = left ? String(str).split('').reverse().join('') : String(str)
-
-    for (let i = 0; i < input.length; i++) {
-      if (i && i % length === 0) {
-        rval.push(separator)
-      }
-
-      rval.push(input.substr(input.length - i - 1, 1))
-    }
-
-    if (left) {
-      return rval.join('')
-    }
-
-    return rval.reverse().join('')
-  }
-
-  /**
    * Format a number according to the locales
    '
    * @param { Number } value          Number to be formatted
@@ -351,8 +321,8 @@ module.exports = class Localization {
 
     const parts = value.toFixed(opts.precision || 0).split('.')
 
-    const int = this.splitStringIntoChunks(parts[0], 3, opts.thousand, false)
-    const dec = parts[1] ? opts.decimal + this.splitStringIntoChunks(parts[1], 3, ' ', true) : ''
+    const int = splitStringIntoChunks(parts[0], 3, opts.thousand, false)
+    const dec = parts[1] ? opts.decimal + splitStringIntoChunks(parts[1], 3, ' ', true) : ''
 
     return `${int}${dec}`
   }
