@@ -69,22 +69,6 @@ describe('Localization basics', () => {
     done()
   })
 
-  it('should be able to get registered locales', (done) => {
-    const locales = {
-      foo: {
-        en: 'Foo',
-        fi: 'Foo'
-      }
-    }
-
-    const l10n = new Localization()
-    const rval = l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', 'foo')).to.be(locales.foo.en)
-    expect(l10n.getInLang('fi', 'foo')).to.be(locales.foo.fi)
-    expect(rval).to.be(l10n)
-    done()
-  })
-
   it('should reject to register invalid locales', (done) => {
     const l10n = new Localization()
     expect(l10n.registerLocales).withArgs('foo').to.throwError()
@@ -127,13 +111,5 @@ describe('Localization basics', () => {
     } catch (err) {
       done()
     }
-  })
-
-  it('should be able to get the set fallback language', (done) => {
-    const lang = 'fi'
-    const l10n = new Localization()
-    l10n.setFallbackLang(lang)
-    expect(l10n.getFallbackLang()).to.be(lang)
-    done()
   })
 })

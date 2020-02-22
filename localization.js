@@ -96,13 +96,26 @@ module.exports = class Localization {
     return this
   }
 
-  getInLang (lang, locale) {
-    return getValue(
+  /**
+   * Get a localized string in the given language
+   *
+   * @param { string } language       Requested language
+   * @param { string } locale         Requested locale
+   * @return { string }               Localized value or the given string if not found
+   */
+  getInLang (language, locale) {
+    const localized = getValue(
       locales,
       [
-        `${locale}.${lang}`,
-        `${locale}.${this.fallbackLang}`
+        `${locale}.${language}`,
+        `${locale}.${this.getFallbackLang()}`
       ]
     )
+
+    if (localized == null) {
+      return locale
+    }
+
+    return localized
   }
 }
