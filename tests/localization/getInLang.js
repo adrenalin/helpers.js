@@ -145,6 +145,28 @@ describe('Localization getInLang', () => {
     done()
   })
 
+  it('should throw an exception when there is an illegal parameter', (done) => {
+    const locales = {
+      paramMismatchOrder: {
+        en: '%s %s'
+      },
+      paramMismatchNumbered: {
+        en: '%s2'
+      }
+    }
+
+    const l10n = new Localization()
+    l10n.registerLocales(locales)
+
+    try {
+      l10n.getInLang('en', 'paramMismatchOrder', { key: 'foo' }, { invalid: true })
+      return done(new Error('Should have thrown an error'))
+    } catch (err) {
+    }
+
+    done()
+  })
+
   it('should accept a default value for locale object', (done) => {
     const defaultValue = 'default-value'
     const l10n = new Localization()
