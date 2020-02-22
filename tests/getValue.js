@@ -59,4 +59,49 @@ describe('getValue', () => {
     expect(getValue(source, 'arr')).to.be(targetArray)
     done()
   })
+
+  it('should chain and get the first available value for an array', (done) => {
+    const source = {
+      target1: {
+        match: true
+      },
+      target2: {
+        null: null
+      },
+      target3: {
+        undefined: undefined
+      }
+    }
+
+    const paths = [
+      'target3.undefined',
+      'target2.null',
+      'target1.match'
+    ]
+
+    expect(getValue(source, paths)).to.be(true)
+    done()
+  })
+
+  it('should return the default value for an array if no key was found', (done) => {
+    const source = {
+      target1: {
+        match: true
+      },
+      target2: {
+        null: null
+      },
+      target3: {
+        undefined: undefined
+      }
+    }
+
+    const paths = [
+      'target3.undefined',
+      'target2.null'
+    ]
+
+    expect(getValue(source, paths, source.target1)).to.be(source.target1)
+    done()
+  })
 })

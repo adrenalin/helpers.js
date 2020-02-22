@@ -1,18 +1,21 @@
 module.exports = function getValue (source, path, defaultValue = null) {
-  if (typeof path === 'string') {
-    path = path.split('.')
+  if (Array.isArray(path)) {
+    for (let i = 0; i < path.length; i++) {
+      const value = getValue(source, path[i])
+      if (value != null) {
+        return value
+      }
+    }
+
+    return defaultValue
   }
 
-  if (!Array.isArray(path)) {
-    path = [path]
-  }
-
-  path = path.slice()
-  const lastKey = path.pop()
+  const parts = path.split('.')
+  const lastKey = parts.pop()
 
   let tmp = source
 
-  path.map((key) => {
+  parts.map((key) => {
     if (tmp[key] == null) {
       return defaultValue
     }
