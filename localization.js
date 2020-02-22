@@ -163,7 +163,7 @@ module.exports = class Localization {
 
     // Match parameters
     let i = 1
-    const parameters = [locale].concat(args || [])
+    const parameters = [locale].concat(args)
       .filter((arg) => {
         if (typeof arg === 'string') {
           return true
