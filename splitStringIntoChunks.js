@@ -19,7 +19,7 @@ module.exports = function splitStringIntoChunks (input, length, separator = ' ',
 
   const output = []
   const chars = left ? input.split('').reverse().join('') : input
-  separator = String(separator || ' ')
+  separator = String(separator)
 
   for (let i = 0; i < chars.length; i++) {
     if (i && i % length === 0) {

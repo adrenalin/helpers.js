@@ -23,6 +23,7 @@ describe('splitStringIntoChunks', () => {
     expect(splitStringIntoChunks).withArgs('foo', 'bar').to.throwError()
     expect(splitStringIntoChunks).withArgs('foo', {}).to.throwError()
     expect(splitStringIntoChunks).withArgs('foo', 1.2).to.throwError()
+    expect(splitStringIntoChunks).withArgs('foo', 1).not.to.throwError()
     done()
   })
 })
