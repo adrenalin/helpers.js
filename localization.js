@@ -329,8 +329,8 @@ module.exports = class Localization {
       }
     }
 
-    opts.decimal = typeof options[2] === 'string' ? options[2] : this.getDecimalSeparator(opts.lang)
-    opts.thousand = typeof options[3] === 'string' ? options[3] : this.getThousandSeparator(opts.lang)
+    opts.decimal = typeof options[2] === 'string' ? options[2] : opts.decimal || this.getDecimalSeparator(opts.lang)
+    opts.thousand = typeof options[3] === 'string' ? options[3] : opts.thousand || this.getThousandSeparator(opts.lang)
 
     const parts = value.toFixed(opts.precision || 0).split('.')
 
@@ -338,5 +338,16 @@ module.exports = class Localization {
     const dec = parts[1] ? opts.decimal + splitStringIntoChunks(parts[1], 3, ' ', true) : ''
 
     return `${int}${dec}`
+  }
+
+  /**
+   * Localized percent format
+   *
+   * @param { Number } value          Number to be formatted
+   * @param { mixed } options         Options or precision, lang
+   * @return { String }               Localized number
+   */
+  percentFormat (value, ...options) {
+    return `${this.numberFormat(value, ...options)} %`
   }
 }

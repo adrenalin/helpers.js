@@ -61,6 +61,7 @@ describe('Localization numberFormat', () => {
     expect(l10n.numberFormat(1, 2, 'fi', ',')).to.be('1,00')
     expect(l10n.numberFormat(1, { lang: 'fi', precision: 2 })).to.be('1,00')
     expect(l10n.numberFormat(1, { lang: 'en', precision: 2 })).to.be('1.00')
+    expect(l10n.numberFormat(1, { lang: 'en', precision: 2, decimal: 'x' })).to.be('1x00')
     done()
   })
 
@@ -75,6 +76,7 @@ describe('Localization numberFormat', () => {
     expect(l10n.numberFormat(1000000, 0, 'fi', ',', ' ')).to.be('1 000 000')
     expect(l10n.numberFormat(1000000, { lang: 'fi' })).to.be('1 000 000')
     expect(l10n.numberFormat(1000000, { lang: 'en' })).to.be('1,000,000')
+    expect(l10n.numberFormat(1000000, { lang: 'en', thousand: 't' })).to.be('1t000t000')
     done()
   })
 
