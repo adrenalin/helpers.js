@@ -134,6 +134,12 @@ module.exports = class Localization {
       ...options
     }
 
+    const alias = getValue(locales, `${needle.key}.alias`)
+
+    if (alias) {
+      needle.key = alias
+    }
+
     // Set the default value if locale was not found
     if (!needle.default) {
       needle.default = locale.default || needle.key

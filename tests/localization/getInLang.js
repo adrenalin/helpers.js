@@ -153,6 +153,23 @@ describe('Localization getInLang', () => {
     done()
   })
 
+  it('should refer to an alias', (done) => {
+    const locales = {
+      aliasValue: {
+        en: 'Aliased value'
+      },
+      aliasTest: {
+        alias: 'aliasValue'
+      }
+    }
+
+    const l10n = new Localization()
+    l10n.registerLocales(locales)
+    expect(l10n.getInLang('en', 'aliasTest')).to.be(locales.aliasValue.en)
+
+    done()
+  })
+
   it('should give the localized string with get', (done) => {
     const locales = {
       getTest: {
