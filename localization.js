@@ -100,22 +100,45 @@ module.exports = class Localization {
    * Get a localized string in the given language
    *
    * @param { string } language       Requested language
-   * @param { string } locale         Requested locale
+   * @param { mixed } locale          Requested locale
+   * @param { mixed } [...args]       Extra arguments for substrings
    * @return { string }               Localized value or the given string if not found
    */
-  getInLang (language, locale) {
+  getInLang (language, locale, ...args) {
+    // Internal search object
+    const needle = {
+      key: typeof locale === 'string' ? locale : locale.locale
+    }
+
+    // Set the default value if locale was not found
+    needle.default = locale.default || needle.key
+
+    // Search paths for the locale
+    const paths = [
+      `${needle.key}.${language}`
+    ]
+
+    // Use fallback language for the search if applicable
+    if (this.getFallbackLang()) {
+      paths.push(`${needle.key}.${this.getFallbackLang()}`)
+    }
+
     const localized = getValue(
       locales,
-      [
-        `${locale}.${language}`,
-        `${locale}.${this.getFallbackLang()}`
-      ]
+      paths
     )
 
     if (localized == null) {
-      return locale
+      return needle.default
     }
 
-    return localized
+    // Match parameters
+    let i = 1
+    const parameters = [locale].concat(args || [])
+
+    return localized.replace(/%s([0-9]*)/g, (r, a) => {
+      const index = Number(a || i++)
+      return this.getInLang(language, parameters[index] != null ? parameters[index] : r)
+    })
   }
 }
