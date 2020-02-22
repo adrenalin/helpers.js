@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const splitStringIntoChunks = require('../splitStringIntoChunks')
+const splitStringIntoChunks = require('../lib/splitStringIntoChunks')
 
 describe('splitStringIntoChunks', () => {
   it('should split right-hand side', (done) => {

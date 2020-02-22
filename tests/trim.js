@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const trim = require('../trim')
+const trim = require('../lib/trim')
 
 describe('trim', () => {
   it('should trim heading space', (done) => {

@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const Localization = require('../../localization')
+const Localization = require('../../lib/localization')
 
 describe('Localization basics', () => {
   it('should be a class that can be initialized', (done) => {

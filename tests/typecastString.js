@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const typecastString = require('../typecastString')
+const typecastString = require('../lib/typecastString')
 
 describe('typecastString', () => {
   it('should return the original value if not a string', (done) => {

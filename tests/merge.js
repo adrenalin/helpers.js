@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const merge = require('../merge')
+const merge = require('../lib/merge')
 
 describe('merge', () => {
   it('should be a function', (done) => {

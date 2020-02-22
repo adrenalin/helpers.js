@@ -1,14 +1,14 @@
-exports.getClassName = require('./getClassName')
-exports.getValue = require('./getValue')
-exports.isObject = require('./isObject')
-exports.merge = require('./merge')
-exports.strPad = require('./strPad')
-exports.trim = require('./trim')
-exports.unique = require('./unique')
-exports.splitStringIntoChunks = require('./splitStringIntoChunks')
-exports.typecastString = require('./typecastString')
+exports.getClassName = require('./lib/getClassName')
+exports.getValue = require('./lib/getValue')
+exports.isObject = require('./lib/isObject')
+exports.merge = require('./lib/merge')
+exports.strPad = require('./lib/strPad')
+exports.trim = require('./lib/trim')
+exports.unique = require('./lib/unique')
+exports.splitStringIntoChunks = require('./lib/splitStringIntoChunks')
+exports.typecastString = require('./lib/typecastString')
 
-exports.config = require('./config').config
-exports.Config = require('./config').default
+exports.config = require('./lib/config').config
+exports.Config = require('./lib/config').default
 
-exports.Localization = require('./localization')
+exports.Localization = require('./lib/localization')

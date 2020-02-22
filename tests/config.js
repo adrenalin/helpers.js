@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const ConfigFile = require('../config')
+const ConfigFile = require('../lib/config')
 
 const Config = ConfigFile.default
 
@@ -16,7 +16,7 @@ describe('config', () => {
   })
 
   it('should have a singleton config instance', (done) => {
-    const Config2 = require('../config')
+    const Config2 = require('../lib/config')
     expect(Config2.config).to.be(ConfigFile.config)
     done()
   })

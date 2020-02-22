@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const isObject = require('../isObject')
+const isObject = require('../lib/isObject')
 
 class TestClass {
   constructor () {

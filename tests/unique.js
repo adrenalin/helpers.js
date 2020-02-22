@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const unique = require('../unique')
+const unique = require('../lib/unique')
 
 describe('unique', () => {
   it('should accept only an array', (done) => {
