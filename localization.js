@@ -183,6 +183,13 @@ module.exports = class Localization {
       needle.key = alias
     }
 
+    // Quantified value
+    if (locale.quantifiers) {
+      const amount = String(locale.amount || 0)
+      locale.locale = needle.key = locale.quantifiers[amount] || locale.quantifiers.default || locale.key
+      args.unshift(amount)
+    }
+
     // Set the default value if locale was not found
     needle.default = needle.default || locale.default || needle.key
 

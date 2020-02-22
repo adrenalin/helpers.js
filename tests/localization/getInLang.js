@@ -192,6 +192,50 @@ describe('Localization getInLang', () => {
     done()
   })
 
+  it('should return quantified strings', (done) => {
+    const locales = {
+      quantifiedTestFor1: {
+        en: 'Quantified value for one'
+      },
+      quantifiedTestForN: {
+        en: 'Quantified value for %s'
+      },
+      quantifiedTestDefault: {
+        en: 'Quantified default value'
+      }
+    }
+
+    const l10n = new Localization()
+    l10n.registerLocales(locales)
+
+    const quantifiers = {
+      1: 'quantifiedTestFor1',
+      2: 'quantifiedTestForN',
+      default: 'quantifiedTestDefault'
+    }
+
+    expect(l10n.getInLang('en', { amount: 1, quantifiers })).to.be(locales.quantifiedTestFor1.en)
+    expect(l10n.getInLang('en', { amount: 2, quantifiers })).to.be('Quantified value for 2')
+    expect(l10n.getInLang('en', { amount: 3, quantifiers })).to.be(locales.quantifiedTestDefault.en)
+    expect(l10n.getInLang('en', { amount: null, quantifiers })).to.be(locales.quantifiedTestDefault.en)
+    done()
+  })
+
+  it('should return the original string when there is no default quantifier', (done) => {
+    const l10n = new Localization()
+
+    const quantifiers = {
+      1: 'quantifiedTestFor1',
+      2: 'quantifiedTestForN'
+    }
+
+    const locale = 'quantifierDefaultValue'
+
+    expect(l10n.getInLang('en', { key: locale, amount: 3, quantifiers })).to.be(locale)
+    expect(l10n.getInLang('en', { key: locale, amount: null, quantifiers })).to.be(locale)
+    done()
+  })
+
   it('should give the localized string with get', (done) => {
     const locales = {
       getTest: {
