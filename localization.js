@@ -298,7 +298,7 @@ module.exports = class Localization {
    * Format a number according to the locales
    '
    * @param { Number } value          Number to be formatted
-   * @param { mixed } options         Options or precision, lang
+   * @param { mixed } options         Options or precision, lang, decimal separator, thousand separator
    * @return { String }               Localized number
    */
   numberFormat (value, ...options) {
@@ -341,10 +341,11 @@ module.exports = class Localization {
   }
 
   /**
-   * Localized percent format
+   * Localized percent format. Gets the number from numberFormat and appends a
+   * percent symbol to the return value.
    *
    * @param { Number } value          Number to be formatted
-   * @param { mixed } options         Options or precision, lang
+   * @param { mixed } options         Options or precision, lang, decimal separator, thousand separator
    * @return { String }               Localized number
    */
   percentFormat (value, ...options) {
