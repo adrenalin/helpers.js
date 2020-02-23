@@ -86,11 +86,34 @@ describe('castObjectAsArray', () => {
     }
 
     const values = castObjectAsArray(obj, true)
-    expect(values[0]).not.to.be(obj[0])
     expect(values[0]).to.eql(['foo', 'bar'])
 
-    expect(values[1]).to.be(obj[1])
+    expect(values[1]).to.eql(obj[1])
     expect(values[1]).not.to.eql(['foo', 'bar'])
+    done()
+  })
+
+  it('should recurse children even if parents are not sequential', (done) => {
+    const obj = {
+      foo: {
+        0: 'foo',
+        1: 'bar'
+      },
+      bar: {
+        0: 'bar',
+        key: {
+          0: 'foo',
+          1: 'bar'
+        }
+      }
+    }
+
+    const values = castObjectAsArray(obj, true)
+    expect(values.foo).not.to.be(obj.foo)
+    expect(values.foo).to.eql(['foo', 'bar'])
+
+    expect(values.bar).not.to.be(obj.bar)
+    expect(values.bar.key).to.eql(['foo', 'bar'])
     done()
   })
 
