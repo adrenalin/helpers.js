@@ -1,3 +1,4 @@
+exports.castObjectAsArray = require('./lib/castObjectAsArray')
 exports.getClassName = require('./lib/getClassName')
 exports.getValue = require('./lib/getValue')
 exports.isObject = require('./lib/isObject')
