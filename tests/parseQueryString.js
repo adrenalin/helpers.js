@@ -29,6 +29,11 @@ describe('parseQueryString', () => {
     done()
   })
 
+  it('should be able to handle deep objects', (done) => {
+    expect(parseQueryString('foo[foo]=foo&foo[bar]=bar')).to.eql({ foo: { foo: 'foo', bar: 'bar' } })
+    done()
+  })
+
   it('should be able to cast sequential values as an array', (done) => {
     expect(parseQueryString('foo[0]=foo&foo[1]=bar')).to.eql({ foo: ['foo', 'bar'] })
     done()
