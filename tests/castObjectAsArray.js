@@ -93,4 +93,9 @@ describe('castObjectAsArray', () => {
     expect(values[1]).not.to.eql(['foo', 'bar'])
     done()
   })
+
+  it('should fail to convert a mixed object', (done) => {
+    expect(castObjectAsArray).withArgs({ 0: 'foo', 1: 'bar', foo: 'bar' }).to.throwError()
+    done()
+  })
 })
