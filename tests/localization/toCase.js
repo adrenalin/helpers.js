@@ -28,7 +28,7 @@ describe('Localization convertCase', () => {
     done()
   })
 
-  it('should convert the input string to titlecase', (done) => {
+  it('should convert the input string to title case', (done) => {
     const input = 'lorem ipsum. dolor sit. amet.'
     const output = 'Lorem Ipsum. Dolor Sit. Amet.'
 
@@ -38,13 +38,33 @@ describe('Localization convertCase', () => {
     done()
   })
 
-  it('should convert the input string to paragraphcase', (done) => {
+  it('should convert the input string to paragraph case', (done) => {
     const input = 'lorem ipsum. dolor sit. amet.'
     const output = 'Lorem ipsum. Dolor sit. Amet.'
 
     expect(Localization.toCase(input, 'paragraph')).to.be(output)
     expect(Localization.toCase(input, 'paragraphcase')).to.be(output)
     expect(Localization.toCase(input, Localization.PARAGRAPHCASE)).to.be(output)
+    done()
+  })
+
+  it('should convert the input to camel case', (done) => {
+    const input = 'lorem ipsum_dolor. sit amet'
+    const output = 'loremIpsumDolorSitAmet'
+
+    expect(Localization.toCase(input, 'camel')).to.be(output)
+    expect(Localization.toCase(input, 'camelcase')).to.be(output)
+    expect(Localization.toCase(input, Localization.CAMELCASE)).to.be(output)
+    done()
+  })
+
+  it('should convert the input to underscore case', (done) => {
+    const input = ' LOREM ipsumDolor. sit amet'
+    const output = 'lorem_ipsum_dolor_sit_amet'
+
+    expect(Localization.toCase(input, 'underscore')).to.be(output)
+    expect(Localization.toCase(input, 'underscorecase')).to.be(output)
+    expect(Localization.toCase(input, Localization.UNDERSCORECASE)).to.be(output)
     done()
   })
 
