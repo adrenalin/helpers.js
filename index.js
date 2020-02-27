@@ -1,5 +1,6 @@
 exports.castObjectAsArray = require('./lib/castObjectAsArray')
 exports.getClassName = require('./lib/getClassName')
+exports.getRandomString = require('./lib/getRandomString')
 exports.getValue = require('./lib/getValue')
 exports.httpBuildQuery = require('./lib/httpBuildQuery')
 exports.intersection = require('./lib/intersection')
