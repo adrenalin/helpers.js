@@ -1,3 +1,4 @@
+exports.buildUrl = require('./lib/buildUrl')
 exports.castObjectAsArray = require('./lib/castObjectAsArray')
 exports.getClassName = require('./lib/getClassName')
 exports.getRandomString = require('./lib/getRandomString')
