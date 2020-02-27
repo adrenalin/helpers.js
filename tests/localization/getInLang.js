@@ -34,6 +34,14 @@ describe('Localization getInLang', () => {
     done()
   })
 
+  it('should return empty string if there was no locale provided', (done) => {
+    const l10n = new Localization()
+
+    expect(l10n.getInLang('fi', null)).to.be('')
+    expect(l10n.getInLang('fi', undefined)).to.be('')
+    done()
+  })
+
   it('should inject %s strings', (done) => {
     const locales = {
       parameterSequential: {
