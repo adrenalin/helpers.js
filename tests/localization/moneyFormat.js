@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const Localization = require('../../lib/localization')
+const Localization = require('../../lib/Localization')
 
 describe('Localization moneyFormat', () => {
   it('should output with default locale', (done) => {

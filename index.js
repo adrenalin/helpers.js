@@ -15,7 +15,7 @@ exports.trim = require('./lib/trim')
 exports.typecastString = require('./lib/typecastString')
 exports.unique = require('./lib/unique')
 
-exports.config = require('./lib/config').config
-exports.Config = require('./lib/config').default
+exports.config = require('./lib/Config').config
+exports.Config = require('./lib/Config').default
 
-exports.Localization = require('./lib/localization')
+exports.Localization = require('./lib/Localization')

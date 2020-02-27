@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const Localization = require('../../lib/localization')
+const Localization = require('../../lib/Localization')
 
 describe('Localization convertCase', () => {
   it('should keep the original case if output case has not been defined', (done) => {

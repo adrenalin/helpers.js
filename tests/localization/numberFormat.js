@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const Localization = require('../../lib/localization')
+const Localization = require('../../lib/Localization')
 
 describe('Localization numberFormat', () => {
   const l10n = new Localization()
