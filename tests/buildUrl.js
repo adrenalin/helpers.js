@@ -109,4 +109,22 @@ describe('buildUrl', () => {
     expect(buildUrl(options)).to.be('https://localhost/test')
     done()
   })
+
+  it('should get the missing protocol, host, port, username and password from location', (done) => {
+    expect(buildUrl({ location: 'http://localhost/foo/bar' })).to.be('http://localhost/foo/bar')
+    expect(buildUrl({ password: 'bar', location: 'http://foo@localhost/foo/bar' })).to.be('http://foo:bar@localhost/foo/bar')
+    expect(buildUrl({ location: 'http://localhost:8080/foo/bar' })).to.be('http://localhost:8080/foo/bar')
+    expect(buildUrl({ location: 'http://example.net/foo/bar' })).to.be('http://example.net/foo/bar')
+    // expect(buildUrl({ port: 8080, location: 'http://localhost/foo/bar' })).to.be('http://localhost:8080/foo/bar')
+
+    done()
+  })
+
+  it('should overwrite host, port, username and password from location when explicitly defined', (done) => {
+    expect(buildUrl({ host: 'localhost', location: 'http://example.net/foo/bar' })).to.be('http://localhost/foo/bar')
+    expect(buildUrl({ port: 8080, location: 'http://example.net:8000/foo/bar' })).to.be('http://example.net:8080/foo/bar')
+    expect(buildUrl({ port: null, location: 'http://example.net:8000/foo/bar' })).to.be('http://example.net/foo/bar')
+    expect(buildUrl({ username: null, password: null, location: 'http://foo:bar@example.net:8000/foo/bar' })).to.be('http://example.net:8000/foo/bar')
+    done()
+  })
 })
