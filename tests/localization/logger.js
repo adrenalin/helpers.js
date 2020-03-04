@@ -45,7 +45,7 @@ describe('Localization logger', () => {
     let match = 0
 
     const callback = (level, input) => {
-      if (level === 'warn' && input.includes(missingLocale)) {
+      if (level === 'warn' && input.key === missingLocale) {
         match++
       }
     }
@@ -56,6 +56,24 @@ describe('Localization logger', () => {
     l10n.get(missingLocale)
 
     expect(match).to.be(1)
+    done()
+  })
+
+  it('should not pass to logger anything marked as a variable', (done) => {
+    const missingLocale = 'missingLocaleVariable'
+    let match = 0
+
+    const callback = (level, input) => {
+      if (level === 'warn' && input.key === missingLocale) {
+        match++
+      }
+    }
+
+    const l10n = new Localization()
+    l10n.registerLogger(callback)
+    l10n.get({ locale: missingLocale, isVariable: true })
+    l10n.get({ variable: missingLocale })
+    expect(match).to.be(0)
     done()
   })
 })

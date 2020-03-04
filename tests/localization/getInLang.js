@@ -290,4 +290,20 @@ describe('Localization getInLang', () => {
 
     done()
   })
+
+  it('should override language when explicitly defined', (done) => {
+    const locales = {
+      overrideLang: {
+        en: 'EN',
+        fi: 'FI'
+      }
+    }
+
+    const l10n = new Localization()
+    const rval = l10n.registerLocales(locales)
+    expect(l10n.getInLang('en', { locale: 'overrideLang', lang: 'fi' })).to.be(locales.overrideLang.fi)
+    expect(l10n.getInLang('fi', { locale: 'overrideLang', lang: 'en' })).to.be(locales.overrideLang.en)
+    expect(rval).to.be(l10n)
+    done()
+  })
 })
