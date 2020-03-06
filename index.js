@@ -18,7 +18,9 @@ exports.trim = require('./lib/trim')
 exports.typecastString = require('./lib/typecastString')
 exports.unique = require('./lib/unique')
 
-exports.config = require('./lib/Config').config
-exports.Config = require('./lib/Config').default
+const isClient = typeof window === 'undefined'
+
+exports.config = require(isClient ? './lib/ServerConfig' : './lib/Config').config
+exports.Config = require(isClient ? './lib/ServerConfig' : './lib/Config').default
 
 exports.Localization = require('./lib/Localization')

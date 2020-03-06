@@ -131,19 +131,6 @@ describe('config:client', () => {
     done()
   })
 
-  it('should throw an error when using invalid key', (done) => {
-    const testPath = [
-      ['deep-path-set-as-array'],
-      'path'
-    ]
-
-    const testValue = 'deep-path-set.path.to.value'
-
-    const config = new Config()
-    expect(config.set).withArgs(testPath, testValue).to.throwException()
-    done()
-  })
-
   it('should return a copy of the storage object', (done) => {
     const testPath = 'copy-of-the-storage-object'
     const testValue = {
