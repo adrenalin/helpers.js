@@ -36,5 +36,8 @@
       "before",
       "after"
     ]
+  },
+  "dependencies": {
+    "yaml": "^1.7.2"
   }
 }

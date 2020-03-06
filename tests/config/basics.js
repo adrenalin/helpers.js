@@ -1,5 +1,5 @@
 const expect = require('expect.js')
-const ConfigFile = require('../lib/Config')
+const ConfigFile = require('../../lib/Config')
 
 const Config = ConfigFile.default
 
