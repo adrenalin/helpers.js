@@ -1,7 +1,5 @@
 const expect = require('expect.js')
-const ConfigFile = require('../../lib/Config')
-
-const Config = ConfigFile.default
+const Config = require('../../lib/Config')
 
 describe('config:getPath', () => {
   it('should return an empty path with no arguments', (done) => {

@@ -1,6 +1,6 @@
 const path = require('path')
 const expect = require('expect.js')
-const ServerConfig = require('../../lib/ServerConfig').default
+const ServerConfig = require('../../lib/ServerConfig')
 
 describe('config:loadConfig', () => {
   it('should be able to load a configuration file as YAML', (done) => {

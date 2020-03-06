@@ -1,6 +1,6 @@
 const expect = require('expect.js')
-const Config = require('../../lib/Config').default
-const ServerConfig = require('../../lib/ServerConfig').default
+const Config = require('../../lib/Config')
+const ServerConfig = require('../../lib/ServerConfig')
 
 describe('config:server', () => {
   it('should be a subclass of Config', (done) => {

@@ -1,26 +1,7 @@
 const expect = require('expect.js')
-const ConfigFile = require('../../lib/Config')
-
-const Config = ConfigFile.default
+const Config = require('../../lib/Config')
 
 describe('config:client', () => {
-  it('should exist the default for config', (done) => {
-    expect(ConfigFile).to.have.property('default')
-    done()
-  })
-
-  it('should have an initialized config', (done) => {
-    expect(ConfigFile).to.have.property('config')
-    expect(ConfigFile.config).to.be.a(Config)
-    done()
-  })
-
-  it('should have a singleton config instance', (done) => {
-    const Config2 = require('../../lib/Config')
-    expect(Config2.config).to.be(ConfigFile.config)
-    done()
-  })
-
   it('should have methods "set" and "get"', (done) => {
     const config = new Config()
     expect(config).to.have.property('set')
