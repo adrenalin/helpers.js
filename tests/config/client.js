@@ -3,7 +3,7 @@ const ConfigFile = require('../../lib/Config')
 
 const Config = ConfigFile.default
 
-describe('config', () => {
+describe('config:client', () => {
   it('should exist the default for config', (done) => {
     expect(ConfigFile).to.have.property('default')
     done()
@@ -16,7 +16,7 @@ describe('config', () => {
   })
 
   it('should have a singleton config instance', (done) => {
-    const Config2 = require('../lib/Config')
+    const Config2 = require('../../lib/Config')
     expect(Config2.config).to.be(ConfigFile.config)
     done()
   })
@@ -183,15 +183,6 @@ describe('config', () => {
 
     expect(config.get('storage.key1')).to.eql(testValue1.storage.key1)
     expect(config.get('storage.key2')).to.eql(testValue2.storage.key2)
-    done()
-  })
-
-  it('should return environment variable if one has been defined', (done) => {
-    const testValue = 'test-value'
-    process.env.CONFIG_TEST = testValue
-
-    const config = new Config()
-    expect(config.get('config.test')).to.be(testValue)
     done()
   })
 
