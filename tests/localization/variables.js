@@ -32,4 +32,12 @@ describe('Localization variables', () => {
     expect(l10n.getInLang('en', { variable: 1234.123, precision: 2 })).to.be('1,234.12')
     done()
   })
+
+  it('should accept a variable as a third argument', (done) => {
+    const l10n = new Localization()
+
+    expect(l10n.getInLang('en', '%s is placed as number', { variable: 1 })).to.be('1 is placed as number')
+    expect(l10n.getInLang('en', '%s is placed as text', { variable: 'foo' })).to.be('foo is placed as text')
+    done()
+  })
 })
