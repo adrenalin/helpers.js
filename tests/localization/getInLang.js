@@ -306,4 +306,15 @@ describe('Localization getInLang', () => {
     expect(rval).to.be(l10n)
     done()
   })
+
+  it('should return empty string for an empty input', (done) => {
+    const l10n = new Localization()
+    expect(l10n.getInLang('fi', '')).to.be('')
+    expect(l10n.getInLang('fi', null)).to.be('')
+    expect(l10n.getInLang('fi', undefined)).to.be('')
+    expect(l10n.getInLang('fi', { variable: '' })).to.be('')
+    expect(l10n.getInLang('fi', { variable: null })).to.be('')
+    expect(l10n.getInLang('fi', { variable: undefined })).to.be('')
+    done()
+  })
 })
