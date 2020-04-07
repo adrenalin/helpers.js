@@ -1,5 +1,6 @@
 exports.buildUrl = require('./lib/buildUrl')
 exports.castObjectAsArray = require('./lib/castObjectAsArray')
+exports.copyObject = require('./lib/copyObject')
 exports.getClassName = require('./lib/getClassName')
 exports.getRandomString = require('./lib/getRandomString')
 exports.getPath = require('./lib/getPath')
