@@ -95,4 +95,16 @@ describe('Localization numberFormat', () => {
     expect(l10n.numberFormat(0.1, 8, 'fi', ',', ' ')).to.be('0,100 000 00')
     done()
   })
+
+  it('should return null when given null or undefined', (done) => {
+    expect(l10n.numberFormat(null)).to.be(null)
+    expect(l10n.numberFormat(undefined)).to.be(null)
+
+    try {
+      expect(l10n.numberFormat('foo')).to.throwError()
+      done(new Error('Should have thrown an error'))
+    } catch (err) {
+    }
+    done()
+  })
 })
