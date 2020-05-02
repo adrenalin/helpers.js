@@ -168,6 +168,23 @@ describe('config:client', () => {
     done()
   })
 
+  it('should keep the previously set values after setting to a different path', (done) => {
+    const path1 = 'foo.bar'
+    const value1 = 'foo-bar'
+    const path2 = 'foo.foo'
+    const value2 = 'foo-foo'
+
+    const config = new Config()
+    config.set(path1, value1)
+    expect(config.get(path1)).to.be(value1)
+
+    config.set(path2, value2)
+    expect(config.get(path1)).to.be(value1)
+    expect(config.get(path2)).to.be(value2)
+
+    done()
+  })
+
   it('should throw an error when using an object as a path', (done) => {
     const config = new Config()
     expect(config.get).withArgs({ foo: 'bar' }).to.throwException()
