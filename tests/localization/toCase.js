@@ -29,8 +29,8 @@ describe('Localization convertCase', () => {
   })
 
   it('should convert the input string to title case', (done) => {
-    const input = 'lorem ipsum. dolor sit. amet.'
-    const output = 'Lorem Ipsum. Dolor Sit. Amet.'
+    const input = 'lorem ipsum. äö. dolor sit. amet.'
+    const output = 'Lorem Ipsum. Äö. Dolor Sit. Amet.'
 
     expect(Localization.toCase(input, 'title')).to.be(output)
     expect(Localization.toCase(input, 'titlecase')).to.be(output)
@@ -39,8 +39,8 @@ describe('Localization convertCase', () => {
   })
 
   it('should convert the input string to paragraph case', (done) => {
-    const input = 'lorem ipsum. dolor sit. amet.'
-    const output = 'Lorem ipsum. Dolor sit. Amet.'
+    const input = 'lorem ipsum. äö äö. dolor sit. amet.'
+    const output = 'Lorem ipsum. Äö äö. Dolor sit. Amet.'
 
     expect(Localization.toCase(input, 'paragraph')).to.be(output)
     expect(Localization.toCase(input, 'paragraphcase')).to.be(output)
