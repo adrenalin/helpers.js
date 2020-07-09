@@ -1,4 +1,5 @@
 exports.buildUrl = require('./lib/buildUrl')
+exports.castToArray = require('./lib/castToArray')
 exports.castObjectAsArray = require('./lib/castObjectAsArray')
 exports.copyObject = require('./lib/copyObject')
 exports.getClassName = require('./lib/getClassName')
