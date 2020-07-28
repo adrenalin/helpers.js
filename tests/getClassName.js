@@ -32,4 +32,9 @@ describe('getClassName', () => {
     expect(getClassName('bar', 'foo')).to.be('bar foo')
     done()
   })
+
+  it('should throw an error for object as the argument', (done) => {
+    expect(getClassName).withArgs({ foo: 'bar' }).to.throwError()
+    done()
+  })
 })
