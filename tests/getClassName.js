@@ -37,4 +37,9 @@ describe('getClassName', () => {
     expect(getClassName).withArgs({ foo: 'bar' }).to.throwError()
     done()
   })
+
+  it('should silently drop falseish values', (done) => {
+    expect(getClassName('bar', null, undefined, '', 'foo')).to.be('bar foo')
+    done()
+  })
 })
