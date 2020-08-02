@@ -19,7 +19,7 @@ describe('buildUrl', () => {
   })
 
   it('should not choke when one of the event listeners', (done) => {
-    const eventName = 'shouldNotChoke'
+    const eventName = 'shouldNotChokeOnErrors'
     const instance = new BrowserEvents()
     instance.on(eventName, () => {
       throw new Error('Should not choke on error')
@@ -29,6 +29,20 @@ describe('buildUrl', () => {
     })
 
     instance.trigger(eventName)
+  })
+
+  it('should not fail when triggering undefined event name', (done) => {
+    const eventName = 'undefinedEventName'
+    const instance = new BrowserEvents()
+    instance.trigger(eventName)
+    done()
+  })
+
+  it('should not fail when unregistering undefined event name', (done) => {
+    const eventName = 'undefinedEventName'
+    const instance = new BrowserEvents()
+    instance.off(eventName)
+    done()
   })
 
   it('should unregister all listeners when given the event name', (done) => {
@@ -48,6 +62,14 @@ describe('buildUrl', () => {
     instance.trigger(eventName)
 
     expect(hits).to.be(0)
+    done()
+  })
+
+  it('should not fail when unregistering with event listener that does not exist', (done) => {
+    const eventName = 'shouldNotFailWhenListenerDoesNotExist'
+    const instance = new BrowserEvents()
+    const listener = () => {}
+    instance.off(eventName, listener)
     done()
   })
 

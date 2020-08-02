@@ -8,7 +8,7 @@ describe('sleep', () => {
 
     sleep(duration)
       .then(() => {
-        expect(start + duration < Date.now()).to.be(true)
+        expect(start + duration <= Date.now()).to.be(true)
         done()
       })
       .catch(done)
