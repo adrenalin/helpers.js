@@ -59,4 +59,9 @@ describe('typecastString', () => {
     expect(typecastString('-,1')).to.be(-0.1)
     done()
   })
+
+  it('should not typecast ISO dates', (done) => {
+    expect(typecastString('2020-02-02')).to.be('2020-02-02')
+    done()
+  })
 })
