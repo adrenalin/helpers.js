@@ -1,0 +1,8 @@
+---
+defaults:
+  values:
+    foo: 1
+    bar: 2
+  values:
+    foo: 1
+    bar: 2

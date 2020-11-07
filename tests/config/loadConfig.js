@@ -1,5 +1,6 @@
 const path = require('path')
 const expect = require('expect.js')
+const errors = require('../../lib/errors')
 const ServerConfig = require('../../lib/ServerConfig')
 
 describe('config:loadConfig', () => {
@@ -89,20 +90,27 @@ describe('config:loadConfig', () => {
   })
 
   it('should throw an error when not using graceful loader', (done) => {
-    const config = new ServerConfig()
-
     try {
+      const config = new ServerConfig()
       config.loadFile('foobar.json')
       done(new Error('Should have thrown an error'))
     } catch (err) {
+      expect(err).to.be.a(errors.ConfigNotFoundError)
       done()
     }
   })
 
-  it('should not throw an error when using graceful loader', (done) => {
+  it('should not throw an error when using graceful loader for JSON', (done) => {
     const config = new ServerConfig()
 
     config.loadFile('foobar.json', true)
+    done()
+  })
+
+  it('should not throw an error when using graceful loader for YAML', (done) => {
+    const config = new ServerConfig()
+
+    config.loadFile('foobar.yaml', true)
     done()
   })
 
@@ -117,24 +125,45 @@ describe('config:loadConfig', () => {
   })
 
   it('should throw an error when heuristics fails', (done) => {
-    const config = new ServerConfig()
-
     try {
+      const config = new ServerConfig()
       config.loadFile(path.join(__dirname, 'files', 'undefined'))
       done(new Error('Should have thrown an error'))
     } catch (err) {
+      expect(err).to.be.a(errors.ConfigNotFoundError)
       done()
     }
   })
 
   it('should not throw an error when heuristics fails and graceful flag is on', (done) => {
-    const config = new ServerConfig()
-
     try {
+      const config = new ServerConfig()
       config.loadFile(path.join(__dirname, 'files', 'undefined'), true)
       done()
     } catch (err) {
       done(err)
+    }
+  })
+
+  it('should throw an error when parsing JSON content fails even with graceful flag', (done) => {
+    try {
+      const config = new ServerConfig()
+      config.loadFile(path.join(__dirname, 'files', 'broken.json'), true)
+      done(new Error('Should have thrown an error'))
+    } catch (err) {
+      expect(err).to.be.a(errors.ConfigParseError)
+      done()
+    }
+  })
+
+  it('should throw an error when parsing YAML content fails even with graceful flag', (done) => {
+    try {
+      const config = new ServerConfig()
+      config.loadFile(path.join(__dirname, 'files', 'broken.yaml'), true)
+      done(new Error('Should have thrown an error'))
+    } catch (err) {
+      expect(err).to.be.a(errors.ConfigParseError)
+      done()
     }
   })
 })
