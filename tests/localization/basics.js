@@ -118,4 +118,16 @@ describe('Localization basics', () => {
       done()
     }
   })
+
+  it('should spread an array', (done) => {
+    const l10n = new Localization()
+    l10n.registerLocales({
+      testSpreadAnArray: {
+        fi: '%s %s %s'
+      }
+    })
+
+    expect(l10n.getInLang('fi', ['testSpreadAnArray', 1, 2, 3])).to.eql('1 2 3')
+    done()
+  })
 })
