@@ -39,6 +39,7 @@ describe('Localization getInLang', () => {
 
     expect(l10n.getInLang('fi', null)).to.be('')
     expect(l10n.getInLang('fi', undefined)).to.be('')
+    expect(l10n.getInLang('fi', 'undefined', null)).to.be('undefined')
     done()
   })
 

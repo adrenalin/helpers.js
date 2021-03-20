@@ -1,6 +1,6 @@
 {
   "name": "helpers.js",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
