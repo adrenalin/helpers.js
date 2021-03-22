@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const isEqual = require('../lib/isEqual')
 
-describe('isEqual', () => {
+describe('lib/isEqual', () => {
   it('should require at least two arguments', (done) => {
     expect(isEqual).withArgs(1).to.throwError()
     done()

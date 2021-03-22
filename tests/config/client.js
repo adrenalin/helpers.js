@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Config = require('../../lib/Config')
 
-describe('config:client', () => {
+describe('lib/Config:client', () => {
   it('should have methods "set" and "get"', (done) => {
     const config = new Config()
     expect(config).to.have.property('set')

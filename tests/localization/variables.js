@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization variables', () => {
+describe('lib/Localization variables', () => {
   it('should accept variable as a locale', (done) => {
     const l10n = new Localization()
 

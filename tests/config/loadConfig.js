@@ -3,7 +3,7 @@ const expect = require('expect.js')
 const errors = require('../../lib/errors')
 const ServerConfig = require('../../lib/ServerConfig')
 
-describe('config:loadConfig', () => {
+describe('lib/Config:loadConfig', () => {
   it('should be able to load a configuration file as YAML', (done) => {
     const values = ServerConfig.loadYaml(path.join(__dirname, 'files', 'config.yml'))
 

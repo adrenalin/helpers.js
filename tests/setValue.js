@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const setValue = require('../lib/setValue')
 
-describe('setValue', () => {
+describe('lib/setValue', () => {
   it('should set a shallow value', (done) => {
     const target = {}
     const value = setValue(target, 'foo', 'bar')

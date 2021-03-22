@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const getClassName = require('../lib/getClassName')
 
-describe('getClassName', () => {
+describe('lib/getClassName', () => {
   it('should trim a class name from a string', (done) => {
     expect(getClassName(' foo ')).to.be('foo')
     done()

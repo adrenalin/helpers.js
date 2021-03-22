@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const getRandomString = require('../lib/getRandomString')
 
-describe('getRandomString', () => {
+describe('lib/getRandomString', () => {
   it('should have a different output every time', (done) => {
     expect(getRandomString()).not.to.be(getRandomString())
     done()

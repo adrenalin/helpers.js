@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const getValue = require('../lib/getValue')
 
-describe('getValue', () => {
+describe('lib/getValue', () => {
   it('should get shallow value', (done) => {
     const source = {
       foo: 'bar'

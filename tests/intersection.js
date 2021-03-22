@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const intersection = require('../lib/intersection')
 
-describe('intersection', () => {
+describe('lib/intersection', () => {
   it('should require at least two input arrays', (done) => {
     expect(intersection).withArgs([]).to.throwError()
     expect(intersection).withArgs([], []).not.to.throwError()

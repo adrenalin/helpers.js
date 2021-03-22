@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization logger', () => {
+describe('lib/Localization logger', () => {
   it('should have a static method to register a logger that accepts a function', (done) => {
     const callback = () => {
 

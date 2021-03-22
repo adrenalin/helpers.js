@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization numberFormat', () => {
+describe('lib/Localization numberFormat', () => {
   const l10n = new Localization()
 
   it('should add a percent symbol after a parsed number', (done) => {

@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const typecastString = require('../lib/typecastString')
 
-describe('typecastString', () => {
+describe('lib/typecastString', () => {
   it('should return the original value if not a string', (done) => {
     expect(typecastString(1)).to.be(1)
     expect(typecastString(true)).to.be(true)

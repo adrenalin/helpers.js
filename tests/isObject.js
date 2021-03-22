@@ -7,7 +7,7 @@ class TestClass {
   }
 }
 
-describe('isObject', () => {
+describe('lib/isObject', () => {
   it('should return false for String', (done) => {
     expect(isObject('myString')).to.be(false)
     done()

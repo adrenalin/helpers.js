@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const modifyUrl = require('../lib/modifyUrl')
 
-describe('modifyUrl', () => {
+describe('lib/modifyUrl', () => {
   it('should accept only a string for url', (done) => {
     expect(modifyUrl).withArgs(0).to.throwError()
     expect(modifyUrl).withArgs([0]).to.throwError()

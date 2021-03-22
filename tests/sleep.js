@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const sleep = require('../lib/sleep')
 
-describe('sleep', () => {
+describe('lib/sleep', () => {
   it('should sleep for the given time', (done) => {
     const start = Date.now()
     const duration = 100

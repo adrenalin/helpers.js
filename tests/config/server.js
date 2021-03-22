@@ -2,7 +2,7 @@ const expect = require('expect.js')
 const Config = require('../../lib/Config')
 const ServerConfig = require('../../lib/ServerConfig')
 
-describe('config:server', () => {
+describe('lib/ServerConfig', () => {
   it('should be a subclass of Config', (done) => {
     const config = new ServerConfig()
     expect(config).to.be.a(Config)

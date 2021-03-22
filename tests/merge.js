@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const merge = require('../lib/merge')
 
-describe('merge', () => {
+describe('lib/merge', () => {
   it('should be a function', (done) => {
     expect(merge).to.be.a('function')
     done()

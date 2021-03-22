@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const trim = require('../lib/trim')
 
-describe('trim', () => {
+describe('lib/trim', () => {
   it('should trim heading space', (done) => {
     expect(trim(' \t\n\rfoo')).to.be('foo')
     done()

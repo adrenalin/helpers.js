@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization convertCase', () => {
+describe('lib/Localization convertCase', () => {
   it('should keep the original case if output case has not been defined', (done) => {
     const input = 'Lorem ipsum dolor sit amet.'
     expect(Localization.toCase(input)).to.be(input)

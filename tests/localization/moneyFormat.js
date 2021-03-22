@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization moneyFormat', () => {
+describe('lib/Localization moneyFormat', () => {
   it('should output with default locale', (done) => {
     const l10n = new Localization()
     l10n.unregisterLocales('moneyFormat')

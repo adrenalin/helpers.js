@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const copyObject = require('../lib/copyObject')
 
-describe('copyObject', () => {
+describe('lib/copyObject', () => {
   it('should return primitive types as they are', (done) => {
     expect(copyObject(0)).to.be(0)
     expect(copyObject(null)).to.be(null)

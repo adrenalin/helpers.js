@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const castToArray = require('../lib/castToArray')
 
-describe('castToArray', () => {
+describe('lib/castToArray', () => {
   it('should keep an array as it is', (done) => {
     const input = ['foo', 'bar']
     expect(castToArray(input)).to.be(input)

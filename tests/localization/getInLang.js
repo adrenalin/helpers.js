@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization getInLang', () => {
+describe('lib/Localization getInLang', () => {
   it('should be able to get localized strings', (done) => {
     const locales = {
       foo: {

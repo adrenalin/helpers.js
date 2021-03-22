@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const BrowserEvents = require('../lib/BrowserEvents')
 
-describe('buildUrl', () => {
+describe('lib/buildUrl', () => {
   it('should be a class', (done) => {
     const instance = new BrowserEvents()
     expect(instance).to.be.a(BrowserEvents)

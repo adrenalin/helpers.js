@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const isInstance = require('../lib/isInstance')
 
-describe('isInstance', () => {
+describe('lib/isInstance', () => {
   class ExtendedObject extends Object {
 
   }

@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const unique = require('../lib/unique')
 
-describe('unique', () => {
+describe('lib/unique', () => {
   it('should accept only an array', (done) => {
     expect(unique).withArgs('foo').to.throwError()
     expect(unique).withArgs(1).to.throwError()

@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const removeFromArray = require('../lib/removeFromArray')
 
-describe('removeFromArray', () => {
+describe('lib/removeFromArray', () => {
   it('should reject other first arguments than an array', (done) => {
     expect(removeFromArray).withArgs(1).to.throwError()
     expect(removeFromArray).withArgs('1').to.throwError()

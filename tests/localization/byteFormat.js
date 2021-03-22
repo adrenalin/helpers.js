@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization byteFormat', () => {
+describe('lib/Localization byteFormat', () => {
   const l10n = new Localization()
 
   it('should output the given value appended with unit using the given precision', (done) => {

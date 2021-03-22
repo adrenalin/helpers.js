@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const strPad = require('../lib/strPad')
 
-describe('strPad', () => {
+describe('lib/strPad', () => {
   it('should pad string to the given length', (done) => {
     expect(strPad('foo', ' ', 5, true)).to.be('  foo')
     expect(strPad('foo', ' ', 5, false)).to.be('foo  ')

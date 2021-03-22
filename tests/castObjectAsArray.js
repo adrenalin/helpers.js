@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const castObjectAsArray = require('../lib/castObjectAsArray')
 
-describe('castObjectAsArray', () => {
+describe('lib/castObjectAsArray', () => {
   it('should throw an error when casting others than plain objects', (done) => {
     expect(castObjectAsArray).withArgs(1).to.throwError()
     expect(castObjectAsArray).withArgs(true).to.throwError()

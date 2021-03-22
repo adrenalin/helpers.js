@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const splitStringIntoChunks = require('../lib/splitStringIntoChunks')
 
-describe('splitStringIntoChunks', () => {
+describe('lib/splitStringIntoChunks', () => {
   it('should split right-hand side', (done) => {
     expect(splitStringIntoChunks('ABCDEFGHIJ', 3, ' ', false)).to.be('A BCD EFG HIJ')
     done()

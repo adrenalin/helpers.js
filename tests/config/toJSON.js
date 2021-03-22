@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Config = require('../../lib/Config')
 
-describe('config:toJSON', () => {
+describe('lib/Config:toJSON', () => {
   it('should have a JSON serializer', (done) => {
     const config = new Config()
     expect(config.toJSON).to.be.a('function')

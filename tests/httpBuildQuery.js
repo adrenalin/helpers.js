@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const httpBuildQuery = require('../lib/httpBuildQuery')
 
-describe('httpBuildQuery', () => {
+describe('lib/httpBuildQuery', () => {
   it('should accept only objects', (done) => {
     expect(httpBuildQuery).withArgs(1).to.throwException()
     expect(httpBuildQuery).withArgs('1').to.throwException()

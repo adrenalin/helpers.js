@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const getPath = require('../lib/getPath')
 
-describe('config:getPath', () => {
+describe('lib/config:getPath', () => {
   it('should return an empty path with no arguments', (done) => {
     expect(getPath()).to.eql([])
     expect(getPath(null)).to.eql([])

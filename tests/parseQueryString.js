@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const parseQueryString = require('../lib/parseQueryString')
 
-describe('parseQueryString', () => {
+describe('lib/parseQueryString', () => {
   it('should return an empty object', (done) => {
     expect(parseQueryString('')).to.eql({})
     expect(parseQueryString('?')).to.eql({})

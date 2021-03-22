@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const Localization = require('../../lib/Localization')
 
-describe('Localization unregisterLocales', () => {
+describe('lib/Localization unregisterLocales', () => {
   it('should have alias in the instance for the static unregisterLocales method', (done) => {
     const l10n = new Localization()
     expect(l10n.unregisterLocales).to.be(Localization.unregisterLocales)

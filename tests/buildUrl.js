@@ -1,7 +1,7 @@
 const expect = require('expect.js')
 const buildUrl = require('../lib/buildUrl')
 
-describe('buildUrl', () => {
+describe('lib/buildUrl', () => {
   it('should throw an error without a protocol', (done) => {
     expect(buildUrl).withArgs(null, 'localhost').to.throwError()
     done()
