@@ -25,6 +25,7 @@ exports.strPad = require('./lib/strPad')
 exports.trim = require('./lib/trim')
 exports.typecastString = require('./lib/typecastString')
 exports.unique = require('./lib/unique')
+exports.urlName = require('./lib/urlName')
 
 // Determine the type of config provided
 exports.Config = require('./lib/Config')
