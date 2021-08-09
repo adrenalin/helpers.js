@@ -1,10 +1,10 @@
 {
   "name": "helpers.js",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha tests/*.js tests/**/*.js",
+    "test": "nyc mocha --recursive tests/",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
