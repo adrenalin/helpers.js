@@ -40,4 +40,24 @@ describe('lib/Localization variables', () => {
     expect(l10n.getInLang('en', '%s is placed as text', { variable: 'foo' })).to.be('foo is placed as text')
     done()
   })
+
+  it('should accept a variable with the locale', (done) => {
+    const l10n = new Localization()
+
+    expect(l10n.getInLang('en', { locale: '%s is placed as number', variable: 1 })).to.be('1 is placed as number')
+    expect(l10n.getInLang('en', { locale: '%s is placed as text', variable: 'foo' })).to.be('foo is placed as text')
+    done()
+  })
+
+  it('should accept variables as an array', (done) => {
+    const l10n = new Localization()
+    expect(l10n.getInLang('en', { locale: '%s and %s are placed as text', variable: ['foo', 'bar'] })).to.be('foo and bar are placed as text')
+    done()
+  })
+
+  it('should accept variables as an array of objects', (done) => {
+    const l10n = new Localization()
+    expect(l10n.getInLang('en', { locale: '%s is given as number with precision', variable: [{ variable: 1, precision: 2 }] })).to.be('1.00 is given as number with precision')
+    done()
+  })
 })
