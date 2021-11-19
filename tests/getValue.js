@@ -31,6 +31,20 @@ describe('lib/getValue', () => {
     done()
   })
 
+  it('should get default value if value is null in a tree', (done) => {
+    const source = {
+      foo: {
+        bar: {
+          isNull: null
+        }
+      }
+    }
+    const defaultValue = 'foo'
+
+    expect(getValue(source, 'foo.undefined.bar', defaultValue)).to.eql(defaultValue)
+    done()
+  })
+
   it('should return falseish values as they are', (done) => {
     const source = {
       false: false,

@@ -1,6 +1,6 @@
 {
   "name": "helpers.js",
-  "version": "0.22.0",
+  "version": "0.22.1",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,10 @@
     "url": "https://github.com/adrenalin/helpers.js/issues"
   },
   "homepage": "https://github.com/adrenalin/helpers.js#readme",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "yaml": "^1.7.2"
+  },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "coveralls": "^3.0.9",
@@ -36,8 +40,5 @@
       "before",
       "after"
     ]
-  },
-  "dependencies": {
-    "yaml": "^1.7.2"
   }
 }
