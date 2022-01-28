@@ -34,4 +34,14 @@ describe('lib/ServerConfig', () => {
     expect(config.get('test')).to.eql(values.test)
     done()
   })
+
+  it('should return prefixed environment variables', (done) => {
+    const testValue = 'prefixed-test-value'
+    process.env.PREFIXED_CONFIG_TEST = testValue
+
+    const config = new ServerConfig()
+    config.setEnvPrefix('prefixed')
+    expect(config.get('config.test')).to.be(testValue)
+    done()
+  })
 })
