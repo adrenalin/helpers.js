@@ -2,6 +2,14 @@ const expect = require('expect.js')
 const Config = require('../../lib/Config')
 
 describe('lib/Config:client', () => {
+  it('should have errors properties', (done) => {
+    expect(Config).to.have.property('errors')
+
+    const config = new Config()
+    expect(config.errors).to.be(Config.errors)
+    done()
+  })
+
   it('should have methods "set" and "get"', (done) => {
     const config = new Config()
     expect(config).to.have.property('set')
@@ -194,6 +202,16 @@ describe('lib/Config:client', () => {
   it('should return self when setting a value', (done) => {
     const config = new Config()
     expect(config.set()).to.be(config)
+    done()
+  })
+
+  it('should accept values from the constructor', (done) => {
+    const values = {
+      foo: 'bar'
+    }
+
+    const config = new Config(values)
+    expect(config.values).to.eql(values)
     done()
   })
 })

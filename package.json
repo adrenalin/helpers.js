@@ -1,6 +1,6 @@
 {
   "name": "helpers.js",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/adrenalin/helpers.js#readme",
   "dependencies": {
+    "jsonschema": "^1.4.0",
     "moment": "^2.29.1",
     "yaml": "^1.7.2"
   },
