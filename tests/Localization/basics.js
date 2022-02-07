@@ -12,6 +12,17 @@ describe('lib/Localization basics', () => {
     }
   })
 
+  it('should have both static and instance errors', (done) => {
+    const l10n = new Localization()
+
+    expect(l10n.errors).to.be.an('object')
+    expect(Localization.errors).to.be.an('object')
+    expect(Localization.errors).to.be(l10n.errors)
+
+    expect(Localization.INVALID_TIMESTAMP).to.be(Localization.errors.INVALID_TIMESTAMP)
+    done()
+  })
+
   it('should accept a language as an argument', (done) => {
     const lang = 'fi'
     const l10n = new Localization(lang)
