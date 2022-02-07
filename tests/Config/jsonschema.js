@@ -138,4 +138,72 @@ describe('lib/Config:jsonschema', () => {
       done()
     }
   })
+
+  it('should traverse the schema to set the default values', (done) => {
+    const defaultString = 'test-default-string'
+    const defaultObjectString = 'test-default-object-string'
+
+    const schema = {
+      id: '/test/config',
+      type: 'object',
+      properties: {
+        string: {
+          type: 'string',
+          default: defaultString
+        },
+        object: {
+          type: 'object',
+          properties: {
+            objectString: {
+              type: 'string',
+              default: defaultObjectString
+            }
+          }
+        }
+      }
+    }
+
+    const config = new Config()
+    config.setSchema(schema)
+    expect(config.get('string')).to.eql(defaultString)
+    expect(config.get('object.objectString')).to.eql(defaultObjectString)
+    done()
+  })
+
+  it('should not set default values when there is a non-null value', (done) => {
+    const defaultString = 'test-default-string'
+    const givenString = 'test-given-string'
+    const defaultObjectString = 'test-default-object-string'
+
+    const schema = {
+      id: '/test/config',
+      type: 'object',
+      properties: {
+        string: {
+          type: 'string',
+          default: defaultString
+        },
+        booleanIsDefined: {
+          type: 'boolean',
+          default: true
+        },
+        object: {
+          type: 'object',
+          properties: {
+            objectString: {
+              type: 'string',
+              default: defaultObjectString
+            }
+          }
+        }
+      }
+    }
+
+    const config = new Config({ string: givenString, booleanIsDefined: false }, schema)
+    expect(givenString).not.to.eql(defaultString)
+    expect(config.get('string')).to.eql(givenString)
+    expect(config.get('booleanIsDefined')).to.eql(false)
+    expect(config.get('object.objectString')).to.eql(defaultObjectString)
+    done()
+  })
 })
