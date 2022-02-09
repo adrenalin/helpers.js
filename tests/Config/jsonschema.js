@@ -211,7 +211,7 @@ describe('lib/Config:jsonschema', () => {
     const referredStringValue = 'referred-string-value'
 
     const referred = {
-      $id: '/#/test/referred',
+      $id: 'https://example.com/schemas#/test/referred',
       type: 'object',
       properties: {
         referredString: {
@@ -222,13 +222,13 @@ describe('lib/Config:jsonschema', () => {
     }
 
     const schema = {
-      $id: '#/test/config',
+      $id: 'https://example.com/schemas#/test/config',
       type: 'object',
       properties: {
         referred: {
           type: 'object',
           properties: {
-            $ref: '/#/test/referred'
+            $ref: '#/test/referred'
           }
         }
       }
