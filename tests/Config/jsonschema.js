@@ -3,7 +3,7 @@ const Config = require('../../lib/Config')
 
 describe('lib/Config:jsonschema', () => {
   const testSchema = {
-    id: '/test/config',
+    $id: '/#/test/config',
     type: 'object',
     properties: {
       string: {
@@ -144,7 +144,7 @@ describe('lib/Config:jsonschema', () => {
     const defaultObjectString = 'test-default-object-string'
 
     const schema = {
-      id: '/test/config',
+      $id: '/#/test/config',
       type: 'object',
       properties: {
         string: {
@@ -176,7 +176,7 @@ describe('lib/Config:jsonschema', () => {
     const defaultObjectString = 'test-default-object-string'
 
     const schema = {
-      id: '/test/config',
+      $id: '/#/test/config',
       type: 'object',
       properties: {
         string: {
@@ -204,6 +204,41 @@ describe('lib/Config:jsonschema', () => {
     expect(config.get('string')).to.eql(givenString)
     expect(config.get('booleanIsDefined')).to.eql(false)
     expect(config.get('object.objectString')).to.eql(defaultObjectString)
+    done()
+  })
+
+  it('should set referred schema defaults', (done) => {
+    const referredStringValue = 'referred-string-value'
+
+    const referred = {
+      $id: '/#/test/referred',
+      type: 'object',
+      properties: {
+        referredString: {
+          type: 'string',
+          default: referredStringValue
+        }
+      }
+    }
+
+    const schema = {
+      $id: '#/test/config',
+      type: 'object',
+      properties: {
+        referred: {
+          type: 'object',
+          properties: {
+            $ref: '/#/test/referred'
+          }
+        }
+      }
+    }
+
+    const config = new Config()
+    config.addSchema(referred)
+    config.setSchema(schema)
+
+    expect(config.get('referred.referredString')).to.eql(referredStringValue)
     done()
   })
 })
