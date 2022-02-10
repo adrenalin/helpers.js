@@ -139,6 +139,40 @@ describe('lib/Config:jsonschema', () => {
     }
   })
 
+  it('should reject invalid values in a referenced schema', (done) => {
+    try {
+      const referred = {
+        $id: 'https://example.com/schemas#/test/referred',
+        type: 'object',
+        properties: {
+          referredNumber: {
+            type: 'number'
+          }
+        }
+      }
+
+      const schema = {
+        $id: 'https://example.com/schemas#/test/config',
+        type: 'object',
+        properties: {
+          referred: {
+            $ref: '#/test/referred'
+          }
+        }
+      }
+
+      const config = new Config()
+      config.addSchema(referred)
+      config.setSchema(schema)
+
+      config.set('referred.referredNumber', 'foobar')
+      throw new Error('Should have thrown an error')
+    } catch (err) {
+      expect(err).to.be.a(Config.errors.ValidationError)
+      done()
+    }
+  })
+
   it('should traverse the schema to set the default values', (done) => {
     const defaultString = 'test-default-string'
     const defaultObjectString = 'test-default-object-string'
@@ -226,10 +260,7 @@ describe('lib/Config:jsonschema', () => {
       type: 'object',
       properties: {
         referred: {
-          type: 'object',
-          properties: {
-            $ref: '#/test/referred'
-          }
+          $ref: '#/test/referred'
         }
       }
     }
