@@ -71,7 +71,7 @@ describe('lib/Config:jsonschema', () => {
   it('should throw an error when validating before a schema is set', (done) => {
     try {
       const config = new Config()
-      config.validateConfig()
+      config.validate()
       throw new Error('Should have thrown an error')
     } catch (err) {
       expect(err).to.be.a(Config.errors.ConfigError)
@@ -120,7 +120,7 @@ describe('lib/Config:jsonschema', () => {
     const config = new Config(values, testSchema)
     expect(config.schema).to.eql(testSchema)
 
-    config.validateConfig()
+    config.validate()
     done()
   })
 
