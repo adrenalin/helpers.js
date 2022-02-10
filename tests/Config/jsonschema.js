@@ -173,6 +173,97 @@ describe('lib/Config:jsonschema', () => {
     }
   })
 
+  it('should validate values in a deep referenced schema', (done) => {
+    const deepReferred = {
+      $id: 'https://example.com/schemas#/test/deep-referred',
+      type: 'object',
+      properties: {
+        deepReferredNumber: {
+          type: 'number'
+        }
+      }
+    }
+
+    const referred = {
+      $id: 'https://example.com/schemas#/test/referred',
+      type: 'object',
+      properties: {
+        referredString: {
+          type: 'string'
+        },
+        deepReferred: {
+          $ref: '#/test/deep-referred'
+        }
+      }
+    }
+
+    const schema = {
+      $id: 'https://example.com/schemas#/test/config',
+      type: 'object',
+      properties: {
+        referred: {
+          $ref: '#/test/referred'
+        }
+      }
+    }
+
+    const config = new Config()
+    config.addSchema(referred)
+    config.addSchema(deepReferred)
+    config.setSchema(schema)
+
+    config.set('referred.deepReferred.deepReferredNumber', 123)
+    done()
+  })
+
+  it('should reject invalid values in a deep referenced schema', (done) => {
+    try {
+      const deepReferred = {
+        $id: 'https://example.com/schemas#/test/deep-referred',
+        type: 'object',
+        properties: {
+          deepReferredNumber: {
+            type: 'number'
+          }
+        }
+      }
+
+      const referred = {
+        $id: 'https://example.com/schemas#/test/referred',
+        type: 'object',
+        properties: {
+          referredString: {
+            type: 'string'
+          },
+          deepReferred: {
+            $ref: '#/test/deep-referred'
+          }
+        }
+      }
+
+      const schema = {
+        $id: 'https://example.com/schemas#/test/config',
+        type: 'object',
+        properties: {
+          referred: {
+            $ref: '#/test/referred'
+          }
+        }
+      }
+
+      const config = new Config()
+      config.addSchema(referred)
+      config.addSchema(deepReferred)
+      config.setSchema(schema)
+
+      config.set('referred.deepReferred.deepReferredNumber', 'foobar')
+      throw new Error('Should have thrown an error')
+    } catch (err) {
+      expect(err).to.be.a(Config.errors.ValidationError)
+      done()
+    }
+  })
+
   it('should traverse the schema to set the default values', (done) => {
     const defaultString = 'test-default-string'
     const defaultObjectString = 'test-default-object-string'
@@ -270,6 +361,55 @@ describe('lib/Config:jsonschema', () => {
     config.setSchema(schema)
 
     expect(config.get('referred.referredString')).to.eql(referredStringValue)
+    done()
+  })
+
+  it('should set deep referred schema defaults', (done) => {
+    const referredStringValue = 'referred-string-value'
+    const deepReferredStringValue = 'deep-referred-string-value'
+
+    const deepReferred = {
+      $id: 'https://example.com/schemas#/test/deep-referred',
+      type: 'object',
+      properties: {
+        deepReferredString: {
+          type: 'string',
+          default: deepReferredStringValue
+        }
+      }
+    }
+
+    const referred = {
+      $id: 'https://example.com/schemas#/test/referred',
+      type: 'object',
+      properties: {
+        referredString: {
+          type: 'string',
+          default: referredStringValue
+        },
+        deepReferred: {
+          $ref: '#/test/deep-referred'
+        }
+      }
+    }
+
+    const schema = {
+      $id: 'https://example.com/schemas#/test/config',
+      type: 'object',
+      properties: {
+        referred: {
+          $ref: '#/test/referred'
+        }
+      }
+    }
+
+    const config = new Config()
+    config.addSchema(referred)
+    config.addSchema(deepReferred)
+    config.setSchema(schema)
+
+    expect(config.get('referred.referredString')).to.eql(referredStringValue)
+    expect(config.get('referred.deepReferred.deepReferredString')).to.eql(deepReferredStringValue)
     done()
   })
 })
