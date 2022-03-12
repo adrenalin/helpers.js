@@ -1,3 +1,4 @@
+const path = require('path')
 const expect = require('expect.js')
 const Config = require('../../lib/Config')
 const ServerConfig = require('../../lib/ServerConfig')
@@ -42,6 +43,36 @@ describe('lib/ServerConfig', () => {
     const config = new ServerConfig()
     config.setEnvPrefix('prefixed')
     expect(config.get('config.test')).to.be(testValue)
+    done()
+  })
+
+  it('should set the schema id by "id" when "$id" omitted', (done) => {
+    const config = new ServerConfig()
+    config.setSchema({
+      id: '#/no-dollar-sign',
+      properties: {
+        testKey: {
+          type: 'string'
+        }
+      }
+    })
+
+    expect(Object.keys(config.getValidator().schemas)).to.contain('#/no-dollar-sign')
+    done()
+  })
+
+  it('should set the schema id by dirname when "$id" omitted', (done) => {
+    const libDir = path.join(__dirname, '..', '..', 'lib')
+    const config = new ServerConfig()
+    config.setSchema({
+      properties: {
+        testKey: {
+          type: 'string'
+        }
+      }
+    })
+
+    expect(Object.keys(config.getValidator().schemas)).to.contain(`${libDir}#/config`)
     done()
   })
 })
