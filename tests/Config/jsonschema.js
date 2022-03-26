@@ -412,4 +412,33 @@ describe('lib/Config:jsonschema', () => {
     expect(config.get('referred.deepReferred.deepReferredString')).to.eql(deepReferredStringValue)
     done()
   })
+
+  it('should accept using $defs', (done) => {
+    const schema = {
+      type: 'object',
+      properties: {
+        referencing: {
+          $ref: '#/$defs/referenced'
+        }
+      },
+      $defs: {
+        referenced: {
+          type: 'string'
+        }
+      }
+    }
+
+    const config = new Config()
+    config.setSchema(schema)
+    config.set('referencing', 'foo')
+
+    try {
+      config.set('referencing', 1)
+      throw new Error('Should have thrown a ValidationError')
+    } catch (err) {
+      expect(err).to.be.a(Config.errors.ValidationError)
+    }
+
+    done()
+  })
 })
