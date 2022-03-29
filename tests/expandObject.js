@@ -1,6 +1,5 @@
 const expect = require('expect.js')
 const expandObject = require('../lib/expandObject')
-const flattenObject = require('../lib/flattenObject')
 
 describe('lib/expandObject', () => {
   it('should return non-objects as they were', (done) => {
