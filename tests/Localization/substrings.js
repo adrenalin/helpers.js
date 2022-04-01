@@ -117,6 +117,19 @@ describe('lib/Localization substrings', () => {
     done()
   })
 
+  it('should throw an InvalidFormatter for an undefined formatter', (done) => {
+    try {
+      const l10n = new Localization()
+
+      l10n.registerLocale('invalidFormatter', { fi: 'Invalid formatter %x' })
+      l10n.getInLang('fi', 'invalidFormatter', 'foobar')
+      throw new Error('Should have thrown an InvalidFormatter')
+    } catch (err) {
+      expect(err).to.be.a(Localization.errors.INVALID_FORMATTER)
+      done()
+    }
+  })
+
   it('should skip escaped formatters', (done) => {
     const l10n = new Localization()
     const precision = 0
