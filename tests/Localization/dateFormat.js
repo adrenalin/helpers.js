@@ -30,10 +30,13 @@ describe('lib/Localization dateFormat', () => {
   })
 
   it('should throw INVALID_TIMESTAMP error for an invalid timestamp', (done) => {
-    const l10n = new Localization()
-    expect(l10n.dateFormat).withArgs('abcdef').to.throwException((err) => {
+    try {
+      const l10n = new Localization()
+      l10n.dateFormat('abcdef')
+      throw new Error('Should have thrown an InvalidTimestamp')
+    } catch (err) {
       expect(err).to.be.a(Localization.errors.INVALID_TIMESTAMP)
-    })
-    done()
+      done()
+    }
   })
 })
