@@ -49,6 +49,24 @@ describe('lib/Localization basics', () => {
     done()
   })
 
+  it('should have registerLocale', (done) => {
+    const locales = {
+      registerLocale: {
+        en: 'Register locale via instance method'
+      },
+      registerLocaleStatic: {
+        en: 'Register locale via static method'
+      }
+    }
+    const l10n = new Localization()
+    l10n.registerLocale('registerLocale', locales.registerLocale)
+    Localization.registerLocale('registerLocaleStatic', locales.registerLocaleStatic)
+
+    expect(l10n.getInLang('en', 'registerLocale')).to.eql(locales.registerLocale.en)
+    expect(l10n.getInLang('en', 'registerLocaleStatic')).to.eql(locales.registerLocaleStatic.en)
+    done()
+  })
+
   it('should be able to set the language', (done) => {
     const lang = 'fi'
     const l10n = new Localization()
