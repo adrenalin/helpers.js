@@ -74,6 +74,22 @@ describe('lib/Localization substrings', () => {
     done()
   })
 
+  it('should format percent substrings', (done) => {
+    const l10n = new Localization()
+    const precision = 0
+
+    l10n.registerLocale('percentFormatWithoutArguments', { fi: 'Percent format without arguments %p' })
+    l10n.registerLocale('percentFormatPrecision', { fi: `Percent format with precision %p[${precision}]` })
+
+    const value = 123456.789
+    const percentFormatWithoutArguments = l10n.percentFormat(value, { lang: 'fi' })
+    const percentFormatWithPrecision = l10n.percentFormat(value, { lang: 'fi', precision })
+
+    expect(l10n.getInLang('fi', 'percentFormatWithoutArguments', value)).to.eql(`Percent format without arguments ${percentFormatWithoutArguments}`)
+    expect(l10n.getInLang('fi', 'percentFormatPrecision', value)).to.eql(`Percent format with precision ${percentFormatWithPrecision}`)
+    done()
+  })
+
   it('should format the date substrings', (done) => {
     const l10n = new Localization()
     l10n.registerLocale('dateFormat', { fi: 'D.M.YYYY' })
