@@ -90,6 +90,22 @@ describe('lib/Localization substrings', () => {
     done()
   })
 
+  it('should format money substrings', (done) => {
+    const l10n = new Localization()
+    const precision = 0
+
+    l10n.registerLocale('moneyFormatWithoutArguments', { fi: 'money format without arguments %m' })
+    l10n.registerLocale('moneyFormatPrecision', { fi: `money format with precision %m[${precision}]` })
+
+    const value = 123456.789
+    const moneyFormatWithoutArguments = l10n.moneyFormat(value, { lang: 'fi' })
+    const moneyFormatWithPrecision = l10n.moneyFormat(value, { lang: 'fi', precision })
+
+    expect(l10n.getInLang('fi', 'moneyFormatWithoutArguments', value)).to.eql(`money format without arguments ${moneyFormatWithoutArguments}`)
+    expect(l10n.getInLang('fi', 'moneyFormatPrecision', value)).to.eql(`money format with precision ${moneyFormatWithPrecision}`)
+    done()
+  })
+
   it('should format the date substrings', (done) => {
     const l10n = new Localization()
     l10n.registerLocale('dateFormat', { fi: 'D.M.YYYY' })
@@ -98,6 +114,20 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'dateFormatWithoutArguments', '2022-04-01T12:00:00+03:00')).to.eql('Date format without arguments 1.4.2022')
     expect(l10n.getInLang('fi', 'dateFormatWithFormat', '2022-04-01T12:00:00+03:00')).to.eql('Date format with format 04/01/2022')
+    done()
+  })
+
+  it('should skip escaped formatters', (done) => {
+    const l10n = new Localization()
+    const precision = 0
+
+    l10n.registerLocale('escapedNumberFormatWithoutArguments', { fi: 'Escaped number format without arguments \\%n' })
+    l10n.registerLocale('escapedNumberFormatWithFormat', { fi: `Escaped number format with precision \\%n[${precision}]` })
+
+    const value = 123456.789
+
+    expect(l10n.getInLang('fi', 'escapedNumberFormatWithoutArguments', value)).to.eql('Escaped number format without arguments %n')
+    expect(l10n.getInLang('fi', 'escapedNumberFormatWithFormat', value)).to.eql(`Escaped number format with precision %n[${precision}]`)
     done()
   })
 })
