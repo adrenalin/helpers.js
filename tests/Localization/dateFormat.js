@@ -39,4 +39,21 @@ describe('lib/Localization dateFormat', () => {
       done()
     }
   })
+
+  it('should have a special case for ISO formats', (done) => {
+    const dt = '2022-04-08T04:45:00.000Z'
+    const l10n = new Localization()
+    expect(l10n.dateFormat(dt, { format: 'iso' })).to.eql('2022-04-08T04:45:00Z')
+
+    // Explicit timezone
+    expect(l10n.dateFormat(dt, { format: 'iso', tz: 'Europe/Helsinki' })).to.eql('2022-04-08T07:45:00+03:00')
+
+    // ISO date
+    expect(l10n.dateFormat(dt, { format: 'iso-date' })).to.eql('2022-04-08')
+
+    // ISO time
+    expect(l10n.dateFormat(dt, { format: 'iso-time' })).to.eql('04:45:00')
+    expect(l10n.dateFormat(dt, { format: 'iso-time', tz: 'Europe/Helsinki' })).to.eql('07:45:00')
+    done()
+  })
 })
