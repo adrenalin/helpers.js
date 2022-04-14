@@ -64,6 +64,7 @@ describe('lib/Localization substrings', () => {
 
     l10n.registerLocale('numberFormatWithoutArguments', { fi: 'Number format without arguments %n' })
     l10n.registerLocale('numberFormatPrecision', { fi: `Number format with precision %n[${precision}]` })
+    l10n.registerLocale('numberFormatWithQueryString', { fi: 'Number format with query string arguments %n[thousand=X&decimal=D&precision=1]' })
 
     const value = 123456.789
     const numberFormatWithoutArguments = l10n.numberFormat(value, { lang: 'fi' })
@@ -71,6 +72,7 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'numberFormatWithoutArguments', value)).to.eql(`Number format without arguments ${numberFormatWithoutArguments}`)
     expect(l10n.getInLang('fi', 'numberFormatPrecision', value)).to.eql(`Number format with precision ${numberFormatWithPrecision}`)
+    expect(l10n.getInLang('fi', 'numberFormatWithQueryString', value)).to.eql('Number format with query string arguments 123X456D8')
     done()
   })
 
