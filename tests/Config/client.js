@@ -214,4 +214,18 @@ describe('lib/Config:client', () => {
     expect(config.values).to.eql(values)
     done()
   })
+
+  it('should have a method to delete config keys', (done) => {
+    const testKey = 'delete'
+    const testValue = 'not-deleted'
+
+    const config = new Config()
+    config.set(testKey, testValue)
+    expect(config.get(testKey)).to.eql(testValue)
+
+    config.del(testKey)
+    expect(config.get(testKey)).to.eql(null)
+    expect(config.values).not.to.have.property(testKey)
+    done()
+  })
 })
