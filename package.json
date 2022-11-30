@@ -4,6 +4,7 @@
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
+    "doc": "jsdoc lib",
     "test": "nyc mocha --recursive tests/",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -28,6 +29,7 @@
     "babel-eslint": "^10.0.3",
     "coveralls": "^3.1.1",
     "expect.js": "^0.3.1",
+    "jsdoc": "^4.0.0",
     "mocha": "^9.2.2",
     "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^15.1.0",
