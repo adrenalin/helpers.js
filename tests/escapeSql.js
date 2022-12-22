@@ -24,6 +24,7 @@ describe('lib/helpers/escapeSql', () => {
 
   it('should force quote with force flag', (done) => {
     expect(escapeSql('foo', '"', true)).to.be('"foo"')
+    expect(escapeSql('foo', true)).to.be('"foo"')
     done()
   })
 
@@ -37,15 +38,28 @@ describe('lib/helpers/escapeSql', () => {
     done()
   })
 
-  it('should not escape true, false and null unless forced', (done) => {
+  it('should not escape numbers, true, false and null unless forced', (done) => {
+    expect(escapeSql(123)).to.be('123')
     expect(escapeSql(true)).to.be('true')
     expect(escapeSql(false)).to.be('false')
     expect(escapeSql(null)).to.be('null')
 
+    expect(escapeSql(123, "'", true)).to.be("'123'")
     expect(escapeSql(true, "'", true)).to.be("'true'")
     expect(escapeSql(false, "'", true)).to.be("'false'")
     expect(escapeSql(null, "'", true)).to.be("'null'")
+    done()
+  })
 
+  it('should escape an array', (done) => {
+    expect(escapeSql(['a', 'b', 'c'])).to.eql(['a', 'b', 'c'])
+    expect(escapeSql(['a', 'b', 'c'], '"', true)).to.eql(['"a"', '"b"', '"c"'])
+    done()
+  })
+
+  it('should escape object keys', (done) => {
+    expect(escapeSql({ foo: 'bar' }, "'", true)).to.eql({ foo: "'bar'" })
+    expect(escapeSql({ foo: 'bar' }, true)).to.eql({ foo: '"bar"' })
     done()
   })
 })
