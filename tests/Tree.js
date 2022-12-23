@@ -312,4 +312,31 @@ describe('lib/Tree', () => {
 
     done()
   })
+
+  it('should get root for the given needle', (done) => {
+    const tree = new Tree(testItems)
+
+    // Needle not found
+    expect(() => tree.getRoot('3', tree.nodes)).to.throwError((err) => {
+      expect(err).to.be.a(Tree.errors.NodeNotFound)
+    })
+
+    expect(tree.getRoot('1')).to.be(testItems[0])
+    expect(tree.getRoot('1-1')).to.be(testItems[0])
+    expect(tree.getRoot('1-1-1')).to.be(testItems[0])
+    done()
+  })
+
+  it('should get leaves or the outmost parts for the branch', (done) => {
+    const tree = new Tree(testItems)
+
+    // Needle not found
+    expect(() => tree.getLeaves('3', tree.nodes)).to.throwError((err) => {
+      expect(err).to.be.a(Tree.errors.NodeNotFound)
+    })
+
+    expect(getIdsFromSet(tree.getLeaves('2'))).to.eql(['2'])
+    expect(getIdsFromSet(tree.getLeaves('1'))).to.eql(['1-1-1', '1-1-2', '1-2-1', '1-2-2'])
+    done()
+  })
 })
