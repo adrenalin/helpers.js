@@ -196,6 +196,21 @@ describe('lib/Tree', () => {
     done()
   })
 
+  it('should set level to each node', (done) => {
+    const tree = new Tree(testItems)
+    const mapped = tree.mapped
+
+    expect(mapped['1'].level).to.be(1)
+    expect(mapped['1-1'].level).to.be(2)
+    expect(mapped['1-1-1'].level).to.be(3)
+    expect(mapped['1-1-2'].level).to.be(3)
+    expect(mapped['1-2'].level).to.be(2)
+    expect(mapped['1-2-1'].level).to.be(3)
+    expect(mapped['1-2-2'].level).to.be(3)
+    expect(mapped['2'].level).to.be(1)
+    done()
+  })
+
   it('should throw an error when parent is not in the dataset', (done) => {
     const tree = new Tree(testItems)
     expect(() => tree.addNode({ id: '1-2-3', parent: '1-2' })).not.to.throwError()
