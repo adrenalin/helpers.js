@@ -1,5 +1,5 @@
 {
-  "name": "helpers.js",
+  "name": "@vapaaradikaali/helpers.js",
   "version": "0.30.4",
   "description": "Miscellaneous helpers",
   "main": "index.js",
