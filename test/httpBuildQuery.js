@@ -3,13 +3,13 @@ const httpBuildQuery = require('../lib/httpBuildQuery')
 
 describe('lib/httpBuildQuery', () => {
   it('should accept only objects', (done) => {
-    expect(() => httpBuildQuery(1).to.throwException())
-    expect(() => httpBuildQuery('1').to.throwException())
-    expect(() => httpBuildQuery([]).to.throwException())
-    expect(() => httpBuildQuery(null).to.throwException())
-    expect(() => httpBuildQuery(true).to.throwException())
+    expect(() => httpBuildQuery(1)).to.throw()
+    expect(() => httpBuildQuery('1')).to.throw()
+    expect(() => httpBuildQuery([])).to.throw()
+    expect(() => httpBuildQuery(null)).to.throw()
+    expect(() => httpBuildQuery(true)).to.throw()
 
-    expect(() => httpBuildQuery({}).not.to.throwException())
+    expect(() => httpBuildQuery({})).not.to.throw()
     done()
   })
 

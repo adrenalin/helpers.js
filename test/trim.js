@@ -23,14 +23,14 @@ describe('lib/trim', () => {
   })
 
   it('should accept only one argument', (done) => {
-    expect(() => trim('foo', 'bar').to.throwException())
+    expect(() => trim('foo', 'bar')).to.throw()
     done()
   })
 
   it('should accept only a string argument', (done) => {
-    expect(() => trim(['foo', 'bar']).to.throwException())
-    expect(() => trim({ foo: 'bar' }).to.throwException())
-    expect(() => trim(1).to.throwException())
+    expect(() => trim(['foo', 'bar'])).to.throw()
+    expect(() => trim({ foo: 'bar' })).to.throw()
+    expect(() => trim(1)).to.throw()
     done()
   })
 })

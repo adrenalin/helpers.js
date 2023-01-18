@@ -7,13 +7,12 @@ describe('lib/merge', () => {
     done()
   })
 
-  it('should raise an exception with less than two arguments', (done) => {
-    expect(() => merge({}).to.throwException())
-    done()
+  it('should raise an exception with less than two arguments', () => {
+    expect(() => merge({})).to.throw()
   })
 
   it('should raise an exception with non-object arguments', (done) => {
-    expect(() => merge('foo', 'bar').to.throwException())
+    expect(() => merge('foo', 'bar')).to.throw()
     done()
   })
 
@@ -83,7 +82,7 @@ describe('lib/merge', () => {
   })
 
   it('should throw an exception when trying to merge objects and arrays', (done) => {
-    expect(() => merge([], {}).to.throwException())
+    expect(() => merge([], {})).to.throw()
     done()
   })
 

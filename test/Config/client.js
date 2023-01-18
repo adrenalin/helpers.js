@@ -195,7 +195,7 @@ describe('lib/Config:client', () => {
 
   it('should throw an error when using an object as a path', (done) => {
     const config = new Config()
-    expect(() => config.get({ foo: 'bar' }).to.throwException())
+    expect(() => config.get({ foo: 'bar' })).to.throw()
     done()
   })
 
