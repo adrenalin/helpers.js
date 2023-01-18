@@ -4,13 +4,12 @@ const Localization = require('../../lib/Localization')
 describe('lib/Localization numberFormat', () => {
   const l10n = new Localization()
 
-  it('should have default values for getDecimalSeparator and getThousandsSeparator', (done) => {
+  it('should have default values for getDecimalSeparator and getThousandsSeparator', () => {
     expect(l10n.getDecimalSeparator()).to.equal('.')
     expect(l10n.getThousandSeparator()).to.equal(',')
-    done()
   })
 
-  it('should give the localized decimal and thousand separators', (done) => {
+  it('should give the localized decimal and thousand separators', () => {
     l10n.registerLocales({
       decimalSeparator: {
         xx: '-',
@@ -27,30 +26,21 @@ describe('lib/Localization numberFormat', () => {
 
     expect(l10n.getThousandSeparator('fi')).to.equal(' ')
     expect(l10n.getThousandSeparator('xx')).to.equal('T')
-
-    done()
   })
 
-  it('should round to the closest integer with zero precision', (done) => {
+  it('should round to the closest integer with zero precision', () => {
     expect(l10n.numberFormat(1)).to.equal('1')
-    done()
   })
 
-  it('should round to the closest integer with given precision', (done) => {
+  it('should round to the closest integer with given precision', () => {
     expect(l10n.numberFormat(1, 2)).to.equal('1.00')
-    done()
   })
 
-  it('should throw an error if mixing a configuration object with other parameters', (done) => {
-    try {
-      l10n.numberFormat(10, { precision: 10 }, 'fi')
-      done(new Error('Did not catch an error with mixed parameters'))
-    } catch (err) {
-      done()
-    }
+  it('should throw an error if mixing a configuration object with other parameters', () => {
+    expect(() => l10n.numberFormat(10, { precision: 10 }, 'fi')).to.throw()
   })
 
-  it('should use the given decimal separator', (done) => {
+  it('should use the given decimal separator', () => {
     l10n.registerLocales({
       decimalSeparator: {
         en: '.',
@@ -62,10 +52,9 @@ describe('lib/Localization numberFormat', () => {
     expect(l10n.numberFormat(1, { lang: 'fi', precision: 2 })).to.equal('1,00')
     expect(l10n.numberFormat(1, { lang: 'en', precision: 2 })).to.equal('1.00')
     expect(l10n.numberFormat(1, { lang: 'en', precision: 2, decimal: 'x' })).to.equal('1x00')
-    done()
   })
 
-  it('should use the given thousand separator', (done) => {
+  it('should use the given thousand separator', () => {
     l10n.registerLocales({
       thousandSeparator: {
         en: ',',
@@ -77,34 +66,37 @@ describe('lib/Localization numberFormat', () => {
     expect(l10n.numberFormat(1000000, { lang: 'fi' })).to.equal('1 000 000')
     expect(l10n.numberFormat(1000000, { lang: 'en' })).to.equal('1,000,000')
     expect(l10n.numberFormat(1000000, { lang: 'en', thousand: 't' })).to.equal('1t000t000')
-    done()
   })
 
-  it('should return grouped decimals', (done) => {
+  it('should return grouped decimals', () => {
     expect(l10n.numberFormat(0.00000001, 8, 'fi', ',', ' ')).to.equal('0,000 000 01')
-    done()
   })
 
-  it('should return grouped decimals even without the given precision', (done) => {
+  it('should return grouped decimals even without the given precision', () => {
     expect(l10n.numberFormat(0.00000001, null, 'fi', ',', ' ')).to.equal('0,000 000 01')
     expect(l10n.numberFormat(0.0001, null, 'fi', ',', ' ')).to.equal('0,000 1')
-    done()
   })
 
-  it('should return grouped decimals with large precision', (done) => {
+  it('should return grouped decimals with large precision', () => {
     expect(l10n.numberFormat(0.1, 8, 'fi', ',', ' ')).to.equal('0,100 000 00')
-    done()
   })
 
-  it('should return null when given null or undefined', (done) => {
+  it('should accept "round", "ceil", and "floor" as rounding methods', () => {
+    expect(l10n.numberFormat(1.2, { rounding: 'round' })).to.eql('1', 'round 1.2')
+    expect(l10n.numberFormat(1.7, { rounding: 'round' })).to.eql('2', 'round 2')
+
+    expect(l10n.numberFormat(1.2, { rounding: 'ceil' })).to.eql('2', 'ceil 1.2')
+    expect(l10n.numberFormat(1.7, { rounding: 'floor' })).to.eql('1', 'floor 1.7')
+
+    expect(l10n.numberFormat(12, { precision: -1, rounding: 'round' })).to.eql('10', 'round 12, precision -1')
+    expect(l10n.numberFormat(17, { precision: -1, rounding: 'round' })).to.eql('20', 'round 17, precision -1')
+
+    expect(() => l10n.numberFormat(1, { rounding: 'pow' })).to.throw(Localization.errors.INVALID_ARGUMENT)
+  })
+
+  it('should return null when given null or undefined', () => {
     expect(l10n.numberFormat(null)).to.equal(null)
     expect(l10n.numberFormat(undefined)).to.equal(null)
-
-    try {
-      expect(l10n.numberFormat('foo')).to.throw()
-      done(new Error('Should have thrown an error'))
-    } catch (err) {
-    }
-    done()
+    expect(() => l10n.numberFormat('foo')).to.throw()
   })
 })
