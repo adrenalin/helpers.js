@@ -1,4 +1,5 @@
 const { expect } = require('chai')
+const { InvalidArgument } = require('@vapaaradikaali/errors')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization logger', () => {
@@ -8,7 +9,7 @@ describe('lib/Localization logger', () => {
     }
 
     expect(Localization.registerLogger).to.be.a('function')
-    expect(() => Localization.registerLogger(null)).to.throw()
+    expect(() => Localization.registerLogger(null)).to.throw(InvalidArgument)
     expect(() => Localization.registerLogger(callback).not.to.throw())
     done()
   })

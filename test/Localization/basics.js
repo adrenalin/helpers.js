@@ -68,12 +68,12 @@ describe('lib/Localization basics', () => {
 
   it('should reject an empty string when setting the language', () => {
     const l10n = new Localization()
-    expect(() => l10n.setLang('')).to.throw()
+    expect(() => l10n.setLang('')).to.throw(InvalidArgument)
   })
 
   it('should require a string when setting the language', () => {
     const l10n = new Localization()
-    expect(() => l10n.setLang({})).to.throw()
+    expect(() => l10n.setLang({})).to.throw(InvalidArgument)
   })
 
   it('should be able to get the set language', () => {
@@ -85,10 +85,10 @@ describe('lib/Localization basics', () => {
 
   it('should reject to register invalid locales', () => {
     const l10n = new Localization()
-    expect(() => l10n.registerLocales('foo')).to.throw()
-    expect(() => l10n.registerLocales({ foo: 'bar' })).to.throw()
-    expect(() => l10n.registerLocales({ foo: [] })).to.throw()
-    expect(() => l10n.registerLocales({ foo: { bar: [] } })).to.throw()
+    expect(() => l10n.registerLocales('foo')).to.throw(InvalidArgument)
+    expect(() => l10n.registerLocales({ foo: 'bar' })).to.throw(InvalidArgument)
+    expect(() => l10n.registerLocales({ foo: [] })).to.throw(InvalidArgument)
+    expect(() => l10n.registerLocales({ foo: { bar: [] } })).to.throw(InvalidArgument)
   })
 
   it('should be able to use fallback language', () => {
@@ -107,12 +107,12 @@ describe('lib/Localization basics', () => {
 
   it('should reject an empty string when setting the fallback language', () => {
     const l10n = new Localization()
-    expect(() => l10n.setFallbackLang(''))
+    expect(() => l10n.setFallbackLang('')).to.throw(InvalidArgument)
   })
 
   it('should require a string when setting the fallback language', () => {
     const l10n = new Localization()
-    expect(() => l10n.setFallbackLang({}))
+    expect(() => l10n.setFallbackLang({})).to.throw(InvalidArgument)
   })
 
   it('should spread an array', () => {

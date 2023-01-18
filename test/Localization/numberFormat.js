@@ -1,4 +1,5 @@
 const { expect } = require('chai')
+const { InvalidArgument } = require('@vapaaradikaali/errors')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization numberFormat', () => {
@@ -37,7 +38,7 @@ describe('lib/Localization numberFormat', () => {
   })
 
   it('should throw an error if mixing a configuration object with other parameters', () => {
-    expect(() => l10n.numberFormat(10, { precision: 10 }, 'fi')).to.throw()
+    expect(() => l10n.numberFormat(10, { precision: 10 }, 'fi')).to.throw(InvalidArgument)
   })
 
   it('should use the given decimal separator', () => {
@@ -97,6 +98,6 @@ describe('lib/Localization numberFormat', () => {
   it('should return null when given null or undefined', () => {
     expect(l10n.numberFormat(null)).to.equal(null)
     expect(l10n.numberFormat(undefined)).to.equal(null)
-    expect(() => l10n.numberFormat('foo')).to.throw()
+    expect(() => l10n.numberFormat('foo')).to.throw(InvalidArgument)
   })
 })
