@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const getPath = require('../lib/getPath')
 
 describe('lib/config:getPath', () => {
@@ -16,7 +16,7 @@ describe('lib/config:getPath', () => {
   })
 
   it('should throw an error when using invalid key', (done) => {
-    expect(getPath).withArgs([['deep-path']]).to.throwError()
+    expect(() => getPath([['deep-path']])).to.throw()
     done()
   })
 })

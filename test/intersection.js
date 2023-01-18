@@ -1,18 +1,18 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const intersection = require('../lib/intersection')
 
 describe('lib/intersection', () => {
   it('should require at least two input arrays', (done) => {
-    expect(intersection).withArgs([]).to.throwError()
-    expect(intersection).withArgs([], []).not.to.throwError()
+    expect(() => intersection([])).to.throw()
+    expect(() => intersection([], []).not.to.throw())
     done()
   })
 
   it('should accept only array inputs', (done) => {
-    expect(intersection).withArgs([], []).not.to.throwError()
-    expect(intersection).withArgs([], 'foo').to.throwError()
-    expect(intersection).withArgs([], 1).to.throwError()
-    expect(intersection).withArgs([], {}).to.throwError()
+    expect(() => intersection([], []).not.to.throw())
+    expect(() => intersection([], 'foo')).to.throw()
+    expect(() => intersection([], 1)).to.throw()
+    expect(() => intersection([], {})).to.throw()
     done()
   })
 

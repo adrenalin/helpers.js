@@ -1,17 +1,17 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization unregisterLocales', () => {
   it('should have alias in the instance for the static unregisterLocales method', (done) => {
     const l10n = new Localization()
-    expect(l10n.unregisterLocales).to.be(Localization.unregisterLocales)
+    expect(l10n.unregisterLocales).to.equal(Localization.unregisterLocales)
     done()
   })
 
   it('should have unregisterLocale alias unregisterLocales method', (done) => {
     const l10n = new Localization()
-    expect(l10n.unregisterLocale).to.be(Localization.unregisterLocales)
-    expect(Localization.unregisterLocale).to.be(Localization.unregisterLocales)
+    expect(l10n.unregisterLocale).to.equal(Localization.unregisterLocales)
+    expect(Localization.unregisterLocale).to.equal(Localization.unregisterLocales)
     done()
   })
 
@@ -26,10 +26,10 @@ describe('lib/Localization unregisterLocales', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
 
-    expect(l10n.getInLang('en', 'unregisterAsString')).to.be(locales.unregisterAsString.en)
+    expect(l10n.getInLang('en', 'unregisterAsString')).to.equal(locales.unregisterAsString.en)
 
     l10n.unregisterLocales('unregisterAsString')
-    expect(l10n.getInLang('en', 'unregisterAsString')).to.be('unregisterAsString')
+    expect(l10n.getInLang('en', 'unregisterAsString')).to.equal('unregisterAsString')
 
     done()
   })
@@ -49,12 +49,12 @@ describe('lib/Localization unregisterLocales', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
 
-    expect(l10n.getInLang('en', 'unregisterAsArray1')).to.be(locales.unregisterAsArray1.en)
-    expect(l10n.getInLang('en', 'unregisterAsArray2')).to.be(locales.unregisterAsArray2.en)
+    expect(l10n.getInLang('en', 'unregisterAsArray1')).to.equal(locales.unregisterAsArray1.en)
+    expect(l10n.getInLang('en', 'unregisterAsArray2')).to.equal(locales.unregisterAsArray2.en)
 
     l10n.unregisterLocales(['unregisterAsArray1', 'unregisterAsArray2'])
-    expect(l10n.getInLang('en', 'unregisterAsArray1')).to.be('unregisterAsArray1')
-    expect(l10n.getInLang('en', 'unregisterAsArray2')).to.be('unregisterAsArray2')
+    expect(l10n.getInLang('en', 'unregisterAsArray1')).to.equal('unregisterAsArray1')
+    expect(l10n.getInLang('en', 'unregisterAsArray2')).to.equal('unregisterAsArray2')
 
     done()
   })
@@ -70,15 +70,15 @@ describe('lib/Localization unregisterLocales', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
 
-    expect(l10n.getInLang('en', 'unregisterAsObject')).to.be(locales.unregisterAsObject.en)
-    expect(l10n.getInLang('fi', 'unregisterAsObject')).to.be(locales.unregisterAsObject.fi)
+    expect(l10n.getInLang('en', 'unregisterAsObject')).to.equal(locales.unregisterAsObject.en)
+    expect(l10n.getInLang('fi', 'unregisterAsObject')).to.equal(locales.unregisterAsObject.fi)
 
     l10n.unregisterLocales({ unregisterAsObject: 'fi' })
-    expect(l10n.getInLang('en', 'unregisterAsObject')).not.to.be('unregisterAsObject')
-    expect(l10n.getInLang('fi', 'unregisterAsObject')).to.be('unregisterAsObject')
+    expect(l10n.getInLang('en', 'unregisterAsObject')).not.to.equal('unregisterAsObject')
+    expect(l10n.getInLang('fi', 'unregisterAsObject')).to.equal('unregisterAsObject')
 
     l10n.unregisterLocales({ unregisterAsObject: 'en' })
-    expect(l10n.getInLang('en', 'unregisterAsObject')).to.be('unregisterAsObject')
+    expect(l10n.getInLang('en', 'unregisterAsObject')).to.equal('unregisterAsObject')
 
     done()
   })
@@ -94,12 +94,12 @@ describe('lib/Localization unregisterLocales', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
 
-    expect(l10n.getInLang('en', 'unregisterAsObjectWithArrays')).to.be(locales.unregisterAsObjectWithArrays.en)
-    expect(l10n.getInLang('fi', 'unregisterAsObjectWithArrays')).to.be(locales.unregisterAsObjectWithArrays.fi)
+    expect(l10n.getInLang('en', 'unregisterAsObjectWithArrays')).to.equal(locales.unregisterAsObjectWithArrays.en)
+    expect(l10n.getInLang('fi', 'unregisterAsObjectWithArrays')).to.equal(locales.unregisterAsObjectWithArrays.fi)
 
     l10n.unregisterLocales({ unregisterAsObjectWithArrays: ['fi', 'en'] })
-    expect(l10n.getInLang('en', 'unregisterAsObjectWithArrays')).to.be('unregisterAsObjectWithArrays')
-    expect(l10n.getInLang('fi', 'unregisterAsObjectWithArrays')).to.be('unregisterAsObjectWithArrays')
+    expect(l10n.getInLang('en', 'unregisterAsObjectWithArrays')).to.equal('unregisterAsObjectWithArrays')
+    expect(l10n.getInLang('fi', 'unregisterAsObjectWithArrays')).to.equal('unregisterAsObjectWithArrays')
 
     done()
   })

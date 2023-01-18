@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const expandObject = require('../lib/expandObject')
 
 describe('lib/expandObject', () => {

@@ -1,10 +1,9 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const serializer = require('../lib/serializer')
 
 describe('lib/serializer', () => {
-  it('should return a promise', (done) => {
-    expect(serializer([])).to.be.a(Promise)
-    done()
+  it('should return a promise', () => {
+    expect(serializer([])).to.be.an.instanceof(Promise)
   })
 
   it('should resolve the promises in chain and return all the resolved values as an array', (done) => {

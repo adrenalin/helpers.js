@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization getLocales', () => {

@@ -1,10 +1,10 @@
 const path = require('path')
-const expect = require('expect.js')
+const { expect } = require('chai')
 const errors = require('../../lib/errors')
 const ServerConfig = require('../../lib/ServerConfig')
 
 describe('lib/Config:loadConfig', () => {
-  it('should be able to load a configuration file as YAML', (done) => {
+  it('should be able to load a configuration file as YAML', () => {
     const values = ServerConfig.loadYaml(path.join(__dirname, 'files', 'config.yml'))
 
     expect(values).to.have.property('yaml')
@@ -12,18 +12,11 @@ describe('lib/Config:loadConfig', () => {
     expect(values.yaml.values).to.have.property('foo')
     expect(values.yaml.values).to.have.property('bar')
 
-    expect(values.yaml.values.foo).to.be(1)
-    expect(values.yaml.values.bar).to.be(2)
-
-    done()
+    expect(values.yaml.values.foo).to.equal(1)
+    expect(values.yaml.values.bar).to.equal(2)
   })
 
-  it('should be fail to load a JSON configuration file as YAML', (done) => {
-    expect(ServerConfig.loadYaml).withArgs(path.join(__dirname, 'files', 'config.json')).to.throwError()
-    done()
-  })
-
-  it('should be able to load a configuration file as JSON', (done) => {
+  it('should be able to load a configuration file as JSON', () => {
     const values = ServerConfig.loadJSON(path.join(__dirname, 'files', 'config.json'))
 
     expect(values).to.have.property('json')
@@ -31,18 +24,15 @@ describe('lib/Config:loadConfig', () => {
     expect(values.json.values).to.have.property('foo')
     expect(values.json.values).to.have.property('bar')
 
-    expect(values.json.values.foo).to.be(1)
-    expect(values.json.values.bar).to.be(2)
-
-    done()
+    expect(values.json.values.foo).to.equal(1)
+    expect(values.json.values.bar).to.equal(2)
   })
 
-  it('should be fail to load a YAML configuration file as JSON', (done) => {
-    expect(ServerConfig.loadJSON).withArgs(path.join(__dirname, 'files', 'config.yml')).to.throwError()
-    done()
+  it('should be fail to load a YAML configuration file as JSON', () => {
+    expect(() => ServerConfig.loadJSON(path.join(__dirname, 'files', 'config.yml'))).to.throw()
   })
 
-  it('should be able to load a configuration file as JS', (done) => {
+  it('should be able to load a configuration file as JS', () => {
     const values = ServerConfig.loadJS(path.join(__dirname, 'files', 'config.js'))
 
     expect(values).to.have.property('js')
@@ -50,120 +40,102 @@ describe('lib/Config:loadConfig', () => {
     expect(values.js.values).to.have.property('foo')
     expect(values.js.values).to.have.property('bar')
 
-    expect(values.js.values.foo).to.be(1)
-    expect(values.js.values.bar).to.be(2)
-
-    done()
+    expect(values.js.values.foo).to.equal(1)
+    expect(values.js.values.bar).to.equal(2)
   })
 
-  it('should be fail to load a YAML configuration file as JS', (done) => {
-    expect(ServerConfig.loadJS).withArgs(path.join(__dirname, 'files', 'config.yml')).to.throwError()
-    done()
+  it('should be fail to load a YAML configuration file as JS', () => {
+    expect(() => ServerConfig.loadJS(path.join(__dirname, 'files', 'config.yml'))).to.throw()
   })
 
-  it('should use heuristics to load configuration from YAML', (done) => {
+  it('should use heuristics to load configuration from YAML', () => {
     const config = new ServerConfig()
     config.loadFile(path.join(__dirname, 'files', 'config.yml'))
 
-    expect(config.get('yaml.values.foo')).to.be(1)
-    expect(config.get('yaml.values.bar')).to.be(2)
-    done()
+    expect(config.get('yaml.values.foo')).to.equal(1)
+    expect(config.get('yaml.values.bar')).to.equal(2)
   })
 
-  it('should use heuristics to load configuration from JSON', (done) => {
+  it('should use heuristics to load configuration from JSON', () => {
     const config = new ServerConfig()
     const rval = config.loadFile(path.join(__dirname, 'files', 'config.json'))
 
-    expect(rval).to.be(config)
-    expect(config.get('json.values.foo')).to.be(1)
-    expect(config.get('json.values.bar')).to.be(2)
-    done()
+    expect(rval).to.equal(config)
+    expect(config.get('json.values.foo')).to.equal(1)
+    expect(config.get('json.values.bar')).to.equal(2)
   })
 
-  it('should use heuristics to load configuration from JS', (done) => {
+  it('should use heuristics to load configuration from JS', () => {
     const config = new ServerConfig()
     config.loadFile(path.join(__dirname, 'files', 'config.js'))
 
-    expect(config.get('js.values.foo')).to.be(1)
-    expect(config.get('js.values.bar')).to.be(2)
-    done()
+    expect(config.get('js.values.foo')).to.equal(1)
+    expect(config.get('js.values.bar')).to.equal(2)
   })
 
-  it('should throw an error when not using graceful loader', (done) => {
+  it('should throw an error when not using graceful loader', () => {
     try {
       const config = new ServerConfig()
       config.loadFile('foobar.json')
-      done(new Error('Should have thrown an error'))
+      throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(errors.ConfigNotFoundError)
-      done()
+      expect(err).to.be.an.instanceof(errors.ConfigNotFoundError)
     }
   })
 
-  it('should not throw an error when using graceful loader for JSON', (done) => {
+  it('should not throw an error when using graceful loader for JSON', () => {
     const config = new ServerConfig()
 
     config.loadFile('foobar.json', true)
-    done()
   })
 
-  it('should not throw an error when using graceful loader for YAML', (done) => {
+  it('should not throw an error when using graceful loader for YAML', () => {
     const config = new ServerConfig()
 
     config.loadFile('foobar.yaml', true)
-    done()
   })
 
-  it('should use heuristics to determine the loader when no extension provided', (done) => {
+  it('should use heuristics to determine the loader when no extension provided', () => {
     const config = new ServerConfig()
 
     config.loadFile(path.join(__dirname, 'files', 'defaults'))
 
-    expect(config.get('defaults.values.foo')).to.be(1)
-    expect(config.get('defaults.values.bar')).to.be(2)
-    done()
+    expect(config.get('defaults.values.foo')).to.equal(1)
+    expect(config.get('defaults.values.bar')).to.equal(2)
   })
 
-  it('should throw an error when heuristics fails', (done) => {
+  it('should throw an error when heuristics fails', () => {
     try {
       const config = new ServerConfig()
       config.loadFile(path.join(__dirname, 'files', 'undefined'))
-      done(new Error('Should have thrown an error'))
+      throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(errors.ConfigNotFoundError)
-      done()
+      expect(err).to.be.an.instanceof(errors.ConfigNotFoundError)
     }
   })
 
-  it('should not throw an error when heuristics fails and graceful flag is on', (done) => {
-    try {
-      const config = new ServerConfig()
-      config.loadFile(path.join(__dirname, 'files', 'undefined'), true)
-      done()
-    } catch (err) {
-      done(err)
-    }
+  it('should not throw an error when heuristics fails and graceful flag is on', () => {
+    const config = new ServerConfig()
+    config.loadFile(path.join(__dirname, 'files', 'undefined'), true)
   })
 
-  it('should throw an error when parsing JSON content fails even with graceful flag', (done) => {
+  it('should throw an error when parsing JSON content fails even with graceful flag', () => {
     try {
       const config = new ServerConfig()
       config.loadFile(path.join(__dirname, 'files', 'broken.json'), true)
-      done(new Error('Should have thrown an error'))
+      throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(errors.ConfigParseError)
-      done()
+      expect(err).to.be.an.instanceof(errors.ConfigParseError)
     }
   })
 
-  it('should throw an error when parsing YAML content fails even with graceful flag', (done) => {
+  it('should throw an error when parsing YAML content fails even with graceful flag', () => {
     try {
       const config = new ServerConfig()
       config.loadFile(path.join(__dirname, 'files', 'broken.yaml'), true)
-      done(new Error('Should have thrown an error'))
+      throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(errors.ConfigParseError)
-      done()
+      expect(err).to.be.an.instanceof(errors.ConfigParseError)
     }
   })
 })

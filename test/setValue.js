@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const setValue = require('../lib/setValue')
 
 describe('lib/setValue', () => {
@@ -6,8 +6,8 @@ describe('lib/setValue', () => {
     const target = {}
     const value = setValue(target, 'foo', 'bar')
 
-    expect(target.foo).to.be('bar')
-    expect(value).to.be(target)
+    expect(target.foo).to.equal('bar')
+    expect(value).to.equal(target)
     done()
   })
 
@@ -15,8 +15,8 @@ describe('lib/setValue', () => {
     const target = {}
     const value = setValue(target, 'foo.bar', 'bar')
 
-    expect(target.foo.bar).to.be('bar')
-    expect(value).to.be(target)
+    expect(target.foo.bar).to.equal('bar')
+    expect(value).to.equal(target)
     done()
   })
 
@@ -28,8 +28,8 @@ describe('lib/setValue', () => {
     }
     const value = setValue(target, 'foo.bar', 'bar')
 
-    expect(target.foo.bar).to.be('bar')
-    expect(value).to.be(target)
+    expect(target.foo.bar).to.equal('bar')
+    expect(value).to.equal(target)
     done()
   })
 })

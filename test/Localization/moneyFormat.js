@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization moneyFormat', () => {
@@ -6,8 +6,8 @@ describe('lib/Localization moneyFormat', () => {
     const l10n = new Localization()
     l10n.unregisterLocales('moneyFormat')
 
-    expect(l10n.moneyFormat(10, true)).to.be('10.00 e')
-    expect(l10n.moneyFormat(10, false)).to.be('10 e')
+    expect(l10n.moneyFormat(10, true)).to.equal('10.00 e')
+    expect(l10n.moneyFormat(10, false)).to.equal('10 e')
     done()
   })
 
@@ -25,10 +25,10 @@ describe('lib/Localization moneyFormat', () => {
     })
 
     l10n.setLang('en')
-    expect(l10n.moneyFormat(10)).to.be('$10x00')
+    expect(l10n.moneyFormat(10)).to.equal('$10x00')
 
     l10n.setLang('fi')
-    expect(l10n.moneyFormat(10)).to.be('€10X00')
+    expect(l10n.moneyFormat(10)).to.equal('€10X00')
 
     l10n.unregisterLocales('moneyFormat')
     l10n.unregisterLocales('decimalSeparator')

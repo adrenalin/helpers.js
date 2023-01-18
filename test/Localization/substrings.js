@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization substrings', () => {
@@ -127,7 +127,7 @@ describe('lib/Localization substrings', () => {
       l10n.getInLang('fi', 'invalidFormatter', 'foobar')
       throw new Error('Should have thrown an InvalidFormatter')
     } catch (err) {
-      expect(err).to.be.a(Localization.errors.INVALID_FORMATTER)
+      expect(err).to.be.an.instanceof(Localization.errors.INVALID_FORMATTER)
       done()
     }
   })

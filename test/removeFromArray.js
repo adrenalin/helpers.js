@@ -1,20 +1,20 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const removeFromArray = require('../lib/removeFromArray')
 
 describe('lib/removeFromArray', () => {
   it('should reject other first arguments than an array', (done) => {
-    expect(removeFromArray).withArgs(1).to.throwError()
-    expect(removeFromArray).withArgs('1').to.throwError()
-    expect(removeFromArray).withArgs({}).to.throwError()
-    expect(removeFromArray).withArgs(null).to.throwError()
-    expect(removeFromArray).withArgs([]).not.to.throwError()
+    expect(() => removeFromArray(1)).to.throw()
+    expect(() => removeFromArray('1')).to.throw()
+    expect(() => removeFromArray({})).to.throw()
+    expect(() => removeFromArray(null)).to.throw()
+    expect(() => removeFromArray([]).not.to.throw())
     done()
   })
 
   it('should not return the original array', (done) => {
     const source = []
     const result = removeFromArray(source)
-    expect(source).not.to.be(result)
+    expect(source).not.to.equal(result)
     done()
   })
 

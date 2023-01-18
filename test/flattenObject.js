@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const flattenObject = require('../lib/flattenObject')
 
 describe('lib/flattenObject', () => {

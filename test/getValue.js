@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const getValue = require('../lib/getValue')
 
 describe('lib/getValue', () => {
@@ -69,8 +69,8 @@ describe('lib/getValue', () => {
       arr: targetArray
     }
 
-    expect(getValue(source, 'foo')).to.be(source.foo)
-    expect(getValue(source, 'arr')).to.be(targetArray)
+    expect(getValue(source, 'foo')).to.equal(source.foo)
+    expect(getValue(source, 'arr')).to.equal(targetArray)
     done()
   })
 
@@ -93,7 +93,7 @@ describe('lib/getValue', () => {
       'target1.match'
     ]
 
-    expect(getValue(source, paths)).to.be(true)
+    expect(getValue(source, paths)).to.equal(true)
     done()
   })
 
@@ -115,7 +115,7 @@ describe('lib/getValue', () => {
       'target2.null'
     ]
 
-    expect(getValue(source, paths, source.target1)).to.be(source.target1)
+    expect(getValue(source, paths, source.target1)).to.equal(source.target1)
     done()
   })
 })

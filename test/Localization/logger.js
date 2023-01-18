@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization logger', () => {
@@ -8,15 +8,15 @@ describe('lib/Localization logger', () => {
     }
 
     expect(Localization.registerLogger).to.be.a('function')
-    expect(Localization.registerLogger).withArgs(null).to.throwError()
-    expect(Localization.registerLogger).withArgs(callback).not.to.throwError()
+    expect(() => Localization.registerLogger(null)).to.throw()
+    expect(() => Localization.registerLogger(callback).not.to.throw())
     done()
   })
 
   it('should have an instance method to register a logger', (done) => {
     const l10n = new Localization()
     expect(l10n.registerLogger).to.be.a('function')
-    expect(l10n.registerLogger(() => {})).to.be(l10n)
+    expect(l10n.registerLogger(() => {})).to.equal(l10n)
     done()
   })
 
@@ -35,8 +35,8 @@ describe('lib/Localization logger', () => {
     const rval = l10n.logger('warn', loggerTest)
     l10n.logger('error', loggerTest)
 
-    expect(match).to.be(1)
-    expect(rval).to.be(l10n)
+    expect(match).to.equal(1)
+    expect(rval).to.equal(l10n)
     done()
   })
 
@@ -55,7 +55,7 @@ describe('lib/Localization logger', () => {
     l10n.get(missingLocale)
     l10n.get(missingLocale)
 
-    expect(match).to.be(1)
+    expect(match).to.equal(1)
     done()
   })
 
@@ -73,7 +73,7 @@ describe('lib/Localization logger', () => {
     l10n.registerLogger(callback)
     l10n.get({ locale: missingLocale, isVariable: true })
     l10n.get({ variable: missingLocale })
-    expect(match).to.be(0)
+    expect(match).to.equal(0)
     done()
   })
 })

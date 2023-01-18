@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const parseQueryString = require('../lib/parseQueryString')
 
 describe('lib/parseQueryString', () => {

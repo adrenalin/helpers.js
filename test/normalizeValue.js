@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const normalizeValue = require('../lib/normalizeValue')
 
 describe('lib/normalizeValue', () => {
@@ -8,39 +8,39 @@ describe('lib/normalizeValue', () => {
   })
 
   it('should raise an exception when the first argument is not numeric', (done) => {
-    expect(normalizeValue).withArgs().to.throwException()
-    expect(normalizeValue).withArgs({}).to.throwException()
-    expect(normalizeValue).withArgs('abcd').to.throwException()
-    expect(normalizeValue).withArgs(123).not.to.throwException()
-    expect(normalizeValue).withArgs('123').not.to.throwException()
+    expect(() => normalizeValue().to.throwException())
+    expect(() => normalizeValue({}).to.throwException())
+    expect(() => normalizeValue('abcd').to.throwException())
+    expect(() => normalizeValue(123).not.to.throwException())
+    expect(() => normalizeValue('123').not.to.throwException())
     done()
   })
 
   it('should accept an array of numbers for the first argument', (done) => {
-    expect(normalizeValue).withArgs([]).not.to.throwException()
-    expect(normalizeValue).withArgs([123]).not.to.throwException()
-    expect(normalizeValue).withArgs(['123']).not.to.throwException()
-    expect(normalizeValue).withArgs(['abcd']).to.throwException()
+    expect(() => normalizeValue([]).not.to.throwException())
+    expect(() => normalizeValue([123]).not.to.throwException())
+    expect(() => normalizeValue(['123']).not.to.throwException())
+    expect(() => normalizeValue(['abcd']).to.throwException())
     done()
   })
 
   it('should raise an exception when the second argument is not numeric', (done) => {
-    expect(normalizeValue).withArgs(1, {}).to.throwException()
-    expect(normalizeValue).withArgs(1, 'abcd').to.throwException()
+    expect(() => normalizeValue(1, {}).to.throwException())
+    expect(() => normalizeValue(1, 'abcd').to.throwException())
 
-    expect(normalizeValue).withArgs(1).not.to.throwException()
-    expect(normalizeValue).withArgs(123, 123).not.to.throwException()
-    expect(normalizeValue).withArgs('123', '123').not.to.throwException()
+    expect(() => normalizeValue(1).not.to.throwException())
+    expect(() => normalizeValue(123, 123).not.to.throwException())
+    expect(() => normalizeValue('123', '123').not.to.throwException())
     done()
   })
 
   it('should raise an exception when the third argument is not numeric', (done) => {
-    expect(normalizeValue).withArgs(1, null, {}).to.throwException()
-    expect(normalizeValue).withArgs(1, null, 'abcd').to.throwException()
+    expect(() => normalizeValue(1, null, {}).to.throwException())
+    expect(() => normalizeValue(1, null, 'abcd').to.throwException())
 
-    expect(normalizeValue).withArgs(1, null).not.to.throwException()
-    expect(normalizeValue).withArgs(123, null, 1).not.to.throwException()
-    expect(normalizeValue).withArgs('123', null, '123').not.to.throwException()
+    expect(() => normalizeValue(1, null).not.to.throwException())
+    expect(() => normalizeValue(123, null, 1).not.to.throwException())
+    expect(() => normalizeValue('123', null, '123').not.to.throwException())
     done()
   })
 

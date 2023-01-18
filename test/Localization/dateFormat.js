@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization dateFormat', () => {
@@ -6,7 +6,7 @@ describe('lib/Localization dateFormat', () => {
     const l10n = new Localization()
     l10n.unregisterLocales('dateFormat')
 
-    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.be('2021-11-19')
+    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.equal('2021-11-19')
     done()
   })
 
@@ -20,10 +20,10 @@ describe('lib/Localization dateFormat', () => {
     })
 
     l10n.setLang('en')
-    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.be('11/19/2021')
+    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.equal('11/19/2021')
 
     l10n.setLang('fi')
-    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.be('19-11-2021')
+    expect(l10n.dateFormat('2021-11-19T12:00:00')).to.equal('19-11-2021')
 
     l10n.unregisterLocales('dateFormat')
     done()
@@ -35,7 +35,7 @@ describe('lib/Localization dateFormat', () => {
       l10n.dateFormat('abcdef')
       throw new Error('Should have thrown an InvalidTimestamp')
     } catch (err) {
-      expect(err).to.be.a(Localization.errors.INVALID_TIMESTAMP)
+      expect(err).to.be.an.instanceof(Localization.errors.INVALID_TIMESTAMP)
       done()
     }
   })

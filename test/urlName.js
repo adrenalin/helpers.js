@@ -1,12 +1,12 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const urlName = require('../lib/urlName')
 
 describe('lib/urlName', () => {
   it('should accept only a string', (done) => {
-    expect(urlName).withArgs('foo').not.to.throwError()
-    expect(urlName).withArgs(1).to.throwError()
-    expect(urlName).withArgs(new Date()).to.throwError()
-    expect(urlName).withArgs({ foo: 'bar' }).to.throwError()
+    expect(() => urlName('foo').not.to.throw())
+    expect(() => urlName(1)).to.throw()
+    expect(() => urlName(new Date())).to.throw()
+    expect(() => urlName({ foo: 'bar' })).to.throw()
     done()
   })
 

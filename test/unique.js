@@ -1,12 +1,12 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const unique = require('../lib/unique')
 
 describe('lib/unique', () => {
   it('should accept only an array', (done) => {
-    expect(unique).withArgs('foo').to.throwError()
-    expect(unique).withArgs(1).to.throwError()
-    expect(unique).withArgs(new Date()).to.throwError()
-    expect(unique).withArgs({ foo: 'bar' }).to.throwError()
+    expect(() => unique('foo')).to.throw()
+    expect(() => unique(1)).to.throw()
+    expect(() => unique(new Date())).to.throw()
+    expect(() => unique({ foo: 'bar' })).to.throw()
     done()
   })
 
@@ -31,7 +31,7 @@ describe('lib/unique', () => {
 
     const res = unique(input)
 
-    expect(res.length).to.be(3)
+    expect(res.length).to.equal(3)
     expect(res).to.eql(['foo', 'bar', obj])
     done()
   })
@@ -54,7 +54,7 @@ describe('lib/unique', () => {
 
     const res = unique(input)
 
-    expect(res.length).to.be(3)
+    expect(res.length).to.equal(3)
     expect(res).to.eql(['foo', 'bar', obj])
     done()
   })
@@ -77,7 +77,7 @@ describe('lib/unique', () => {
 
     const res = unique(input, true)
 
-    expect(res.length).to.be(4)
+    expect(res.length).to.equal(4)
     expect(res).to.eql(['foo', 'bar', obj1, obj2])
     done()
   })

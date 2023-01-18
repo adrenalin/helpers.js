@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Config = require('../../lib/Config')
 
 describe('lib/Config:toJSON', () => {

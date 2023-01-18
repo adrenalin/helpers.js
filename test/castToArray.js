@@ -1,10 +1,10 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const castToArray = require('../lib/castToArray')
 
 describe('lib/castToArray', () => {
   it('should keep an array as it is', (done) => {
     const input = ['foo', 'bar']
-    expect(castToArray(input)).to.be(input)
+    expect(castToArray(input)).to.equal(input)
     done()
   })
 

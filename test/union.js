@@ -1,10 +1,10 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const union = require('../lib/union')
 
 describe('lib/union', () => {
   it('should accept only arrays as arguments', (done) => {
-    expect(union).withArgs([1], 2).to.throwError()
-    expect(union).withArgs([1], [2]).not.to.throwError()
+    expect(() => union([1], 2)).to.throw()
+    expect(() => union([1], [2]).not.to.throw())
     done()
   })
 

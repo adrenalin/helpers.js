@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const merge = require('../lib/merge')
 
 describe('lib/merge', () => {
@@ -8,12 +8,12 @@ describe('lib/merge', () => {
   })
 
   it('should raise an exception with less than two arguments', (done) => {
-    expect(merge).withArgs({}).to.throwException()
+    expect(() => merge({}).to.throwException())
     done()
   })
 
   it('should raise an exception with non-object arguments', (done) => {
-    expect(merge).withArgs('foo', 'bar').to.throwException()
+    expect(() => merge('foo', 'bar').to.throwException())
     done()
   })
 
@@ -31,9 +31,9 @@ describe('lib/merge', () => {
     }
 
     const merged = merge(o1, o2, o3)
-    expect(merged.key1).to.be(o1.key1)
-    expect(merged.key2).to.be(o2.key2)
-    expect(merged.key3).to.be(o3.key3)
+    expect(merged.key1).to.equal(o1.key1)
+    expect(merged.key2).to.equal(o2.key2)
+    expect(merged.key3).to.equal(o3.key3)
     done()
   })
 
@@ -56,7 +56,7 @@ describe('lib/merge', () => {
     }
 
     const merged = merge(o1, o2)
-    expect(merged.key1).to.be(o1.key1)
+    expect(merged.key1).to.equal(o1.key1)
     expect(merged.key2).to.eql({ subkey1: o1.key2.subkey1, subkey2: o2.key2.subkey2 })
     expect(merged.key3).to.eql(o2.key3)
 
@@ -76,14 +76,14 @@ describe('lib/merge', () => {
     }
 
     const merged = merge(o1, o2)
-    expect(merged.key1).to.be(o1.key1)
+    expect(merged.key1).to.equal(o1.key1)
     expect(merged.key2).to.eql({ subkey2: o2.key2.subkey2 })
 
     done()
   })
 
   it('should throw an exception when trying to merge objects and arrays', (done) => {
-    expect(merge).withArgs([], {}).to.throwException()
+    expect(() => merge([], {}).to.throwException())
     done()
   })
 
@@ -130,7 +130,7 @@ describe('lib/merge', () => {
     ]
 
     const merged = merge(a1, a2, a3)
-    expect(merged.length).to.be(4)
+    expect(merged.length).to.equal(4)
     expect(merged).to.contain('value1')
     expect(merged).to.contain('value2')
     expect(merged).to.contain('value3')

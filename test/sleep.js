@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const sleep = require('../lib/sleep')
 
 describe('lib/sleep', () => {
@@ -8,7 +8,7 @@ describe('lib/sleep', () => {
 
     sleep(duration)
       .then(() => {
-        expect(start + duration <= Date.now()).to.be(true)
+        expect(start + duration <= Date.now()).to.equal(true)
         done()
       })
       .catch(done)

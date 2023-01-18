@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization getInLang', () => {
@@ -12,9 +12,9 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     const rval = l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', 'foo')).to.be(locales.foo.en)
-    expect(l10n.getInLang('fi', 'foo')).to.be(locales.foo.fi)
-    expect(rval).to.be(l10n)
+    expect(l10n.getInLang('en', 'foo')).to.equal(locales.foo.en)
+    expect(l10n.getInLang('fi', 'foo')).to.equal(locales.foo.fi)
+    expect(rval).to.equal(l10n)
     done()
   })
 
@@ -22,7 +22,7 @@ describe('lib/Localization getInLang', () => {
     const lang = 'fi'
     const l10n = new Localization()
     l10n.setFallbackLang(lang)
-    expect(l10n.getFallbackLang()).to.be(lang)
+    expect(l10n.getFallbackLang()).to.equal(lang)
     done()
   })
 
@@ -30,16 +30,16 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     const locale = 'locale-not-found'
 
-    expect(l10n.getInLang('fi', locale)).to.be(locale)
+    expect(l10n.getInLang('fi', locale)).to.equal(locale)
     done()
   })
 
   it('should return empty string if there was no locale provided', (done) => {
     const l10n = new Localization()
 
-    expect(l10n.getInLang('fi', null)).to.be('')
-    expect(l10n.getInLang('fi', undefined)).to.be('')
-    expect(l10n.getInLang('fi', 'undefined', null)).to.be('undefined')
+    expect(l10n.getInLang('fi', null)).to.equal('')
+    expect(l10n.getInLang('fi', undefined)).to.equal('')
+    expect(l10n.getInLang('fi', 'undefined', null)).to.equal('undefined')
     done()
   })
 
@@ -52,7 +52,7 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', 'parameterSequential', '1')).to.be('Parameter sequential 1')
+    expect(l10n.getInLang('en', 'parameterSequential', '1')).to.equal('Parameter sequential 1')
     done()
   })
 
@@ -65,7 +65,7 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', 'parameterNonSequential', '1', '2')).to.be('Parameter non-sequential 2 1')
+    expect(l10n.getInLang('en', 'parameterNonSequential', '1', '2')).to.equal('Parameter non-sequential 2 1')
     done()
   })
 
@@ -79,7 +79,7 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', { locale: 'foo' })).to.be(locales.foo.en)
+    expect(l10n.getInLang('en', { locale: 'foo' })).to.equal(locales.foo.en)
     done()
   })
 
@@ -87,7 +87,7 @@ describe('lib/Localization getInLang', () => {
     const defaultValue = 'default-value'
     const l10n = new Localization()
 
-    expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.be(defaultValue)
+    expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.equal(defaultValue)
     done()
   })
 
@@ -121,7 +121,7 @@ describe('lib/Localization getInLang', () => {
     l10n.registerLocales(locales)
 
     expect(l10n.getInLang('en', 'caseTestString', ...params))
-      .to.be('Lorem ipsum DOLOR Sit. Amet.')
+      .to.equal('Lorem ipsum DOLOR Sit. Amet.')
 
     done()
   })
@@ -180,7 +180,7 @@ describe('lib/Localization getInLang', () => {
     const defaultValue = 'default-value'
     const l10n = new Localization()
 
-    expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.be(defaultValue)
+    expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.equal(defaultValue)
     done()
   })
 
@@ -196,7 +196,7 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', 'aliasTest')).to.be(locales.aliasValue.en)
+    expect(l10n.getInLang('en', 'aliasTest')).to.equal(locales.aliasValue.en)
 
     done()
   })
@@ -223,10 +223,10 @@ describe('lib/Localization getInLang', () => {
       default: 'quantifiedTestDefault'
     }
 
-    expect(l10n.getInLang('en', { amount: 1, quantifiers })).to.be(locales.quantifiedTestFor1.en)
-    expect(l10n.getInLang('en', { amount: 2, quantifiers })).to.be('Quantified value for 2')
-    expect(l10n.getInLang('en', { amount: 3, quantifiers })).to.be(locales.quantifiedTestDefault.en)
-    expect(l10n.getInLang('en', { amount: null, quantifiers })).to.be(locales.quantifiedTestDefault.en)
+    expect(l10n.getInLang('en', { amount: 1, quantifiers })).to.equal(locales.quantifiedTestFor1.en)
+    expect(l10n.getInLang('en', { amount: 2, quantifiers })).to.equal('Quantified value for 2')
+    expect(l10n.getInLang('en', { amount: 3, quantifiers })).to.equal(locales.quantifiedTestDefault.en)
+    expect(l10n.getInLang('en', { amount: null, quantifiers })).to.equal(locales.quantifiedTestDefault.en)
     done()
   })
 
@@ -240,15 +240,15 @@ describe('lib/Localization getInLang', () => {
 
     const locale = 'quantifierDefaultValue'
 
-    expect(l10n.getInLang('en', { key: locale, amount: 3, quantifiers })).to.be(locale)
-    expect(l10n.getInLang('en', { key: locale, amount: null, quantifiers })).to.be(locale)
+    expect(l10n.getInLang('en', { key: locale, amount: 3, quantifiers })).to.equal(locale)
+    expect(l10n.getInLang('en', { key: locale, amount: null, quantifiers })).to.equal(locale)
     done()
   })
 
   it('should accept and convert numbers to strings', (done) => {
     const l10n = new Localization()
-    expect(l10n.getInLang('en', 1)).to.be('1')
-    expect(l10n.getInLang('en', Math.PI)).to.be(Math.PI.toString())
+    expect(l10n.getInLang('en', 1)).to.equal('1')
+    expect(l10n.getInLang('en', Math.PI)).to.equal(Math.PI.toString())
     done()
   })
 
@@ -264,10 +264,10 @@ describe('lib/Localization getInLang', () => {
     l10n.registerLocales(locales)
 
     l10n.setLang('en')
-    expect(l10n.get('getTest')).to.be(locales.getTest.en)
+    expect(l10n.get('getTest')).to.equal(locales.getTest.en)
 
     l10n.setLang('fi')
-    expect(l10n.get('getTest')).to.be(locales.getTest.fi)
+    expect(l10n.get('getTest')).to.equal(locales.getTest.fi)
 
     done()
   })
@@ -285,9 +285,9 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
 
-    expect(l10n.getByCount('getByCount1', 'getByCountN', 0)).to.be('Get by count: 0')
-    expect(l10n.getByCount('getByCount1', 'getByCountN', 1)).to.be(locales.getByCount1.en)
-    expect(l10n.getByCount('getByCount1', 'getByCountN', 2)).to.be('Get by count: 2')
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 0)).to.equal('Get by count: 0')
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 1)).to.equal(locales.getByCount1.en)
+    expect(l10n.getByCount('getByCount1', 'getByCountN', 2)).to.equal('Get by count: 2')
 
     done()
   })
@@ -302,23 +302,23 @@ describe('lib/Localization getInLang', () => {
 
     const l10n = new Localization()
     const rval = l10n.registerLocales(locales)
-    expect(l10n.getInLang('en', { locale: 'overrideLang', lang: 'fi' })).to.be(locales.overrideLang.fi)
-    expect(l10n.getInLang('fi', { locale: 'overrideLang', lang: 'en' })).to.be(locales.overrideLang.en)
-    expect(rval).to.be(l10n)
+    expect(l10n.getInLang('en', { locale: 'overrideLang', lang: 'fi' })).to.equal(locales.overrideLang.fi)
+    expect(l10n.getInLang('fi', { locale: 'overrideLang', lang: 'en' })).to.equal(locales.overrideLang.en)
+    expect(rval).to.equal(l10n)
     done()
   })
 
   it('should return empty string for an empty input', (done) => {
     const l10n = new Localization()
-    expect(l10n.getInLang('fi', '')).to.be('')
-    expect(l10n.getInLang('fi', null)).to.be('')
-    expect(l10n.getInLang('fi', undefined)).to.be('')
-    expect(l10n.getInLang('fi', { variable: '' })).to.be('')
-    expect(l10n.getInLang('fi', { variable: null })).to.be('')
-    expect(l10n.getInLang('fi', { variable: undefined })).to.be('')
-    expect(l10n.getInLang('fi', 'emptyString', { variable: '' })).to.be('emptyString')
-    expect(l10n.getInLang('fi', 'emptyString', { variable: null })).to.be('emptyString')
-    expect(l10n.getInLang('fi', 'emptyString', { variable: undefined })).to.be('emptyString')
+    expect(l10n.getInLang('fi', '')).to.equal('')
+    expect(l10n.getInLang('fi', null)).to.equal('')
+    expect(l10n.getInLang('fi', undefined)).to.equal('')
+    expect(l10n.getInLang('fi', { variable: '' })).to.equal('')
+    expect(l10n.getInLang('fi', { variable: null })).to.equal('')
+    expect(l10n.getInLang('fi', { variable: undefined })).to.equal('')
+    expect(l10n.getInLang('fi', 'emptyString', { variable: '' })).to.equal('emptyString')
+    expect(l10n.getInLang('fi', 'emptyString', { variable: null })).to.equal('emptyString')
+    expect(l10n.getInLang('fi', 'emptyString', { variable: undefined })).to.equal('emptyString')
     done()
   })
 })

@@ -1,4 +1,4 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const Config = require('../../lib/Config')
 
 describe('lib/Config:jsonschema', () => {
@@ -21,9 +21,9 @@ describe('lib/Config:jsonschema', () => {
 
   it('should reject any invalid JSON schema as an argument', (done) => {
     const config = new Config()
-    expect(config.setSchema).withArgs('foo').to.throwError()
-    expect(config.setSchema).withArgs(['foo']).to.throwError()
-    expect(config.setSchema).withArgs(['']).to.throwError()
+    expect(() => config.setSchema('foo')).to.throw()
+    expect(() => config.setSchema(['foo'])).to.throw()
+    expect(() => config.setSchema([''])).to.throw()
     done()
   })
 
@@ -41,7 +41,7 @@ describe('lib/Config:jsonschema', () => {
       config.setSchema(testSchema)
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       done()
     }
   })
@@ -63,7 +63,7 @@ describe('lib/Config:jsonschema', () => {
       config.set('string', [new Date()])
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       done()
     }
   })
@@ -74,7 +74,7 @@ describe('lib/Config:jsonschema', () => {
       config.validate()
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ConfigError)
+      expect(err).to.be.an.instanceof(Config.errors.ConfigError)
       done()
     }
   })
@@ -89,7 +89,7 @@ describe('lib/Config:jsonschema', () => {
       config.set('string', [new Date()])
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       expect(config.get('string')).to.eql(originalValue)
       done()
     }
@@ -98,7 +98,7 @@ describe('lib/Config:jsonschema', () => {
   it('should get a singleton instance of validator', (done) => {
     const config = new Config()
     const validator = config.getValidator()
-    expect(validator).to.be(config.getValidator())
+    expect(validator).to.equal(config.getValidator())
     done()
   })
 
@@ -134,7 +134,7 @@ describe('lib/Config:jsonschema', () => {
       expect(config.schema).to.eql(testSchema)
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       done()
     }
   })
@@ -168,7 +168,7 @@ describe('lib/Config:jsonschema', () => {
       config.set('referred.referredNumber', 'foobar')
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       done()
     }
   })
@@ -259,7 +259,7 @@ describe('lib/Config:jsonschema', () => {
       config.set('referred.deepReferred.deepReferredNumber', 'foobar')
       throw new Error('Should have thrown an error')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
       done()
     }
   })
@@ -436,7 +436,7 @@ describe('lib/Config:jsonschema', () => {
       config.set('referencing', 1)
       throw new Error('Should have thrown a ValidationError')
     } catch (err) {
-      expect(err).to.be.a(Config.errors.ValidationError)
+      expect(err).to.be.an.instanceof(Config.errors.ValidationError)
     }
 
     done()

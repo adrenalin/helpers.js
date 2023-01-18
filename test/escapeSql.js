@@ -1,53 +1,53 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const escapeSql = require('../lib/escapeSql')
 
 describe('lib/helpers/escapeSql', () => {
   it('should not escape lowercase', (done) => {
-    expect(escapeSql('foo')).to.be('foo')
+    expect(escapeSql('foo')).to.equal('foo')
     done()
   })
 
   it('should escape uppercase argument', (done) => {
-    expect(escapeSql('Foo')).to.be('"Foo"')
+    expect(escapeSql('Foo')).to.equal('"Foo"')
     done()
   })
 
   it('should allow defining quote', (done) => {
-    expect(escapeSql('Foo', '\'')).to.be('\'Foo\'')
+    expect(escapeSql('Foo', '\'')).to.equal('\'Foo\'')
     done()
   })
 
   it('should allow only single and double quote', (done) => {
-    expect(() => escapeSql('Foo', '*')).to.throwError()
+    expect(() => escapeSql('Foo', '*')).to.throw()
     done()
   })
 
   it('should force quote with force flag', (done) => {
-    expect(escapeSql('foo', '"', true)).to.be('"foo"')
-    expect(escapeSql('foo', true)).to.be('"foo"')
+    expect(escapeSql('foo', '"', true)).to.equal('"foo"')
+    expect(escapeSql('foo', true)).to.equal('"foo"')
     done()
   })
 
   it('should escape the double quote', (done) => {
-    expect(escapeSql('foo"bar', '"')).to.be('"foo""bar"')
+    expect(escapeSql('foo"bar', '"')).to.equal('"foo""bar"')
     done()
   })
 
   it('should escape the single quote', (done) => {
-    expect(escapeSql("foo'bar", "'")).to.be("'foo''bar'")
+    expect(escapeSql("foo'bar", "'")).to.equal("'foo''bar'")
     done()
   })
 
   it('should not escape numbers, true, false and null unless forced', (done) => {
-    expect(escapeSql(123)).to.be('123')
-    expect(escapeSql(true)).to.be('true')
-    expect(escapeSql(false)).to.be('false')
-    expect(escapeSql(null)).to.be('null')
+    expect(escapeSql(123)).to.equal('123')
+    expect(escapeSql(true)).to.equal('true')
+    expect(escapeSql(false)).to.equal('false')
+    expect(escapeSql(null)).to.equal('null')
 
-    expect(escapeSql(123, "'", true)).to.be("'123'")
-    expect(escapeSql(true, "'", true)).to.be("'true'")
-    expect(escapeSql(false, "'", true)).to.be("'false'")
-    expect(escapeSql(null, "'", true)).to.be("'null'")
+    expect(escapeSql(123, "'", true)).to.equal("'123'")
+    expect(escapeSql(true, "'", true)).to.equal("'true'")
+    expect(escapeSql(false, "'", true)).to.equal("'false'")
+    expect(escapeSql(null, "'", true)).to.equal("'null'")
     done()
   })
 

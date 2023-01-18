@@ -1,10 +1,10 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const BrowserEvents = require('../lib/BrowserEvents')
 
-describe('lib/buildUrl', () => {
+describe('lib/BrowserEvents', () => {
   it('should be a class', (done) => {
     const instance = new BrowserEvents()
-    expect(instance).to.be.a(BrowserEvents)
+    expect(instance).to.be.an.instanceof(BrowserEvents)
     done()
   })
 
@@ -61,7 +61,7 @@ describe('lib/buildUrl', () => {
     instance.off(eventName)
     instance.trigger(eventName)
 
-    expect(hits).to.be(0)
+    expect(hits).to.equal(0)
     done()
   })
 
@@ -91,7 +91,7 @@ describe('lib/buildUrl', () => {
     instance.off(eventName, listener)
     instance.trigger(eventName)
 
-    expect(hits).to.be(1)
+    expect(hits).to.equal(1)
     done()
   })
 })

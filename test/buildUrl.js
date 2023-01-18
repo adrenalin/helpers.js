@@ -1,38 +1,38 @@
-const expect = require('expect.js')
+const { expect } = require('chai')
 const buildUrl = require('../lib/buildUrl')
 
 describe('lib/buildUrl', () => {
   it('should throw an error without a protocol', (done) => {
-    expect(buildUrl).withArgs(null, 'localhost').to.throwError()
+    expect(() => buildUrl(null, 'localhost')).to.throw()
     done()
   })
 
   it('should throw an error without a host', (done) => {
-    expect(buildUrl).withArgs('ssl').to.throwError()
+    expect(() => buildUrl('ssl')).to.throw()
     done()
   })
 
   it('should return a URL for all arguments', (done) => {
     expect(buildUrl('http', 'localhost', 3001, 'tester', 'testing', '/resource', { foo: 'bar' }))
-      .to.be('http://tester:testing@localhost:3001/resource?foo=bar')
+      .to.equal('http://tester:testing@localhost:3001/resource?foo=bar')
     done()
   })
 
   it('should return a URL for all arguments but password', (done) => {
     expect(buildUrl('http', 'localhost', 3001, 'tester', null, '/resource'))
-      .to.be('http://tester@localhost:3001/resource')
+      .to.equal('http://tester@localhost:3001/resource')
     done()
   })
 
   it('should return a URL for all arguments but port', (done) => {
     expect(buildUrl('http', 'localhost', null, 'tester', 'testing', '/resource'))
-      .to.be('http://tester:testing@localhost/resource')
+      .to.equal('http://tester:testing@localhost/resource')
     done()
   })
 
   it('should return a URL for all arguments but location', (done) => {
     expect(buildUrl('http', 'localhost', 1234, 'tester', 'testing'))
-      .to.be('http://tester:testing@localhost:1234')
+      .to.equal('http://tester:testing@localhost:1234')
     done()
   })
 
@@ -42,7 +42,7 @@ describe('lib/buildUrl', () => {
       host: 'example.net',
       location: 'foobar'
     }
-    expect(buildUrl(options)).to.be('http://example.net/foobar')
+    expect(buildUrl(options)).to.equal('http://example.net/foobar')
     done()
   })
 
@@ -57,7 +57,7 @@ describe('lib/buildUrl', () => {
       }
     }
 
-    expect(buildUrl(options)).to.be('postgresql://postgres@localhost/test-db?use_ssl=true')
+    expect(buildUrl(options)).to.equal('postgresql://postgres@localhost/test-db?use_ssl=true')
     done()
   })
 
@@ -70,7 +70,7 @@ describe('lib/buildUrl', () => {
       location: 'test-db'
     }
 
-    expect(buildUrl(options)).to.be('postgresql://%23:%25%26%2F()@localhost/test-db')
+    expect(buildUrl(options)).to.equal('postgresql://%23:%25%26%2F()@localhost/test-db')
     done()
   })
 
@@ -82,7 +82,7 @@ describe('lib/buildUrl', () => {
       location: 'test'
     }
 
-    expect(buildUrl(options)).to.be('http://localhost/test')
+    expect(buildUrl(options)).to.equal('http://localhost/test')
     done()
   })
 
@@ -94,7 +94,7 @@ describe('lib/buildUrl', () => {
       location: 'test'
     }
 
-    expect(buildUrl(options)).to.be('https://localhost/test')
+    expect(buildUrl(options)).to.equal('https://localhost/test')
     done()
   })
 
@@ -106,25 +106,25 @@ describe('lib/buildUrl', () => {
       location: 'test'
     }
 
-    expect(buildUrl(options)).to.be('https://localhost/test')
+    expect(buildUrl(options)).to.equal('https://localhost/test')
     done()
   })
 
   it('should get the missing protocol, host, port, username and password from location', (done) => {
-    expect(buildUrl({ location: 'http://localhost/foo/bar' })).to.be('http://localhost/foo/bar')
-    expect(buildUrl({ password: 'bar', location: 'http://foo@localhost/foo/bar' })).to.be('http://foo:bar@localhost/foo/bar')
-    expect(buildUrl({ location: 'http://localhost:8080/foo/bar' })).to.be('http://localhost:8080/foo/bar')
-    expect(buildUrl({ location: 'http://example.net/foo/bar' })).to.be('http://example.net/foo/bar')
-    // expect(buildUrl({ port: 8080, location: 'http://localhost/foo/bar' })).to.be('http://localhost:8080/foo/bar')
+    expect(buildUrl({ location: 'http://localhost/foo/bar' })).to.equal('http://localhost/foo/bar')
+    expect(buildUrl({ password: 'bar', location: 'http://foo@localhost/foo/bar' })).to.equal('http://foo:bar@localhost/foo/bar')
+    expect(buildUrl({ location: 'http://localhost:8080/foo/bar' })).to.equal('http://localhost:8080/foo/bar')
+    expect(buildUrl({ location: 'http://example.net/foo/bar' })).to.equal('http://example.net/foo/bar')
+    // expect(buildUrl({ port: 8080, location: 'http://localhost/foo/bar' })).to.equal('http://localhost:8080/foo/bar')
 
     done()
   })
 
   it('should overwrite host, port, username and password from location when explicitly defined', (done) => {
-    expect(buildUrl({ host: 'localhost', location: 'http://example.net/foo/bar' })).to.be('http://localhost/foo/bar')
-    expect(buildUrl({ port: 8080, location: 'http://example.net:8000/foo/bar' })).to.be('http://example.net:8080/foo/bar')
-    expect(buildUrl({ port: null, location: 'http://example.net:8000/foo/bar' })).to.be('http://example.net/foo/bar')
-    expect(buildUrl({ username: null, password: null, location: 'http://foo:bar@example.net:8000/foo/bar' })).to.be('http://example.net:8000/foo/bar')
+    expect(buildUrl({ host: 'localhost', location: 'http://example.net/foo/bar' })).to.equal('http://localhost/foo/bar')
+    expect(buildUrl({ port: 8080, location: 'http://example.net:8000/foo/bar' })).to.equal('http://example.net:8080/foo/bar')
+    expect(buildUrl({ port: null, location: 'http://example.net:8000/foo/bar' })).to.equal('http://example.net/foo/bar')
+    expect(buildUrl({ username: null, password: null, location: 'http://foo:bar@example.net:8000/foo/bar' })).to.equal('http://example.net:8000/foo/bar')
     done()
   })
 })
