@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const Localization = require('../../lib/Localization')
 
 describe('lib/Localization substrings', () => {
-  it('should replace a substring in translation', (done) => {
+  it('should replace a substring in translation', () => {
     const l10n = new Localization()
     l10n.registerLocales({
       hasSubstring: {
@@ -14,10 +14,9 @@ describe('lib/Localization substrings', () => {
     })
 
     expect(l10n.getInLang('en', 'hasSubstring')).to.eql('This is working')
-    done()
   })
 
-  it('should use fallback substring', (done) => {
+  it('should use fallback substring', () => {
     const l10n = new Localization()
     l10n.registerLocales({
       hasSubstringFallback: {
@@ -32,10 +31,9 @@ describe('lib/Localization substrings', () => {
     l10n.setFallbackLang('fi')
 
     expect(l10n.get('hasSubstringFallback')).to.eql('This is working with fallback')
-    done()
   })
 
-  it('should keep the string intact when substring was not found', (done) => {
+  it('should keep the string intact when substring was not found', () => {
     const l10n = new Localization()
     l10n.registerLocales({
       hasSubstringNotFound: {
@@ -47,18 +45,16 @@ describe('lib/Localization substrings', () => {
     l10n.setFallbackLang('fi')
 
     expect(l10n.get('hasSubstringNotFound')).to.eql('This is {{ substringNotFound }}')
-    done()
   })
 
-  it('should set the substrings according to the index', (done) => {
+  it('should set the substrings according to the index', () => {
     const l10n = new Localization()
     l10n.registerLocale('substringIndexed', { en: '%s2 %s1' })
 
     expect(l10n.getInLang('en', 'substringIndexed', 1, 2)).to.eql('2 1')
-    done()
   })
 
-  it('should format the number substrings', (done) => {
+  it('should format the number substrings', () => {
     const l10n = new Localization()
     const precision = 0
 
@@ -73,10 +69,9 @@ describe('lib/Localization substrings', () => {
     expect(l10n.getInLang('fi', 'numberFormatWithoutArguments', value)).to.eql(`Number format without arguments ${numberFormatWithoutArguments}`)
     expect(l10n.getInLang('fi', 'numberFormatPrecision', value)).to.eql(`Number format with precision ${numberFormatWithPrecision}`)
     expect(l10n.getInLang('fi', 'numberFormatWithQueryString', value)).to.eql('Number format with query string arguments 123X456D8')
-    done()
   })
 
-  it('should format percent substrings', (done) => {
+  it('should format percent substrings', () => {
     const l10n = new Localization()
     const precision = 0
 
@@ -89,10 +84,9 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'percentFormatWithoutArguments', value)).to.eql(`Percent format without arguments ${percentFormatWithoutArguments}`)
     expect(l10n.getInLang('fi', 'percentFormatPrecision', value)).to.eql(`Percent format with precision ${percentFormatWithPrecision}`)
-    done()
   })
 
-  it('should format money substrings', (done) => {
+  it('should format money substrings', () => {
     const l10n = new Localization()
     const precision = 0
 
@@ -105,10 +99,9 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'moneyFormatWithoutArguments', value)).to.eql(`money format without arguments ${moneyFormatWithoutArguments}`)
     expect(l10n.getInLang('fi', 'moneyFormatPrecision', value)).to.eql(`money format with precision ${moneyFormatWithPrecision}`)
-    done()
   })
 
-  it('should format the date substrings', (done) => {
+  it('should format the date substrings', () => {
     const l10n = new Localization()
     l10n.registerLocale('dateFormat', { fi: 'D.M.YYYY' })
     l10n.registerLocale('dateFormatWithoutArguments', { fi: 'Date format without arguments %d' })
@@ -116,10 +109,21 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'dateFormatWithoutArguments', '2022-04-01T12:00:00+03:00')).to.eql('Date format without arguments 1.4.2022')
     expect(l10n.getInLang('fi', 'dateFormatWithFormat', '2022-04-01T12:00:00+03:00')).to.eql('Date format with format 04/01/2022')
-    done()
   })
 
-  it('should throw an InvalidFormatter for an undefined formatter', (done) => {
+  it('should format integer substrings', () => {
+    const l10n = new Localization()
+    l10n.registerLocale('integerFormat', { fi: '%i' })
+    l10n.registerLocale('integerFormatFloor', { fi: '%i[rounding=floor]' })
+    l10n.registerLocale('integerFormatCeil', { fi: '%i[rounding=ceil]' })
+
+    expect(l10n.getInLang('fi', 'integerFormat', '1.2')).to.eql('1')
+    expect(l10n.getInLang('fi', 'integerFormat', '1.5')).to.eql('2')
+    expect(l10n.getInLang('fi', 'integerFormatFloor', '1.7')).to.eql('1')
+    expect(l10n.getInLang('fi', 'integerFormatCeil', '1.2')).to.eql('2')
+  })
+
+  it('should throw an InvalidFormatter for an undefined formatter', () => {
     try {
       const l10n = new Localization()
 
@@ -128,11 +132,10 @@ describe('lib/Localization substrings', () => {
       throw new Error('Should have thrown an InvalidFormatter')
     } catch (err) {
       expect(err).to.be.an.instanceof(Localization.errors.INVALID_FORMATTER)
-      done()
     }
   })
 
-  it('should skip escaped formatters', (done) => {
+  it('should skip escaped formatters', () => {
     const l10n = new Localization()
     const precision = 0
 
@@ -143,6 +146,5 @@ describe('lib/Localization substrings', () => {
 
     expect(l10n.getInLang('fi', 'escapedNumberFormatWithoutArguments', value)).to.eql('Escaped number format without arguments %n')
     expect(l10n.getInLang('fi', 'escapedNumberFormatWithFormat', value)).to.eql(`Escaped number format with precision %n[${precision}]`)
-    done()
   })
 })
