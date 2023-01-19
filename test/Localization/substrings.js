@@ -123,6 +123,19 @@ describe('lib/Localization substrings', () => {
     expect(l10n.getInLang('fi', 'integerFormatCeil', '1.2')).to.eql('2')
   })
 
+  it('should format quantified substrings', () => {
+    const l10n = new Localization()
+    l10n.registerLocale('quantifiedFormat', { fi: '%q' })
+    l10n.registerLocale('quantifiedFormatFloor', { fi: '%q[rounding=floor&precision=0]' })
+    l10n.registerLocale('quantifiedFormatCeil', { fi: '%q[rounding=ceil&precision=0]' })
+
+    // expect(l10n.getInLang('fi', 'quantifiedFormat', '1.2')).to.eql('1.2')
+    // expect(l10n.getInLang('fi', 'quantifiedFormat', '0.001')).to.eql('1 m')
+    // expect(l10n.getInLang('fi', 'quantifiedFormat', '1200')).to.eql('1.2 k')
+    expect(l10n.getInLang('fi', 'quantifiedFormatFloor', '1.7')).to.eql('1', 'Value rounded down')
+    expect(l10n.getInLang('fi', 'quantifiedFormatCeil', '1.2')).to.eql('2', 'Value rounded up')
+  })
+
   it('should throw an InvalidFormatter for an undefined formatter', () => {
     try {
       const l10n = new Localization()
