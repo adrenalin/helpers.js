@@ -10,6 +10,10 @@ describe('lib/Localization quantityFormat', () => {
     expect(() => l10n.quantityFormat('foo')).to.throw(InvalidArgument)
   })
 
+  it('should return null for null', () => {
+    expect(l10n.quantityFormat(null)).to.eql(null)
+  })
+
   it('should quantify with milli, kilo, mega, billion and trillion', () => {
     expect(l10n.quantityFormat(0.001)).to.eql('1 m', '1 m')
     expect(l10n.quantityFormat(0.001, { unit: 'g' })).to.eql('1 mg', '1 mg')

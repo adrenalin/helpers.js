@@ -8,6 +8,7 @@ describe('lib/Localization moneyFormat', () => {
 
     expect(l10n.moneyFormat(10, true)).to.equal('10.00 e')
     expect(l10n.moneyFormat(10, false)).to.equal('10 e')
+    expect(l10n.moneyFormat(null)).to.eql(null)
     done()
   })
 
