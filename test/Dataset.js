@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Dataset = require('../lib/Dataset')
+const { Dataset } = require('../')
 
 describe('lib/dataset', () => {
   it('should extend Set', () => {

@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const setValue = require('../lib/setValue')
+const { setValue } = require('../')
 
 describe('lib/setValue', () => {
   it('should set a shallow value', (done) => {

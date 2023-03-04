@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const BrowserEvents = require('../lib/BrowserEvents')
+const { BrowserEvents } = require('../')
 
 describe('lib/BrowserEvents', () => {
   it('should be a class', (done) => {

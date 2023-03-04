@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const parseQueryString = require('../lib/parseQueryString')
+const { parseQueryString } = require('../')
 
 describe('lib/parseQueryString', () => {
   it('should return an empty object', (done) => {

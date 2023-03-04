@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const isInstance = require('../lib/isInstance')
+const { isInstance } = require('../')
 
 describe('lib/isInstance', () => {
   class ExtendedObject extends Object {

@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization convertCase', () => {
   it('should keep the original case if output case has not been defined', (done) => {

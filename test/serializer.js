@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const serializer = require('../lib/serializer')
+const { serializer } = require('../')
 
 describe('lib/serializer', () => {
   it('should return a promise', () => {

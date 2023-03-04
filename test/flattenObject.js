@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const flattenObject = require('../lib/flattenObject')
+const { flattenObject } = require('../')
 
 describe('lib/flattenObject', () => {
   it('should return non-objects as they were', (done) => {

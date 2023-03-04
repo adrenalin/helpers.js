@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const isEqual = require('../lib/isEqual')
+const { isEqual } = require('../')
 
 describe('lib/isEqual', () => {
   it('should require at least two arguments', (done) => {

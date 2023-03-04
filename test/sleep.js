@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const sleep = require('../lib/sleep')
+const { sleep } = require('../')
 
 describe('lib/sleep', () => {
   it('should sleep for the given time', (done) => {

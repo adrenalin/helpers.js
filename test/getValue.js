@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const getValue = require('../lib/getValue')
+const { getValue } = require('../')
 
 describe('lib/getValue', () => {
   it('should get shallow value', (done) => {

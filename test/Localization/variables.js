@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization variables', () => {
   it('should accept variable as a locale', (done) => {

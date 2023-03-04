@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const trim = require('../lib/trim')
+const { trim } = require('../')
 
 describe('lib/trim', () => {
   it('should trim heading space', (done) => {

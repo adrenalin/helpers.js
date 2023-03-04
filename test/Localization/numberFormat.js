@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { InvalidArgument } = require('@vapaaradikaali/errors')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization numberFormat', () => {
   const l10n = new Localization()

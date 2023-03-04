@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization byteFormat', () => {
   const l10n = new Localization()

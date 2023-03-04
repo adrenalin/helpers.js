@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const merge = require('../lib/merge')
+const { merge } = require('../')
 
 describe('lib/merge', () => {
   it('should be a function', (done) => {

@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const escapeSql = require('../lib/escapeSql')
+const { escapeSql } = require('../')
 
 describe('lib/helpers/escapeSql', () => {
   it('should not escape lowercase', (done) => {

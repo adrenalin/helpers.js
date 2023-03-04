@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Tree = require('../lib/Tree')
+const { Tree } = require('../')
 
 describe('lib/Tree', () => {
   const testItems = [

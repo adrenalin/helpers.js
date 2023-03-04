@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization substrings', () => {
   it('should replace a substring in translation', () => {

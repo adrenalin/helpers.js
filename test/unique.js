@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const unique = require('../lib/unique')
+const { unique } = require('../')
 
 describe('lib/unique', () => {
   it('should accept only an array', (done) => {

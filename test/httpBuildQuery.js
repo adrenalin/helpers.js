@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const httpBuildQuery = require('../lib/httpBuildQuery')
+const { httpBuildQuery } = require('../')
 
 describe('lib/httpBuildQuery', () => {
   it('should accept only objects', (done) => {

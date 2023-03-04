@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization unregisterLocales', () => {
   it('should have alias in the instance for the static unregisterLocales method', (done) => {

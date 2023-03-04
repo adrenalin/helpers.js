@@ -1,6 +1,6 @@
 const { InvalidArgument } = require('@vapaaradikaali/errors')
 const { expect } = require('chai')
-const roundTo = require('../lib/roundTo')
+const { roundTo } = require('../')
 
 describe('lib/roundTo', () => {
   it('should accept only a numeric value as the first argument', () => {

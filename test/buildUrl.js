@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const buildUrl = require('../lib/buildUrl')
+const { buildUrl } = require('../')
 
 describe('lib/buildUrl', () => {
   it('should throw an error without a protocol', (done) => {

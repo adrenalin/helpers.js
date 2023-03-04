@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const union = require('../lib/union')
+const { union } = require('../')
 
 describe('lib/union', () => {
   it('should accept only arrays as arguments', (done) => {

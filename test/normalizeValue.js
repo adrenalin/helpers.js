@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const normalizeValue = require('../lib/normalizeValue')
+const { normalizeValue } = require('../')
 
 describe('lib/normalizeValue', () => {
   it('should be a function', (done) => {

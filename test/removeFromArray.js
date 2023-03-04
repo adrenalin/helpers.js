@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const removeFromArray = require('../lib/removeFromArray')
+const { removeFromArray } = require('../')
 
 describe('lib/removeFromArray', () => {
   it('should reject other first arguments than an array', (done) => {

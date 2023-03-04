@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Config = require('../../lib/Config')
+const { Config } = require('../../')
 
 describe('lib/Config:client', () => {
   it('should have errors properties', (done) => {

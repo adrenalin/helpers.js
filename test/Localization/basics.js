@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { InvalidArgument } = require('@vapaaradikaali/errors')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization basics', () => {
   it('should be a class that can be initialized', () => {

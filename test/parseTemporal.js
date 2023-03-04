@@ -1,7 +1,7 @@
 const Moment = require('moment')
 const { expect } = require('chai')
 const { InvalidArgument } = require('@vapaaradikaali/errors')
-const parseTemporal = require('../lib/parseTemporal')
+const { parseTemporal } = require('../')
 
 describe('lib/parseTemporal', () => {
   it('should accept a temporal string as the first argument', () => {

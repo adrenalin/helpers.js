@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const urlName = require('../lib/urlName')
+const { urlName } = require('../')
 
 describe('lib/urlName', () => {
   it('should accept only a string', (done) => {

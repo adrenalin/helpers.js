@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const getPath = require('../lib/getPath')
+const { getPath } = require('../')
 
 describe('lib/config:getPath', () => {
   it('should return an empty path with no arguments', (done) => {

@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const castToArray = require('../lib/castToArray')
+const { castToArray } = require('../')
 
 describe('lib/castToArray', () => {
   it('should keep an array as it is', () => {

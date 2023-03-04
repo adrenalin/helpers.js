@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const isObject = require('../lib/isObject')
+const { isObject } = require('../')
 
 class TestClass {
   constructor () {

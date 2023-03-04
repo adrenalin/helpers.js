@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Config = require('../../lib/Config')
+const { Config } = require('../../')
 
 describe('lib/Config:toJSON', () => {
   it('should have a JSON serializer', (done) => {

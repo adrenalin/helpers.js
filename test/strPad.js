@@ -1,6 +1,6 @@
 const { InvalidArgument } = require('@vapaaradikaali/errors')
 const { expect } = require('chai')
-const strPad = require('../lib/strPad')
+const { strPad } = require('../')
 
 describe('lib/strPad', () => {
   it('should pad string to the given length', () => {

@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { InvalidArgument } = require('@vapaaradikaali/errors')
-const Localization = require('../../lib/Localization')
+const { Localization } = require('../../')
 
 describe('lib/Localization logger', () => {
   it('should have a static method to register a logger that accepts a function', (done) => {

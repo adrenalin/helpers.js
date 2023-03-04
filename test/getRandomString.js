@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const getRandomString = require('../lib/getRandomString')
+const { getRandomString } = require('../')
 
 describe('lib/getRandomString', () => {
   it('should have a different output every time', (done) => {

@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const castObjectAsArray = require('../lib/castObjectAsArray')
+const { castObjectAsArray } = require('../')
 
 describe('lib/castObjectAsArray', () => {
   it('should throw an error when casting others than plain objects', () => {

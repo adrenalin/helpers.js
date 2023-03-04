@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const expandObject = require('../lib/expandObject')
+const { expandObject } = require('../')
 
 describe('lib/expandObject', () => {
   it('should return non-objects as they were', (done) => {

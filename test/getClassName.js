@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const getClassName = require('../lib/getClassName')
+const { getClassName } = require('../')
 
 describe('lib/getClassName', () => {
   it('should trim a class name from a string', (done) => {

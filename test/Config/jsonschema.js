@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const Config = require('../../lib/Config')
+const { Config } = require('../../')
 
 describe('lib/Config:jsonschema', () => {
   const testSchema = {

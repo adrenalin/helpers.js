@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const copyObject = require('../lib/copyObject')
+const { copyObject } = require('../')
 
 describe('lib/copyObject', () => {
   it('should return primitive types as they are', (done) => {

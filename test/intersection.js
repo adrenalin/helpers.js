@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const intersection = require('../lib/intersection')
+const { intersection } = require('../')
 
 describe('lib/intersection', () => {
   it('should require at least two input arrays', (done) => {

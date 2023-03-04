@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const typecastString = require('../lib/typecastString')
+const { typecastString } = require('../')
 
 describe('lib/typecastString', () => {
   it('should return the original value if not a string', (done) => {
