@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const errors = require('../../lib/errors')
 const ServerConfig = require('../../lib/ServerConfig')
 
-describe('lib/Config:loadConfig', () => {
+describe('lib/ServerConfig:loadConfig', () => {
   it('should be able to load a configuration file as YAML', () => {
     const values = ServerConfig.loadYaml(path.join(__dirname, 'files', 'config.yml'))
 
