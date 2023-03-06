@@ -36,13 +36,24 @@ describe('lib/dataset', () => {
   it('should have a method reduce that reduces the dataset', () => {
     const testData = [1, 2, 3]
     const d = new Dataset(testData)
-    expect(d.reduce((total, current) => total + current, 0)).to.equal(6)
+    expect(d.reduce((total, current) => total + current, 1)).to.equal(7)
   })
 
   it('should add multiple values at once', () => {
     const values = [1, 2, 3]
     const d = new Dataset()
     d.add(...values)
+    expect(Array.from(d)).to.eql(values)
+  })
+
+  it('should push a value', () => {
+    const values = [1, 2, 3]
+    const d = new Dataset()
+
+    values.forEach((v) => {
+      d.push(v)
+    })
+
     expect(Array.from(d)).to.eql(values)
   })
 
