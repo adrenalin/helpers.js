@@ -113,4 +113,15 @@ describe('lib/dataset', () => {
     d.add('foo')
     expect(d.length).to.equal(1)
   })
+
+  it('should have toJSON method', () => {
+    const testData = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 }
+    ]
+
+    const d = new Dataset(testData)
+    expect(d.toJSON()).to.eql(testData)
+  })
 })
