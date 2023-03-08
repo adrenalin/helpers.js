@@ -291,4 +291,17 @@ describe('lib/Tree', () => {
 
     expect(getIdsFromSet(tree.getLeaves())).to.eql(['1-1-1', '1-1-2', '1-2-1', '1-2-2', '2'])
   })
+
+  it('should get items', () => {
+    const tree = new Tree(testItems)
+    tree.getItems()
+      .forEach((item, i) => {
+        expect(item).to.equal(testItems[i])
+      })
+
+    tree.getItems(true)
+      .forEach((node, i) => {
+        expect(node.item).to.equal(testItems[i])
+      })
+  })
 })
