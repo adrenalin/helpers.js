@@ -288,5 +288,7 @@ describe('lib/Tree', () => {
 
     expect(getIdsFromSet(tree.getLeaves('2'))).to.eql(['2'])
     expect(getIdsFromSet(tree.getLeaves('1'))).to.eql(['1-1-1', '1-1-2', '1-2-1', '1-2-2'])
+
+    expect(getIdsFromSet(tree.getLeaves())).to.eql(['1-1-1', '1-1-2', '1-2-1', '1-2-2', '2'])
   })
 })
