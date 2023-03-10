@@ -345,12 +345,8 @@ describe('lib/Tree', () => {
     const rval = tree.removeItems()
 
     expect(rval).to.equal(tree)
-
-    expect(tree.getNode('1')).to.equal(undefined)
-    expect(tree.getNode('1-1')).to.equal(undefined)
-    expect(tree.getNode('1-1-1')).to.equal(undefined)
-    expect(tree.getNode('1-2')).to.equal(undefined)
-    expect(tree.getNode('2')).to.equal(undefined)
+    expect(tree.nodes.size).to.equal(0)
+    expect(Object.keys(tree.mapped).length).to.equal(0)
   })
 
   it('should have a flush method', () => {
@@ -358,11 +354,7 @@ describe('lib/Tree', () => {
     const rval = tree.flush()
 
     expect(rval).to.equal(tree)
-
-    expect(tree.getNode('1')).to.equal(undefined)
-    expect(tree.getNode('1-1')).to.equal(undefined)
-    expect(tree.getNode('1-1-1')).to.equal(undefined)
-    expect(tree.getNode('1-2')).to.equal(undefined)
-    expect(tree.getNode('2')).to.equal(undefined)
+    expect(tree.nodes.size).to.equal(0)
+    expect(Object.keys(tree.mapped).length).to.equal(0)
   })
 })
