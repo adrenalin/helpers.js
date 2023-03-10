@@ -304,4 +304,65 @@ describe('lib/Tree', () => {
         expect(node.item).to.equal(testItems[i])
       })
   })
+
+  it('should remove an item', () => {
+    const tree = new Tree(testItems)
+    const rval = tree.removeItem('1')
+
+    expect(rval).to.equal(tree)
+
+    expect(tree.getNode('1')).to.equal(undefined)
+    expect(tree.getNode('1-1')).to.equal(undefined)
+    expect(tree.getNode('1-1-1')).to.equal(undefined)
+  })
+
+  it('should remove multiple items as an array', () => {
+    const tree = new Tree(testItems)
+    const rval = tree.removeItems(['1-1', '1-2'])
+
+    expect(rval).to.equal(tree)
+
+    expect(tree.getNode('1')).to.be.an.instanceof(Tree.Node)
+    expect(tree.getNode('1-1')).to.equal(undefined)
+    expect(tree.getNode('1-1-1')).to.equal(undefined)
+    expect(tree.getNode('1-2')).to.equal(undefined)
+  })
+
+  it('should remove multiple items with spread arguments', () => {
+    const tree = new Tree(testItems)
+    const rval = tree.removeItems('1-1', '1-2')
+
+    expect(rval).to.equal(tree)
+
+    expect(tree.getNode('1')).to.be.an.instanceof(Tree.Node)
+    expect(tree.getNode('1-1')).to.equal(undefined)
+    expect(tree.getNode('1-1-1')).to.equal(undefined)
+    expect(tree.getNode('1-2')).to.equal(undefined)
+  })
+
+  it('should remove all items', () => {
+    const tree = new Tree(testItems)
+    const rval = tree.removeItems()
+
+    expect(rval).to.equal(tree)
+
+    expect(tree.getNode('1')).to.equal(undefined)
+    expect(tree.getNode('1-1')).to.equal(undefined)
+    expect(tree.getNode('1-1-1')).to.equal(undefined)
+    expect(tree.getNode('1-2')).to.equal(undefined)
+    expect(tree.getNode('2')).to.equal(undefined)
+  })
+
+  it('should have a flush method', () => {
+    const tree = new Tree(testItems)
+    const rval = tree.flush()
+
+    expect(rval).to.equal(tree)
+
+    expect(tree.getNode('1')).to.equal(undefined)
+    expect(tree.getNode('1-1')).to.equal(undefined)
+    expect(tree.getNode('1-1-1')).to.equal(undefined)
+    expect(tree.getNode('1-2')).to.equal(undefined)
+    expect(tree.getNode('2')).to.equal(undefined)
+  })
 })
