@@ -127,6 +127,14 @@ describe('lib/dataset', () => {
     expect(rev).to.eql(source)
   })
 
+  it('should reverse a dataset', () => {
+    const source = new Dataset([3, 2, 1])
+    const reversed = source.reverse()
+
+    expect(source).to.eql(new Dataset([3, 2, 1]))
+    expect(reversed).to.eql(new Dataset([1, 2, 3]))
+  })
+
   it('should find from a dataset', () => {
     const data = [
       { id: 1 },
