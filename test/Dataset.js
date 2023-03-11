@@ -114,6 +114,31 @@ describe('lib/dataset', () => {
     expect(d.length).to.equal(1)
   })
 
+  it('should sort a dataset', () => {
+    const source = new Dataset([3, 2, 1])
+    const sorted = source.sort((a, b) => a > b ? -1 : 1)
+
+    expect(sorted).not.to.equal(source)
+    expect(sorted).to.eql(new Dataset([1, 2, 3]))
+
+    // Reverse: values are in the same order, but instance is new
+    const rev = source.sort((a, b) => a > b ? 1 : -1)
+    expect(rev).not.to.equal(source)
+    expect(rev).to.eql(source)
+  })
+
+  it('should find from a dataset', () => {
+    const data = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 1 }
+    ]
+
+    const source = new Dataset(data)
+    expect(source.find((item) => item.id === 1)).to.equal(data[0])
+  })
+
   it('should have toJSON method', () => {
     const testData = [
       { id: 1 },
