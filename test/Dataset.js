@@ -137,6 +137,7 @@ describe('lib/dataset', () => {
 
     const source = new Dataset(data)
     expect(source.find((item) => item.id === 1)).to.equal(data[0])
+    expect(source.findLast((item) => item.id === 1)).to.equal(data[3])
   })
 
   it('should have toJSON method', () => {
