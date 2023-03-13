@@ -106,12 +106,19 @@ describe('lib/dataset', () => {
     expect(d.size).to.equal(0)
   })
 
-  it('should have an alias length for size', () => {
+  it('should have an alias "length" for "size"', () => {
     const d = new Dataset()
 
     expect(d.length).to.equal(0)
     d.add('foo')
     expect(d.length).to.equal(1)
+    expect(d.length).to.equal(d.size)
+  })
+
+  it('should have aliases "includes" and "contains" for "has"', () => {
+    const d = new Dataset()
+    expect(d.includes).to.equal(d.has)
+    expect(d.contains).to.equal(d.has)
   })
 
   it('should sort a dataset', () => {
