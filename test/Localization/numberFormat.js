@@ -100,4 +100,14 @@ describe('lib/Localization numberFormat', () => {
     expect(l10n.numberFormat(undefined)).to.equal(null)
     expect(() => l10n.numberFormat('foo')).to.throw(InvalidArgument)
   })
+
+  it('should output the given number of digits', () => {
+    expect(() => l10n.numberFormat(1.23456, { digits: 'foo' })).to.throw(Localization.errors.INVALID_ARGUMENT)
+    expect(l10n.numberFormat(1.23456, { digits: 2 })).to.eql('1.2', 'plain decimal')
+    expect(l10n.numberFormat(0.123, { digits: 2, decimal: '.' })).to.eql('0.12', 'less than 1')
+    expect(l10n.numberFormat(1234567, { digits: 2, thousand: ',' })).to.eql('1,200,000', 'above 1')
+    expect(l10n.numberFormat(1999999, { digits: 2, thousand: ',' })).to.eql('2,000,000', 'rounding: round')
+    expect(l10n.numberFormat(1999999, { digits: 2, thousand: ',', rounding: 'floor' })).to.eql('1,900,000', 'rounding: floor')
+    expect(l10n.numberFormat(1234567, { digits: 2, thousand: ',', rounding: 'ceil' })).to.eql('1,300,000', 'rounding: ceil')
+  })
 })
