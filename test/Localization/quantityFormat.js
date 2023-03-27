@@ -36,4 +36,15 @@ describe('lib/Localization quantityFormat', () => {
     expect(l10n.quantityFormat(5, { precision: 0, unit: 'g' })).to.eql('5 g')
     expect(l10n.quantityFormat(0.2, { precision: 2, unit: 'g', rounding: 'floor' })).to.eql('200.00 mg')
   })
+
+  it('should respect the provided quantifiers', () => {
+    expect(l10n.quantityFormat(1.234 * q.k, { q: '-MBTP' })).to.eql('1,234')
+    expect(l10n.quantityFormat(1.234 * q.k, { q: '-MBTP', digits: 2 })).to.eql('1,200')
+  })
+
+  it('should respect the threshold', () => {
+    expect(l10n.quantityFormat(1.234 * q.k)).to.eql('1.234 k')
+    expect(l10n.quantityFormat(1.234 * q.k, { threshold: 0.8 })).to.eql('1.234 k')
+    expect(l10n.quantityFormat(1.234 * q.k, { threshold: 1.5 })).to.eql('1,234')
+  })
 })
