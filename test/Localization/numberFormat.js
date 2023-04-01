@@ -67,6 +67,7 @@ describe('lib/Localization numberFormat', () => {
     expect(l10n.numberFormat(1000000, { lang: 'fi' })).to.equal('1 000 000')
     expect(l10n.numberFormat(1000000, { lang: 'en' })).to.equal('1,000,000')
     expect(l10n.numberFormat(1000000, { lang: 'en', thousand: 't' })).to.equal('1t000t000')
+    expect(l10n.numberFormat(-500, { thousand: 't' })).to.eql('-500')
   })
 
   it('should return grouped decimals', () => {
