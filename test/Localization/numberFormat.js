@@ -109,5 +109,7 @@ describe('lib/Localization numberFormat', () => {
     expect(l10n.numberFormat(1999999, { digits: 2, thousand: ',' })).to.eql('2,000,000', 'rounding: round')
     expect(l10n.numberFormat(1999999, { digits: 2, thousand: ',', rounding: 'floor' })).to.eql('1,900,000', 'rounding: floor')
     expect(l10n.numberFormat(1234567, { digits: 2, thousand: ',', rounding: 'ceil' })).to.eql('1,300,000', 'rounding: ceil')
+    expect(l10n.numberFormat(0, { digits: 2, decimal: '.' })).to.eql('0')
+    expect(l10n.numberFormat(-1, { digits: 2, decimal: '.' })).to.eql('-1.0')
   })
 })
