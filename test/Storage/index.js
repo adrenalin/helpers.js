@@ -20,6 +20,12 @@ class StorageEngine {
   removeItem (key) {
     delete this.stored[key]
   }
+
+  clear () {
+    for (const key in this.stored) {
+      delete this.stored[key]
+    }
+  }
 }
 
 describe('lib/Storage', () => {
@@ -108,6 +114,34 @@ describe('lib/Storage', () => {
     const defaultValue = ['foo-default', 'bar-default']
 
     storage.set(testKey, testValue, -10)
+    expect(storage.get(testKey)).to.eql(undefined)
+    expect(storage.get(testKey, defaultValue)).to.eql(defaultValue)
+  })
+
+  it('should delete a storage key', () => {
+    const engine = new StorageEngine()
+    const storage = new Storage(engine)
+
+    const testKey = 'test-key'
+    const testValue = ['foo', 'bar']
+    const defaultValue = ['foo-default', 'bar-default']
+
+    storage.set(testKey, testValue)
+    storage.del(testKey)
+    expect(storage.get(testKey)).to.eql(undefined)
+    expect(storage.get(testKey, defaultValue)).to.eql(defaultValue)
+  })
+
+  it('should clear all storage keys', () => {
+    const engine = new StorageEngine()
+    const storage = new Storage(engine)
+
+    const testKey = 'test-key'
+    const testValue = ['foo', 'bar']
+    const defaultValue = ['foo-default', 'bar-default']
+
+    storage.set(testKey, testValue)
+    storage.clear()
     expect(storage.get(testKey)).to.eql(undefined)
     expect(storage.get(testKey, defaultValue)).to.eql(defaultValue)
   })
