@@ -2,50 +2,40 @@ const Moment = require('moment')
 const { ArgumentError, InvalidArgument } = require('@vapaaradikaali/errors')
 const { expect } = require('chai')
 const { Storage } = require('../../')
+
 Moment.suppressDeprecationWarnings = true
 
-class StorageEngine {
-  constructor () {
-    this.stored = {}
-  }
-
-  setItem (key, value) {
-    this.stored[key] = value.toString()
-  }
-
-  getItem (key) {
-    return this.stored[key]
-  }
-
-  removeItem (key) {
-    delete this.stored[key]
-  }
-
-  clear () {
-    for (const key in this.stored) {
-      delete this.stored[key]
-    }
-  }
-}
-
 describe('lib/Storage', () => {
-  it('should accept localStorage emulator as the engine', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+  it('should create a memory based storage by default', () => {
+    const storage = new Storage()
+    expect(storage.engine).to.be.an.instanceof(Storage.StorageEngine)
+  })
 
-    expect(storage.engine).to.be.an.instanceof(StorageEngine)
+  it('should accept a custom storage engine', () => {
+    class CustomStorageEngine extends Storage.StorageEngine {}
+
+    const engine = new CustomStorageEngine()
+    const storage = new Storage(engine)
+    expect(storage.engine).to.be.an.instanceof(CustomStorageEngine)
+  })
+
+  it('should allow setting the engine', () => {
+    class CustomStorageEngine extends Storage.StorageEngine {}
+
+    const engine = new CustomStorageEngine()
+    const storage = new Storage()
+    storage.setEngine(engine)
+    expect(storage.engine).to.be.an.instanceof(CustomStorageEngine)
   })
 
   it('should accept only a string as the key for set', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     expect(() => storage.set(['foo'], 'bar')).to.throw(ArgumentError)
   })
 
   it('should set a value', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -55,8 +45,7 @@ describe('lib/Storage', () => {
   })
 
   it('should get a set key', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -66,8 +55,7 @@ describe('lib/Storage', () => {
   })
 
   it('should return the given default value if value is not set', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const defaultValue = ['foo-default', 'bar-default']
@@ -87,8 +75,7 @@ describe('lib/Storage', () => {
   })
 
   it('should set expiration time to the stored value', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -106,8 +93,7 @@ describe('lib/Storage', () => {
   })
 
   it('should return the default value if stored value has expired', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -119,8 +105,7 @@ describe('lib/Storage', () => {
   })
 
   it('should delete a storage key', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -133,8 +118,7 @@ describe('lib/Storage', () => {
   })
 
   it('should clear all storage keys', () => {
-    const engine = new StorageEngine()
-    const storage = new Storage(engine)
+    const storage = new Storage()
 
     const testKey = 'test-key'
     const testValue = ['foo', 'bar']
@@ -144,5 +128,29 @@ describe('lib/Storage', () => {
     storage.clear()
     expect(storage.get(testKey)).to.eql(undefined)
     expect(storage.get(testKey, defaultValue)).to.eql(defaultValue)
+  })
+
+  it('should allow setting prefix', () => {
+    const stored = {}
+
+    class CustomStorageEngine extends Storage.StorageEngine {
+      constructor () {
+        // Singleton stored
+        super()
+        this.stored = stored
+      }
+    }
+
+    const s1 = new Storage(new CustomStorageEngine(), 'foo')
+    const s2 = new Storage(new CustomStorageEngine(), 'foo')
+    const s3 = new Storage(new CustomStorageEngine(), 'bar')
+
+    const testKey = 'test-storage-engine-prefix-key'
+    const testValue = 'test-storage-engine-prefix-value'
+
+    s1.set(testKey, testValue)
+
+    expect(s2.get(testKey)).to.eql(testValue)
+    expect(stored[`foo:${testKey}`]).to.eql(JSON.stringify({ value: testValue }))
   })
 })
