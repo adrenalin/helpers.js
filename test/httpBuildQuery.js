@@ -46,4 +46,19 @@ describe('lib/httpBuildQuery', () => {
   it('should not set array keys when requested not to', () => {
     expect(httpBuildQuery({ foo: [1, null, 4, 6] }, { arrayKeys: false })).to.equal('foo[]=1&foo[]=&foo[]=4&foo[]=6')
   })
+
+  it('should expose global configuration', () => {
+    expect(httpBuildQuery).to.have.property('options')
+    expect(httpBuildQuery.options).to.have.property('arrayKeys')
+
+    const v = httpBuildQuery.options.arrayKeys
+
+    httpBuildQuery.options.arrayKeys = false
+    expect(httpBuildQuery({ foo: [1, null, 4, 6] })).to.equal('foo[]=1&foo[]=&foo[]=4&foo[]=6')
+
+    httpBuildQuery.options.arrayKeys = true
+    expect(httpBuildQuery({ foo: [1, null, 4, 6] })).to.equal('foo[0]=1&foo[1]=&foo[2]=4&foo[3]=6')
+
+    httpBuildQuery.options.arrayKeys = v
+  })
 })
