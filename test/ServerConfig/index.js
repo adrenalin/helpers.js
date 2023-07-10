@@ -2,8 +2,15 @@ const path = require('path')
 const { expect } = require('chai')
 const Config = require('../../lib/Config')
 const ServerConfig = require('../../lib/ServerConfig')
+const { Server } = require('http')
 
 describe('lib/ServerConfig', () => {
+  const argv = process.argv
+
+  afterEach(() => {
+    process.argv = argv
+  })
+
   it('should be a subclass of Config', () => {
     const config = new ServerConfig()
     expect(config).to.be.an.instanceof(Config)
@@ -22,8 +29,6 @@ describe('lib/ServerConfig', () => {
     expect(config.get('config.test')).to.equal(testValue)
   })
 
-  it('should return command line argument if one has been defined', )
-
   it('should return test value', () => {
     const values = {
       test: 'serverTestValue'
@@ -41,6 +46,22 @@ describe('lib/ServerConfig', () => {
     const config = new ServerConfig()
     config.setEnvPrefix('prefixed')
     expect(config.get('config.test')).to.equal(testValue)
+  })
+
+  it('should return command line arguments', () => {
+    process.argv = [
+      '--config-args=bar',
+      '--config-array=1',
+      '--config-array=2',
+      '--config-true',
+      '--no-config-false'
+    ]
+
+    const config = new ServerConfig()
+    expect(config.get('config.args')).to.eql('bar')
+    expect(config.get('config.array')).to.eql([1, 2])
+    expect(config.get('config.true')).to.eql(true)
+    expect(config.get('config.false')).to.eql(false)
   })
 
   it('should set the schema id by "id" when "$id" omitted', () => {
