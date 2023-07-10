@@ -2,25 +2,23 @@ const { expect } = require('chai')
 const { setValue } = require('../')
 
 describe('lib/setValue', () => {
-  it('should set a shallow value', (done) => {
+  it('should set a shallow value', () => {
     const target = {}
     const value = setValue(target, 'foo', 'bar')
 
     expect(target.foo).to.equal('bar')
     expect(value).to.equal(target)
-    done()
   })
 
-  it('should set a deep value', (done) => {
+  it('should set a deep value', () => {
     const target = {}
     const value = setValue(target, 'foo.bar', 'bar')
 
     expect(target.foo.bar).to.equal('bar')
     expect(value).to.equal(target)
-    done()
   })
 
-  it('should set a deep value to an existing sub object', (done) => {
+  it('should set a deep value to an existing sub object', () => {
     const target = {
       foo: {
         bar: 'foo'
@@ -30,6 +28,5 @@ describe('lib/setValue', () => {
 
     expect(target.foo.bar).to.equal('bar')
     expect(value).to.equal(target)
-    done()
   })
 })

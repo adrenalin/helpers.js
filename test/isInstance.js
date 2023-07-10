@@ -9,7 +9,7 @@ describe('lib/isInstance', () => {
   class TestClass {}
   class TestSubClass extends TestClass {}
 
-  it('should match string correctly', (done) => {
+  it('should match string correctly', () => {
     expect(isInstance('foo', String)).to.equal(true)
     expect(isInstance('foo', 'string')).to.equal(true)
 
@@ -27,11 +27,9 @@ describe('lib/isInstance', () => {
 
     expect(isInstance(Date, String)).not.to.equal(true)
     expect(isInstance(Date, String)).not.to.equal(true)
-
-    done()
   })
 
-  it('should match number correctly', (done) => {
+  it('should match number correctly', () => {
     expect(isInstance(1, Number)).to.equal(true)
     expect(isInstance(1, 'number')).to.equal(true)
 
@@ -49,11 +47,9 @@ describe('lib/isInstance', () => {
 
     expect(isInstance(Date, Number)).not.to.equal(true)
     expect(isInstance(Date, Number)).not.to.equal(true)
-
-    done()
   })
 
-  it('should match array correctly', (done) => {
+  it('should match array correctly', () => {
     expect(isInstance([], Array)).to.equal(true)
     expect(isInstance([], 'array')).to.equal(true)
 
@@ -71,11 +67,9 @@ describe('lib/isInstance', () => {
 
     expect(isInstance(Date, Array)).not.to.equal(true)
     expect(isInstance(Date, 'array')).not.to.equal(true)
-
-    done()
   })
 
-  it('should match object correctly', (done) => {
+  it('should match object correctly', () => {
     expect(isInstance({}, Object)).to.equal(true)
     expect(isInstance({}, 'object')).to.equal(true)
 
@@ -99,11 +93,9 @@ describe('lib/isInstance', () => {
 
     expect(isInstance(Date, Object)).not.to.equal(true)
     expect(isInstance(Date, 'object')).not.to.equal(true)
-
-    done()
   })
 
-  it('should match Date correctly', (done) => {
+  it('should match Date correctly', () => {
     expect(isInstance(new Date(), Date)).to.equal(true)
     expect(isInstance(new Date(), 'date')).to.equal(true)
 
@@ -121,26 +113,22 @@ describe('lib/isInstance', () => {
 
     expect(isInstance({}, Date)).not.to.equal(true)
     expect(isInstance({}, 'date')).not.to.equal(true)
-    done()
   })
 
-  it('should match to an array of types', (done) => {
+  it('should match to an array of types', () => {
     expect(isInstance('foo', [String, Number])).to.equal(true)
     expect(isInstance('foo', ['string', 'number'])).to.equal(true)
 
     expect(isInstance('foo', ['number', 'array'])).not.to.equal(true)
     expect(isInstance('foo', [Number, Array])).not.to.equal(true)
-
-    done()
   })
 
-  it('should match custom classes', (done) => {
+  it('should match custom classes', () => {
     expect(isInstance(new TestClass(), TestClass)).to.equal(true)
     expect(isInstance(new TestSubClass(), TestClass)).to.equal(true)
-    done()
   })
 
-  it('should match loosely', (done) => {
+  it('should match loosely', () => {
     expect(isInstance(null, Object, true)).to.equal(true)
     expect(isInstance(null, 'object', true)).to.equal(true)
 
@@ -155,7 +143,5 @@ describe('lib/isInstance', () => {
 
     expect(isInstance('string', Object, true)).not.to.equal(true)
     expect(isInstance('string', 'object', true)).not.to.equal(true)
-
-    done()
   })
 })

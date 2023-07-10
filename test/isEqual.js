@@ -2,39 +2,35 @@ const { expect } = require('chai')
 const { isEqual } = require('../')
 
 describe('lib/isEqual', () => {
-  it('should require at least two arguments', (done) => {
+  it('should require at least two arguments', () => {
     expect(() => isEqual(1)).to.throw()
-    done()
   })
 
-  it('should match numbers', (done) => {
+  it('should match numbers', () => {
     expect(isEqual(1, 1)).to.equal(true)
     expect(isEqual(1.0, 1)).to.equal(true)
     expect(isEqual(1, 2)).to.equal(false)
     expect(isEqual(1, 1, 1)).to.equal(true)
     expect(isEqual(1, 1, 2)).to.equal(false)
-    done()
   })
 
-  it('should match strings', (done) => {
+  it('should match strings', () => {
     expect(isEqual('a', 'a')).to.equal(true)
     expect(isEqual('a', 'b')).to.equal(false)
     expect(isEqual('a', 'aa')).to.equal(false)
     expect(isEqual('a', 'a', 'a')).to.equal(true)
     expect(isEqual('a', 'a', 'b')).to.equal(false)
-    done()
   })
 
-  it('should match booleans', (done) => {
+  it('should match booleans', () => {
     expect(isEqual(true, true)).to.equal(true)
     expect(isEqual(true, false)).to.equal(false)
     expect(isEqual(true, null)).to.equal(false)
     expect(isEqual(true, true, true)).to.equal(true)
     expect(isEqual(true, true, false)).to.equal(false)
-    done()
   })
 
-  it('should match arrays', (done) => {
+  it('should match arrays', () => {
     expect(isEqual([], [])).to.equal(true)
     expect(isEqual([1], 1)).to.equal(false)
     expect(isEqual([1], [1])).to.equal(true)
@@ -46,20 +42,17 @@ describe('lib/isEqual', () => {
     expect(isEqual([1, 2], [1, 2])).to.equal(true)
     expect(isEqual([[1, 2]], [[1, 2]])).to.equal(true)
     expect(isEqual([[1, 1]], [[1, 2]])).to.equal(false)
-
-    done()
   })
 
-  it('should match objects', (done) => {
+  it('should match objects', () => {
     expect(isEqual({ foo: 'bar', bar: 'foo' }, { foo: 'bar', bar: 'foo' })).to.equal(true)
     expect(isEqual({ foo: 'bar', bar: 'foo' }, { bar: 'foo', foo: 'bar' })).to.equal(true)
     expect(isEqual({ foo: 'bar' }, { bar: 'foo' })).to.equal(false)
     expect(isEqual({ foo: 'bar' }, { foo: 'foo' })).to.equal(false)
     expect(isEqual({ foo: 'bar' }, 'foo')).to.equal(false)
-    done()
   })
 
-  it('should match dates', (done) => {
+  it('should match dates', () => {
     const now = new Date()
     const ts = now.getTime()
     const iso = now.toISOString()
@@ -80,7 +73,5 @@ describe('lib/isEqual', () => {
 
     // Date-other type comparison
     expect(isEqual(new Date(ts), null)).to.equal(false)
-
-    done()
   })
 })

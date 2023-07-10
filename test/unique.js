@@ -2,20 +2,18 @@ const { expect } = require('chai')
 const { unique } = require('../')
 
 describe('lib/unique', () => {
-  it('should accept only an array', (done) => {
+  it('should accept only an array', () => {
     expect(() => unique('foo')).to.throw()
     expect(() => unique(1)).to.throw()
     expect(() => unique(new Date())).to.throw()
     expect(() => unique({ foo: 'bar' })).to.throw()
-    done()
   })
 
-  it('should return unique string values', (done) => {
+  it('should return unique string values', () => {
     expect(unique(['foo', 'bar', 'foo', 'bar'])).to.eql(['foo', 'bar'])
-    done()
   })
 
-  it('should return referrable objects as they were', (done) => {
+  it('should return referrable objects as they were', () => {
     const obj = {
       foo: 'bar'
     }
@@ -33,10 +31,9 @@ describe('lib/unique', () => {
 
     expect(res.length).to.equal(3)
     expect(res).to.eql(['foo', 'bar', obj])
-    done()
   })
 
-  it('should do a quick sort-of-equal check for objects', (done) => {
+  it('should do a quick sort-of-equal check for objects', () => {
     const obj = {
       foo: 'bar'
     }
@@ -56,10 +53,9 @@ describe('lib/unique', () => {
 
     expect(res.length).to.equal(3)
     expect(res).to.eql(['foo', 'bar', obj])
-    done()
   })
 
-  it('should allow forcing by-reference check for objects', (done) => {
+  it('should allow forcing by-reference check for objects', () => {
     const obj1 = {
       foo: 'bar'
     }
@@ -79,6 +75,5 @@ describe('lib/unique', () => {
 
     expect(res.length).to.equal(4)
     expect(res).to.eql(['foo', 'bar', obj1, obj2])
-    done()
   })
 })

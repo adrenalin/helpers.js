@@ -2,35 +2,29 @@ const { expect } = require('chai')
 const { trim } = require('../')
 
 describe('lib/trim', () => {
-  it('should trim heading space', (done) => {
+  it('should trim heading space', () => {
     expect(trim(' \t\n\rfoo')).to.equal('foo')
-    done()
   })
 
-  it('should trim trailing space', (done) => {
+  it('should trim trailing space', () => {
     expect(trim('bar \t\n\r')).to.equal('bar')
-    done()
   })
 
-  it('should trim space from both ends', (done) => {
+  it('should trim space from both ends', () => {
     expect(trim(' \t\n\rbar \t\n\r')).to.equal('bar')
-    done()
   })
 
-  it('should not trim internal spaces', (done) => {
+  it('should not trim internal spaces', () => {
     expect(trim('bar \t\n\rfoo')).to.equal('bar \t\n\rfoo')
-    done()
   })
 
-  it('should accept only one argument', (done) => {
+  it('should accept only one argument', () => {
     expect(() => trim('foo', 'bar')).to.throw()
-    done()
   })
 
-  it('should accept only a string argument', (done) => {
+  it('should accept only a string argument', () => {
     expect(() => trim(['foo', 'bar'])).to.throw()
     expect(() => trim({ foo: 'bar' })).to.throw()
     expect(() => trim(1)).to.throw()
-    done()
   })
 })

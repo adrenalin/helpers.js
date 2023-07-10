@@ -2,23 +2,21 @@ const { expect } = require('chai')
 const { removeFromArray } = require('../')
 
 describe('lib/removeFromArray', () => {
-  it('should reject other first arguments than an array', (done) => {
+  it('should reject other first arguments than an array', () => {
     expect(() => removeFromArray(1)).to.throw()
     expect(() => removeFromArray('1')).to.throw()
     expect(() => removeFromArray({})).to.throw()
     expect(() => removeFromArray(null)).to.throw()
     expect(() => removeFromArray([]).not.to.throw())
-    done()
   })
 
-  it('should not return the original array', (done) => {
+  it('should not return the original array', () => {
     const source = []
     const result = removeFromArray(source)
     expect(source).not.to.equal(result)
-    done()
   })
 
-  it('should remove any given item from the source', (done) => {
+  it('should remove any given item from the source', () => {
     const referenceObject = {}
     const referenceArray = []
 
@@ -39,10 +37,9 @@ describe('lib/removeFromArray', () => {
     expect(removeFromArray(source, '1')).to.eql([null, true, false, 1, referenceArray, referenceObject])
     expect(removeFromArray(source, referenceArray)).to.eql([null, true, false, 1, '1', referenceObject])
     expect(removeFromArray(source, referenceObject)).to.eql([null, true, false, 1, '1', referenceArray])
-    done()
   })
 
-  it('should remove multiple items from the source', (done) => {
+  it('should remove multiple items from the source', () => {
     const referenceObject = {}
     const referenceArray = []
 
@@ -57,10 +54,9 @@ describe('lib/removeFromArray', () => {
     ]
 
     expect(removeFromArray(source, null, true, false, 1, '1')).to.eql([referenceArray, referenceObject])
-    done()
   })
 
-  it('should remove the same item multiple times from the source', (done) => {
+  it('should remove the same item multiple times from the source', () => {
     const referenceObject = {}
     const referenceArray = []
 
@@ -75,6 +71,5 @@ describe('lib/removeFromArray', () => {
 
     expect(removeFromArray(source, 'foo')).to.eql(['bar', referenceArray, referenceArray, referenceObject])
     expect(removeFromArray(source, 'foo', 'bar', referenceArray)).to.eql([referenceObject])
-    done()
   })
 })

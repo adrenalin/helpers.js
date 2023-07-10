@@ -2,21 +2,19 @@ const { expect } = require('chai')
 const { merge } = require('../')
 
 describe('lib/merge', () => {
-  it('should be a function', (done) => {
+  it('should be a function', () => {
     expect(merge).to.be.a('function')
-    done()
   })
 
   it('should raise an exception with less than two arguments', () => {
     expect(() => merge({})).to.throw()
   })
 
-  it('should raise an exception with non-object arguments', (done) => {
+  it('should raise an exception with non-object arguments', () => {
     expect(() => merge('foo', 'bar')).to.throw()
-    done()
   })
 
-  it('should merge three shallow objects', (done) => {
+  it('should merge three shallow objects', () => {
     const o1 = {
       key1: 'value1'
     }
@@ -33,10 +31,9 @@ describe('lib/merge', () => {
     expect(merged.key1).to.equal(o1.key1)
     expect(merged.key2).to.equal(o2.key2)
     expect(merged.key3).to.equal(o3.key3)
-    done()
   })
 
-  it('should merge with deep copy', (done) => {
+  it('should merge with deep copy', () => {
     const o1 = {
       key1: 'value1',
       key2: {
@@ -58,11 +55,9 @@ describe('lib/merge', () => {
     expect(merged.key1).to.equal(o1.key1)
     expect(merged.key2).to.eql({ subkey1: o1.key2.subkey1, subkey2: o2.key2.subkey2 })
     expect(merged.key3).to.eql(o2.key3)
-
-    done()
   })
 
-  it('should merge with deep copy overriding non-object', (done) => {
+  it('should merge with deep copy overriding non-object', () => {
     const o1 = {
       key1: 'value1',
       key2: 'value2'
@@ -77,16 +72,13 @@ describe('lib/merge', () => {
     const merged = merge(o1, o2)
     expect(merged.key1).to.equal(o1.key1)
     expect(merged.key2).to.eql({ subkey2: o2.key2.subkey2 })
-
-    done()
   })
 
-  it('should throw an exception when trying to merge objects and arrays', (done) => {
+  it('should throw an exception when trying to merge objects and arrays', () => {
     expect(() => merge([], {})).to.throw()
-    done()
   })
 
-  it('should merge two arrays', (done) => {
+  it('should merge two arrays', () => {
     const a1 = [
       'value1',
       'value2'
@@ -109,10 +101,9 @@ describe('lib/merge', () => {
     expect(merged).to.contain('value4')
     expect(merged).to.contain('value5')
     expect(merged).to.contain('value6')
-    done()
   })
 
-  it('should merge two arrays, skipping duplicates', (done) => {
+  it('should merge two arrays, skipping duplicates', () => {
     const a1 = [
       'value1',
       'value2'
@@ -134,6 +125,5 @@ describe('lib/merge', () => {
     expect(merged).to.contain('value2')
     expect(merged).to.contain('value3')
     expect(merged).to.contain('value4')
-    done()
   })
 })

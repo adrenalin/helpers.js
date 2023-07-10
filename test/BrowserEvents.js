@@ -2,10 +2,9 @@ const { expect } = require('chai')
 const { BrowserEvents } = require('../')
 
 describe('lib/BrowserEvents', () => {
-  it('should be a class', (done) => {
+  it('should be a class', () => {
     const instance = new BrowserEvents()
     expect(instance).to.be.an.instanceof(BrowserEvents)
-    done()
   })
 
   it('should register events', (done) => {
@@ -31,21 +30,19 @@ describe('lib/BrowserEvents', () => {
     instance.trigger(eventName)
   })
 
-  it('should not fail when triggering undefined event name', (done) => {
+  it('should not fail when triggering undefined event name', () => {
     const eventName = 'undefinedEventName'
     const instance = new BrowserEvents()
     instance.trigger(eventName)
-    done()
   })
 
-  it('should not fail when unregistering undefined event name', (done) => {
+  it('should not fail when unregistering undefined event name', () => {
     const eventName = 'undefinedEventName'
     const instance = new BrowserEvents()
     instance.off(eventName)
-    done()
   })
 
-  it('should unregister all listeners when given the event name', (done) => {
+  it('should unregister all listeners when given the event name', () => {
     const eventName = 'shouldUnregisterEventListeners'
     const instance = new BrowserEvents()
     let hits = 0
@@ -62,18 +59,16 @@ describe('lib/BrowserEvents', () => {
     instance.trigger(eventName)
 
     expect(hits).to.equal(0)
-    done()
   })
 
-  it('should not fail when unregistering with event listener that does not exist', (done) => {
+  it('should not fail when unregistering with event listener that does not exist', () => {
     const eventName = 'shouldNotFailWhenListenerDoesNotExist'
     const instance = new BrowserEvents()
     const listener = () => {}
     instance.off(eventName, listener)
-    done()
   })
 
-  it('should unregister the given event listener', (done) => {
+  it('should unregister the given event listener', () => {
     const eventName = 'shouldUnregisterGivenEventListener'
     const instance = new BrowserEvents()
     let hits = 0
@@ -92,6 +87,5 @@ describe('lib/BrowserEvents', () => {
     instance.trigger(eventName)
 
     expect(hits).to.equal(1)
-    done()
   })
 })

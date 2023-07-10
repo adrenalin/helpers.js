@@ -2,45 +2,38 @@ const { expect } = require('chai')
 const { urlName } = require('../')
 
 describe('lib/urlName', () => {
-  it('should accept only a string', (done) => {
+  it('should accept only a string', () => {
     expect(() => urlName('foo').not.to.throw())
     expect(() => urlName(1)).to.throw()
     expect(() => urlName(new Date())).to.throw()
     expect(() => urlName({ foo: 'bar' })).to.throw()
-    done()
   })
 
-  it('should not change lowercase ASCII-7 characters', (done) => {
+  it('should not change lowercase ASCII-7 characters', () => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
     expect(urlName(chars)).to.eql(chars)
-    done()
   })
 
-  it('should convert uppercase ASCII-7 characters to lowercase', (done) => {
+  it('should convert uppercase ASCII-7 characters to lowercase', () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     expect(urlName(chars)).to.eql('abcdefghijklmnopqrstuvwxyz0123456789')
-    done()
   })
 
-  it('should convert diacritics to base forms', (done) => {
+  it('should convert diacritics to base forms', () => {
     expect(urlName('èéêë')).to.eql('eeee')
     expect(urlName('ÈÉÊË')).to.eql('eeee')
     expect(urlName('ñ')).to.eql('n')
-    done()
   })
 
-  it('should convert spaces to underscore', (done) => {
+  it('should convert spaces to underscore', () => {
     expect(urlName('A  B')).to.eql('a_b')
-    done()
   })
 
-  it('should replace all remaining characters excluding a-z, A-Z, 0-9, ., - and _', (done) => {
+  it('should replace all remaining characters excluding a-z, A-Z, 0-9, ., - and _', () => {
     expect(urlName('A  B&C!"D#0\'1.gif')).to.eql('a_b_c_d_0_1.gif')
-    done()
   })
 
-  it('should remove leading and trailing underscores', (done) => {
+  it('should remove leading and trailing underscores', () => {
     expect(urlName('_abc_')).to.eql('abc')
-    done()
   })
 })

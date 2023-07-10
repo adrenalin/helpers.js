@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const { typecastString } = require('../')
 
 describe('lib/typecastString', () => {
-  it('should return the original value if not a string', (done) => {
+  it('should return the original value if not a string', () => {
     expect(typecastString(1)).to.equal(1)
     expect(typecastString(true)).to.equal(true)
     expect(typecastString(false)).to.equal(false)
@@ -13,16 +13,13 @@ describe('lib/typecastString', () => {
 
     const date = new Date()
     expect(typecastString(date)).to.equal(date)
-
-    done()
   })
 
-  it('should return alphabetical string as it went', (done) => {
+  it('should return alphabetical string as it went', () => {
     expect(typecastString('myString')).to.equal('myString')
-    done()
   })
 
-  it('should return typecasted boolean values', (done) => {
+  it('should return typecasted boolean values', () => {
     expect(typecastString('true')).to.equal(true)
     expect(typecastString('True')).to.equal(true)
     expect(typecastString('TRUE')).to.equal(true)
@@ -30,20 +27,16 @@ describe('lib/typecastString', () => {
     expect(typecastString('false')).to.equal(false)
     expect(typecastString('False')).to.equal(false)
     expect(typecastString('FALSE')).to.equal(false)
-
-    done()
   })
 
-  it('should return typecasted null values', (done) => {
+  it('should return typecasted null values', () => {
     expect(typecastString('null')).to.equal(null)
     expect(typecastString('Null')).to.equal(null)
     expect(typecastString('NULL')).to.equal(null)
     expect(typecastString('')).to.equal(null)
-
-    done()
   })
 
-  it('should return various number formats', (done) => {
+  it('should return various number formats', () => {
     expect(typecastString('1')).to.equal(1)
     expect(typecastString('1.1')).to.equal(1.1)
     expect(typecastString('1,1')).to.equal(1.1)
@@ -57,11 +50,9 @@ describe('lib/typecastString', () => {
     expect(typecastString('-1,1')).to.equal(-1.1)
     expect(typecastString('-.1')).to.equal(-0.1)
     expect(typecastString('-,1')).to.equal(-0.1)
-    done()
   })
 
-  it('should not typecast ISO dates', (done) => {
+  it('should not typecast ISO dates', () => {
     expect(typecastString('2020-02-02')).to.equal('2020-02-02')
-    done()
   })
 })

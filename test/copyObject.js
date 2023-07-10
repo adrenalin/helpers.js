@@ -2,27 +2,24 @@ const { expect } = require('chai')
 const { copyObject } = require('../')
 
 describe('lib/copyObject', () => {
-  it('should return primitive types as they are', (done) => {
+  it('should return primitive types as they are', () => {
     expect(copyObject(0)).to.equal(0)
     expect(copyObject(null)).to.equal(null)
     expect(copyObject(true)).to.equal(true)
     expect(copyObject(undefined)).to.equal(undefined)
     expect(copyObject('string')).to.equal('string')
-
-    done()
   })
 
-  it('should create a shallow copy of the object', (done) => {
+  it('should create a shallow copy of the object', () => {
     const source = {
       foo: 'bar'
     }
     const target = copyObject(source)
     expect(target).not.to.equal(source)
     expect(target).to.eql(source)
-    done()
   })
 
-  it('should create a deep copy of the object', (done) => {
+  it('should create a deep copy of the object', () => {
     const source = {
       foo: {
         bar: true
@@ -33,10 +30,9 @@ describe('lib/copyObject', () => {
     expect(target).not.to.equal(source)
     expect(target.foo).not.to.equal(source.foo)
     expect(target).to.eql(source)
-    done()
   })
 
-  it('should copy an array', (done) => {
+  it('should copy an array', () => {
     const source = [
       'foo',
       'bar'
@@ -44,10 +40,9 @@ describe('lib/copyObject', () => {
     const target = copyObject(source)
     expect(target).not.to.equal(source)
     expect(target).to.eql(source)
-    done()
   })
 
-  it('should recurse an array', (done) => {
+  it('should recurse an array', () => {
     const source = [
       {
         foo: 'bar'
@@ -75,11 +70,9 @@ describe('lib/copyObject', () => {
 
     expect(target[2]).not.to.equal(source[2])
     expect(target[2]).to.eql(source[2])
-
-    done()
   })
 
-  it('should keep functions as they are', (done) => {
+  it('should keep functions as they are', () => {
     const source = {
       callback: () => {
         return true
@@ -90,11 +83,9 @@ describe('lib/copyObject', () => {
     expect(target).to.eql(source)
 
     expect(target.callback()).to.equal(true)
-
-    done()
   })
 
-  it('should copy dates', (done) => {
+  it('should copy dates', () => {
     const source = {
       date: new Date()
     }
@@ -104,7 +95,5 @@ describe('lib/copyObject', () => {
     expect(target).to.eql(source)
     expect(target.date).not.to.equal(source.date)
     expect(target.date.getTime()).to.equal(source.date.getTime())
-
-    done()
   })
 })
