@@ -2,13 +2,12 @@ const { expect } = require('chai')
 const { Config } = require('../../')
 
 describe('lib/Config:toJSON', () => {
-  it('should have a JSON serializer', (done) => {
+  it('should have a JSON serializer', () => {
     const config = new Config()
     expect(config.toJSON).to.be.a('function')
-    done()
   })
 
-  it('should serialize the configuration on JSON.stringify', (done) => {
+  it('should serialize the configuration on JSON.stringify', () => {
     const values = {
       foo: {
         bar: true,
@@ -20,6 +19,5 @@ describe('lib/Config:toJSON', () => {
     config.set(values)
 
     expect(JSON.parse(JSON.stringify(config))).to.eql(values)
-    done()
   })
 })

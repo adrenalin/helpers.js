@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const { Localization } = require('../../')
 
 describe('lib/Localization getInLang', () => {
-  it('should be able to get localized strings', (done) => {
+  it('should be able to get localized strings', () => {
     const locales = {
       foo: {
         en: 'Foo',
@@ -15,35 +15,31 @@ describe('lib/Localization getInLang', () => {
     expect(l10n.getInLang('en', 'foo')).to.equal(locales.foo.en)
     expect(l10n.getInLang('fi', 'foo')).to.equal(locales.foo.fi)
     expect(rval).to.equal(l10n)
-    done()
   })
 
-  it('should be able to get the set fallback language', (done) => {
+  it('should be able to get the set fallback language', () => {
     const lang = 'fi'
     const l10n = new Localization()
     l10n.setFallbackLang(lang)
     expect(l10n.getFallbackLang()).to.equal(lang)
-    done()
   })
 
-  it('should return the original string if locale was not found', (done) => {
+  it('should return the original string if locale was not found', () => {
     const l10n = new Localization()
     const locale = 'locale-not-found'
 
     expect(l10n.getInLang('fi', locale)).to.equal(locale)
-    done()
   })
 
-  it('should return empty string if there was no locale provided', (done) => {
+  it('should return empty string if there was no locale provided', () => {
     const l10n = new Localization()
 
     expect(l10n.getInLang('fi', null)).to.equal('')
     expect(l10n.getInLang('fi', undefined)).to.equal('')
     expect(l10n.getInLang('fi', 'undefined', null)).to.equal('undefined')
-    done()
   })
 
-  it('should inject %s strings', (done) => {
+  it('should inject %s strings', () => {
     const locales = {
       parameterSequential: {
         en: 'Parameter sequential %s'
@@ -53,10 +49,9 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
     expect(l10n.getInLang('en', 'parameterSequential', '1')).to.equal('Parameter sequential 1')
-    done()
   })
 
-  it('should inject %s[n] strings', (done) => {
+  it('should inject %s[n] strings', () => {
     const locales = {
       parameterNonSequential: {
         en: 'Parameter non-sequential %s2 %s1'
@@ -66,10 +61,9 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
     expect(l10n.getInLang('en', 'parameterNonSequential', '1', '2')).to.equal('Parameter non-sequential 2 1')
-    done()
   })
 
-  it('should accept an object defintion for locale', (done) => {
+  it('should accept an object defintion for locale', () => {
     const locales = {
       foo: {
         en: 'Foo',
@@ -80,18 +74,16 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
     expect(l10n.getInLang('en', { locale: 'foo' })).to.equal(locales.foo.en)
-    done()
   })
 
-  it('should accept a default value for locale object', (done) => {
+  it('should accept a default value for locale object', () => {
     const defaultValue = 'default-value'
     const l10n = new Localization()
 
     expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.equal(defaultValue)
-    done()
   })
 
-  it('should respect case definitions in object', (done) => {
+  it('should respect case definitions in object', () => {
     const locales = {
       caseTestString: {
         en: '%s %s %s %s'
@@ -122,8 +114,6 @@ describe('lib/Localization getInLang', () => {
 
     expect(l10n.getInLang('en', 'caseTestString', ...params))
       .to.equal('Lorem ipsum DOLOR Sit. Amet.')
-
-    done()
   })
 
   it('should throw an exception when there is a parameter count mismatch', (done) => {
@@ -155,36 +145,34 @@ describe('lib/Localization getInLang', () => {
   })
 
   it('should throw an exception when there is an illegal parameter', (done) => {
-    const locales = {
-      paramMismatchOrder: {
-        en: '%s %s'
-      },
-      paramMismatchNumbered: {
-        en: '%s2'
-      }
-    }
-
-    const l10n = new Localization()
-    l10n.registerLocales(locales)
-
     try {
+      const locales = {
+        paramMismatchOrder: {
+          en: '%s %s'
+        },
+        paramMismatchNumbered: {
+          en: '%s2'
+        }
+      }
+
+      const l10n = new Localization()
+      l10n.registerLocales(locales)
+
       l10n.getInLang('en', 'paramMismatchOrder', { key: 'foo' }, { invalid: true })
       return done(new Error('Should have thrown an error'))
     } catch (err) {
+      done()
     }
-
-    done()
   })
 
-  it('should accept a default value for locale object', (done) => {
+  it('should accept a default value for locale object', () => {
     const defaultValue = 'default-value'
     const l10n = new Localization()
 
     expect(l10n.getInLang('en', { locale: 'undefined-locale', default: defaultValue })).to.equal(defaultValue)
-    done()
   })
 
-  it('should refer to an alias', (done) => {
+  it('should refer to an alias', () => {
     const locales = {
       aliasValue: {
         en: 'Aliased value'
@@ -197,11 +185,9 @@ describe('lib/Localization getInLang', () => {
     const l10n = new Localization()
     l10n.registerLocales(locales)
     expect(l10n.getInLang('en', 'aliasTest')).to.equal(locales.aliasValue.en)
-
-    done()
   })
 
-  it('should return quantified strings', (done) => {
+  it('should return quantified strings', () => {
     const locales = {
       quantifiedTestFor1: {
         en: 'Quantified value for one'
@@ -227,10 +213,9 @@ describe('lib/Localization getInLang', () => {
     expect(l10n.getInLang('en', { amount: 2, quantifiers })).to.equal('Quantified value for 2')
     expect(l10n.getInLang('en', { amount: 3, quantifiers })).to.equal(locales.quantifiedTestDefault.en)
     expect(l10n.getInLang('en', { amount: null, quantifiers })).to.equal(locales.quantifiedTestDefault.en)
-    done()
   })
 
-  it('should return the original string when there is no default quantifier', (done) => {
+  it('should return the original string when there is no default quantifier', () => {
     const l10n = new Localization()
 
     const quantifiers = {
@@ -242,17 +227,15 @@ describe('lib/Localization getInLang', () => {
 
     expect(l10n.getInLang('en', { key: locale, amount: 3, quantifiers })).to.equal(locale)
     expect(l10n.getInLang('en', { key: locale, amount: null, quantifiers })).to.equal(locale)
-    done()
   })
 
-  it('should accept and convert numbers to strings', (done) => {
+  it('should accept and convert numbers to strings', () => {
     const l10n = new Localization()
     expect(l10n.getInLang('en', 1)).to.equal('1')
     expect(l10n.getInLang('en', Math.PI)).to.equal(Math.PI.toString())
-    done()
   })
 
-  it('should give the localized string with get', (done) => {
+  it('should give the localized string with get', () => {
     const locales = {
       getTest: {
         en: 'Get test EN',
@@ -268,11 +251,9 @@ describe('lib/Localization getInLang', () => {
 
     l10n.setLang('fi')
     expect(l10n.get('getTest')).to.equal(locales.getTest.fi)
-
-    done()
   })
 
-  it('should give singular/plural strings with getByCount', (done) => {
+  it('should give singular/plural strings with getByCount', () => {
     const locales = {
       getByCount1: {
         en: 'Get by count: one'
@@ -288,11 +269,9 @@ describe('lib/Localization getInLang', () => {
     expect(l10n.getByCount('getByCount1', 'getByCountN', 0)).to.equal('Get by count: 0')
     expect(l10n.getByCount('getByCount1', 'getByCountN', 1)).to.equal(locales.getByCount1.en)
     expect(l10n.getByCount('getByCount1', 'getByCountN', 2)).to.equal('Get by count: 2')
-
-    done()
   })
 
-  it('should override language when explicitly defined', (done) => {
+  it('should override language when explicitly defined', () => {
     const locales = {
       overrideLang: {
         en: 'EN',
@@ -305,10 +284,9 @@ describe('lib/Localization getInLang', () => {
     expect(l10n.getInLang('en', { locale: 'overrideLang', lang: 'fi' })).to.equal(locales.overrideLang.fi)
     expect(l10n.getInLang('fi', { locale: 'overrideLang', lang: 'en' })).to.equal(locales.overrideLang.en)
     expect(rval).to.equal(l10n)
-    done()
   })
 
-  it('should return empty string for an empty input', (done) => {
+  it('should return empty string for an empty input', () => {
     const l10n = new Localization()
     expect(l10n.getInLang('fi', '')).to.equal('')
     expect(l10n.getInLang('fi', null)).to.equal('')
@@ -319,6 +297,5 @@ describe('lib/Localization getInLang', () => {
     expect(l10n.getInLang('fi', 'emptyString', { variable: '' })).to.equal('emptyString')
     expect(l10n.getInLang('fi', 'emptyString', { variable: null })).to.equal('emptyString')
     expect(l10n.getInLang('fi', 'emptyString', { variable: undefined })).to.equal('emptyString')
-    done()
   })
 })

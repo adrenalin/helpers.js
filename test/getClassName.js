@@ -2,44 +2,36 @@ const { expect } = require('chai')
 const { getClassName } = require('../')
 
 describe('lib/getClassName', () => {
-  it('should trim a class name from a string', (done) => {
+  it('should trim a class name from a string', () => {
     expect(getClassName(' foo ')).to.equal('foo')
-    done()
   })
 
-  it('should keep only unique class names', (done) => {
+  it('should keep only unique class names', () => {
     expect(getClassName(' bar foo foo ')).to.equal('bar foo')
-    done()
   })
 
-  it('should join an array', (done) => {
+  it('should join an array', () => {
     expect(getClassName(['bar', 'foo'])).to.equal('bar foo')
-    done()
   })
 
-  it('should join a deep array', (done) => {
+  it('should join a deep array', () => {
     expect(getClassName([['bar'], ['foo']])).to.equal('bar foo')
-    done()
   })
 
-  it('should reject invalid class names', (done) => {
+  it('should reject invalid class names', () => {
     expect(() => getClassName('1 foo bar')).to.throw()
     expect(() => getClassName('f foo bar')).to.throw()
-    done()
   })
 
-  it('should accept multiple arguments', (done) => {
+  it('should accept multiple arguments', () => {
     expect(getClassName('bar', 'foo')).to.equal('bar foo')
-    done()
   })
 
-  it('should throw an error for object as the argument', (done) => {
+  it('should throw an error for object as the argument', () => {
     expect(() => getClassName({ foo: 'bar' })).to.throw()
-    done()
   })
 
-  it('should silently drop falseish values', (done) => {
+  it('should silently drop falseish values', () => {
     expect(getClassName('bar', null, undefined, '', 'foo')).to.equal('bar foo')
-    done()
   })
 })

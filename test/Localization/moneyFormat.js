@@ -2,17 +2,16 @@ const { expect } = require('chai')
 const { Localization } = require('../../')
 
 describe('lib/Localization moneyFormat', () => {
-  it('should output with default locale', (done) => {
+  it('should output with default locale', () => {
     const l10n = new Localization()
     l10n.unregisterLocales('moneyFormat')
 
     expect(l10n.moneyFormat(10, true)).to.equal('10.00 e')
     expect(l10n.moneyFormat(10, false)).to.equal('10 e')
     expect(l10n.moneyFormat(null)).to.eql(null)
-    done()
   })
 
-  it('should output with custom locale', (done) => {
+  it('should output with custom locale', () => {
     const l10n = new Localization()
     l10n.registerLocales({
       moneyFormat: {
@@ -33,6 +32,5 @@ describe('lib/Localization moneyFormat', () => {
 
     l10n.unregisterLocales('moneyFormat')
     l10n.unregisterLocales('decimalSeparator')
-    done()
   })
 })

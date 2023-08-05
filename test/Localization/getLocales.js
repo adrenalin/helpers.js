@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const { Localization } = require('../../')
 
 describe('lib/Localization getLocales', () => {
-  it('should return all locales', (done) => {
+  it('should return all locales', () => {
     const locales = {
       foo: {
         en: 'Foo en',
@@ -24,11 +24,9 @@ describe('lib/Localization getLocales', () => {
       expect(locales[key]).to.eql(savedStatic[key])
       expect(locales[key]).to.eql(savedInstance[key])
     }
-
-    done()
   })
 
-  it('should return all locales by language', (done) => {
+  it('should return all locales by language', () => {
     const locales = {
       foo: {
         en: 'Foo en',
@@ -50,7 +48,5 @@ describe('lib/Localization getLocales', () => {
       expect(locales[key].en).to.eql(savedStatic[key])
       expect(locales[key].fi).to.eql(savedInstance[key])
     }
-
-    done()
   })
 })
