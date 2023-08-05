@@ -67,10 +67,19 @@ describe('lib/dataset', () => {
   it('should add to mapped values', () => {
     const testValue = { id: 1 }
     const d = new Dataset(null, { id: 'id' })
+
     expect(d.$.mapped[1]).to.eql(undefined)
 
     d.addToMap(testValue)
     expect(d.$.mapped[1]).to.eql(testValue)
+  })
+
+  it('should add to indices', () => {
+    const testValue = { id: 1, indexValue: 2 }
+    const d = new Dataset([testValue], { id: 'id', indices: 'indexValue' })
+
+    expect(d.$.indices.id[1]).to.equal(testValue)
+    expect(d.$.indices.indexValue[2]).to.equal(testValue)
   })
 
   it('should use options for getById', () => {
@@ -83,6 +92,15 @@ describe('lib/dataset', () => {
     const d = new Dataset(testData, { id: 'id' })
     expect(d.getById(2)).to.equal(testData[1])
     expect(d.getById(0)).to.equal(undefined)
+  })
+
+  it('should use indices for getByIndex', () => {
+    const testValue = { id: 1, indexValue: 2 }
+    const d = new Dataset([testValue], { id: 'id', indices: 'indexValue' })
+
+    expect(d.getByIndex('indexValue', 1)).to.equal(undefined)
+    expect(d.getByIndex('undefinedIndex', 1)).to.equal(undefined)
+    expect(d.getByIndex('indexValue', 2)).to.equal(testValue)
   })
 
   it('should find an object by id property after it has been added', () => {
