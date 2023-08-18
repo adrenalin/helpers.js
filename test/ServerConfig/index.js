@@ -64,6 +64,51 @@ describe('lib/ServerConfig', () => {
     expect(config.get('config.false')).to.eql(false)
   })
 
+  it('should use environment variables of child nodes when fetching the parent', () => {
+    const testValue = 'test-value-1'
+    const testValueOverride = 'test-value-1-override-env'
+
+    const values = {
+      test: {
+        value1: testValue,
+        value2: 'test-value-2'
+      }
+    }
+
+    process.env.TEST_VALUE1 = testValueOverride
+    process.env.TEST_VALUE3 = testValueOverride
+
+    const config = new ServerConfig()
+    config.set(values)
+    expect(config.get('test')).to.eql({
+      value1: testValueOverride,
+      value2: values.test.value2
+    })
+  })
+
+  it('should use argument variables of child nodes when fetching the parent', () => {
+    const testValue = 'test-value-1'
+    const testValueOverride = 'test-value-1-override-args'
+
+    const values = {
+      test: {
+        value1: testValue,
+        value2: 'test-value-2'
+      }
+    }
+
+    process.argv = [
+      `--test-value1=${testValueOverride}`
+    ]
+
+    const config = new ServerConfig()
+    config.set(values)
+    expect(config.get('test')).to.eql({
+      value1: testValueOverride,
+      value2: values.test.value2
+    })
+  })
+
   it('should set the schema id by "id" when "$id" omitted', () => {
     const config = new ServerConfig()
     config.setSchema({
