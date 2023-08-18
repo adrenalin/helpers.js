@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const { getPath } = require('../')
 
-describe('lib/config:getPath', () => {
+describe('lib/getPath', () => {
   it('should return an empty path with no arguments', () => {
     expect(getPath()).to.eql([])
     expect(getPath(null)).to.eql([])
