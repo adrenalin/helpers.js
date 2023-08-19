@@ -109,6 +109,52 @@ describe('lib/ServerConfig', () => {
     })
   })
 
+  it('should return environment variables and arguments when they are defined in the schema', () => {
+    const argValue = 'arg-value'
+    const envValue = 'env-value'
+    const defaultValue = 'default-value'
+
+    process.argv = [
+      `--testkey-argvalue=${argValue}`
+    ]
+
+    process.env.TESTKEY_ENVVALUE = envValue
+
+    const config = new ServerConfig()
+    config.setSchema({
+      $id: '#/config',
+      type: 'object',
+      properties: {
+        testKey: {
+          type: 'object',
+          properties: {
+            argValue: {
+              type: 'string'
+            },
+            envValue: {
+              type: 'string'
+            },
+            noValue: {
+              type: 'string'
+            },
+            defaultValue: {
+              type: 'string',
+              default: defaultValue
+            }
+          }
+        }
+      }
+    })
+
+    expect(config.get()).to.eql({
+      testKey: {
+        argValue,
+        envValue,
+        defaultValue
+      }
+    })
+  })
+
   it('should set the schema id by "id" when "$id" omitted', () => {
     const config = new ServerConfig()
     config.setSchema({
