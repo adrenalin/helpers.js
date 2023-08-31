@@ -183,4 +183,33 @@ describe('lib/dataset', () => {
     const d = new Dataset(testData)
     expect(d.toJSON()).to.eql(testData)
   })
+
+  it('should copy a dataset', () => {
+    const testData = ['foo', 'bar']
+    const d1 = new Dataset(testData)
+    const d2 = d1.copy()
+
+    expect(d1).not.to.equal(d2)
+    expect(d1.toJSON()).to.eql(d2.toJSON())
+  })
+
+  it('should merge datasets', () => {
+    const testData1 = ['foo', 'bar']
+    const testData2 = ['bar', 'foobar']
+
+    const d1 = new Dataset(testData1)
+    const d2 = new Dataset(testData2)
+    const d3 = d1.merge(d2)
+
+    expect(d1).not.to.equal(d2)
+    expect(d1).not.to.equal(d3)
+    expect(d2).not.to.equal(d3)
+
+    expect(d3.toJSON()).to.eql(['foo', 'bar', 'foobar'])
+  })
+
+  it('should have an alias concat for merge', () => {
+    const d1 = new Dataset()
+    expect(d1.merge).to.equal(d1.concat)
+  })
 })
