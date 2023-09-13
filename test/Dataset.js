@@ -202,9 +202,9 @@ describe('lib/dataset', () => {
     const d3 = d1.merge(d2)
 
     expect(d1).not.to.equal(d2)
-    expect(d1).not.to.equal(d3)
     expect(d2).not.to.equal(d3)
 
+    expect(d1).to.equal(d3)
     expect(d3.toJSON()).to.eql(['foo', 'bar', 'foobar'])
   })
 
