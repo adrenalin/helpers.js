@@ -42,6 +42,7 @@ describe('lib/typecastString', () => {
     expect(typecastString('1,1')).to.equal(1.1)
     expect(typecastString('0.1')).to.equal(0.1)
     expect(typecastString('0,1')).to.equal(0.1)
+    expect(typecastString('+0,1')).to.equal(0.1)
 
     expect(typecastString('0')).to.equal(0)
 
@@ -54,5 +55,9 @@ describe('lib/typecastString', () => {
 
   it('should not typecast ISO dates', () => {
     expect(typecastString('2020-02-02')).to.equal('2020-02-02')
+  })
+
+  it('should not typecast numeric strings starting with a zero', () => {
+    expect(typecastString('01')).to.equal('01')
   })
 })
