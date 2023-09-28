@@ -166,6 +166,39 @@ describe('lib/dataset', () => {
     expect(Array.from(d.getByProperty('parent', 1, 'id'))).to.eql([testData[2], testData[4], testData[3]])
   })
 
+  it('should get by property with values as an array', () => {
+    const testData = [
+      {
+        id: 1,
+        parent: null
+      },
+      {
+        id: 2,
+        parent: null
+      },
+      {
+        id: 11,
+        parent: 1
+      },
+      {
+        id: 12,
+        parent: 1
+      },
+      {
+        id: 112,
+        parent: 11
+      },
+      {
+        id: 21,
+        parent: 2
+      }
+    ]
+
+    const d = new Dataset(testData, { id: 'id' })
+
+    expect(Array.from(d.getByProperty('parent', [1, 2]))).to.eql([testData[2], testData[3], testData[5]])
+  })
+
   it('should find an object by id property after it has been added', () => {
     const testData = { id: 1 }
 
