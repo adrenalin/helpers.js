@@ -64,6 +64,26 @@ describe('lib/dataset', () => {
     expect(Array.from(d)).to.eql([])
   })
 
+  it('should clear the dataset', () => {
+    const values = [1, 2, 3]
+    const d = new Dataset(values)
+    d.clear()
+    expect(Array.from(d)).to.eql([])
+  })
+
+  it('should clear the dataset with indices', () => {
+    const values = [{ id: 1 }, { id: 2 }]
+    const d = new Dataset(values, { indices: ['id'] })
+
+    expect(d.size).to.equal(2)
+    expect(Object.keys(d.$.indices.id).length).to.equal(2)
+
+    d.clear()
+
+    expect(d.size).to.equal(0)
+    expect(Object.keys(d.$.indices.id).length).to.equal(0)
+  })
+
   it('should add to mapped values', () => {
     const testValue = { id: 1 }
     const d = new Dataset(null, { id: 'id' })
