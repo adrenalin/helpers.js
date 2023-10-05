@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { getPath, getObjectPaths } = require('../')
+const { getObjectPaths } = require('../')
 
 describe('lib/getObjectPaths', () => {
   it('should return object paths for a flat object', () => {
@@ -7,11 +7,11 @@ describe('lib/getObjectPaths', () => {
   })
 
   it('should return paths of a deep object', () => {
-    expect(getObjectPaths({ foo: { bar: 'foobar' }})).to.eql(['foo', 'foo.bar'])
+    expect(getObjectPaths({ foo: { bar: 'foobar' } })).to.eql(['foo', 'foo.bar'])
   })
 
   it('should return array with indexes', () => {
-    expect(getObjectPaths({ foo: ['foo', { bar: 'foobar' }]})).to.eql([
+    expect(getObjectPaths({ foo: ['foo', { bar: 'foobar' }] })).to.eql([
       'foo',
       'foo.0',
       'foo.1',

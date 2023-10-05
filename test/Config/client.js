@@ -97,7 +97,7 @@ describe('lib/Config:client', () => {
     const values = {
       array: ['array'],
       null: null,
-      undefined: undefined
+      undefined: undefined // eslint-disable-line object-shorthand
     }
 
     const paths = [
@@ -177,7 +177,6 @@ describe('lib/Config:client', () => {
     config.set(path2, value2)
     expect(config.get(path1)).to.equal(value1)
     expect(config.get(path2)).to.equal(value2)
-
   })
 
   it('should throw an error when using an object as a path', () => {

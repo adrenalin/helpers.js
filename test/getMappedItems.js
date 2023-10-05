@@ -14,12 +14,6 @@ describe('lib/getMappedItems', () => {
   })
 
   it('should throw an InvalidArgument if the second argument is not a string or an array of strings', () => {
-    const set = [
-      {
-        id: 'foo'
-      }
-    ]
-
     expect(() => getMappedItems(['foo'], null)).to.throw(InvalidArgument)
     expect(() => getMappedItems(['foo'], 1)).to.throw(InvalidArgument)
     expect(() => getMappedItems(['foo'], [])).to.throw(InvalidArgument)

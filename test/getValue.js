@@ -77,7 +77,7 @@ describe('lib/getValue', () => {
         null: null
       },
       target3: {
-        undefined: undefined
+        undefined: undefined // eslint-disable-line object-shorthand
       }
     }
 
@@ -99,7 +99,7 @@ describe('lib/getValue', () => {
         null: null
       },
       target3: {
-        undefined: undefined
+        undefined: undefined // eslint-disable-line object-shorthand
       }
     }
 

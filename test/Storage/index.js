@@ -143,7 +143,6 @@ describe('lib/Storage', () => {
 
     const s1 = new Storage(new CustomStorageEngine(), 'foo')
     const s2 = new Storage(new CustomStorageEngine(), 'foo')
-    const s3 = new Storage(new CustomStorageEngine(), 'bar')
 
     const testKey = 'test-storage-engine-prefix-key'
     const testValue = 'test-storage-engine-prefix-value'

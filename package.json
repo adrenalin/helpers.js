@@ -46,8 +46,10 @@
       "alert",
       "describe",
       "it",
+      "after",
+      "afterEach",
       "before",
-      "after"
+      "beforeEach"
     ]
   }
 }

@@ -2,7 +2,6 @@ const path = require('path')
 const { expect } = require('chai')
 const Config = require('../../lib/Config')
 const ServerConfig = require('../../lib/ServerConfig')
-const { Server } = require('http')
 
 describe('lib/ServerConfig', () => {
   const argv = process.argv
@@ -64,7 +63,6 @@ describe('lib/ServerConfig', () => {
     expect(config.get('config.false')).to.eql(false)
   })
 
-
   it('should create a lowercase representation of camel case arguments', () => {
     const testValue = 'test-value-1-override-args'
 
@@ -121,7 +119,6 @@ describe('lib/ServerConfig', () => {
       value2: values.test.value2
     })
   })
-
 
   it('should return environment variables and arguments when they are defined in the schema', () => {
     const argValue = 'arg-value'
