@@ -84,6 +84,11 @@ describe('lib/dataset', () => {
     expect(Object.keys(d.$.indices.id).length).to.equal(0)
   })
 
+  it('should have alias "truncate" for clear', () => {
+    const d = new Dataset()
+    expect(d.truncate).to.equal(d.clear)
+  })
+
   it('should add to mapped values', () => {
     const testValue = { id: 1 }
     const d = new Dataset(null, { id: 'id' })
