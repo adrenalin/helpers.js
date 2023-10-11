@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { Tree } = require('../')
+const { Dataset, Tree } = require('../')
 
 describe('lib/Tree', () => {
   const testItems = [
@@ -43,9 +43,11 @@ describe('lib/Tree', () => {
       .sort()
   }
 
-  it('should accept an array as the first argument of the constructor', () => {
+  it('should accept an array or a Set as the first argument of the constructor', () => {
     expect(() => new Tree(testItems)).not.to.throw()
     expect(() => new Tree({ foo: 'bar' })).to.throw(Tree.errors.InvalidArgument)
+    expect(() => new Tree(testItems)).not.to.throw()
+    expect(() => new Tree(new Dataset(testItems))).not.to.throw()
   })
 
   it('should set id property or use a fallback', () => {
@@ -126,7 +128,7 @@ describe('lib/Tree', () => {
 
     Array.from(tree.nodes)
       .forEach(node => {
-        expect(testItems).to.contain(tree.mapped[node.id].item)
+        expect(testItems).to.contain(tree.mapped.get(node.id).item)
       })
   })
 
@@ -138,7 +140,7 @@ describe('lib/Tree', () => {
 
     Array.from(tree.nodes)
       .forEach(node => {
-        expect(testItems).to.contain(tree.mapped[node.id].item)
+        expect(testItems).to.contain(tree.mapped.get(node.id).item)
       })
   })
 
@@ -147,32 +149,32 @@ describe('lib/Tree', () => {
     const mapped = tree.mapped
 
     // Main level
-    expect(mapped['1'].parent).to.equal(null)
-    expect(mapped['2'].parent).to.equal(null)
+    expect(mapped.get('1').parent).to.equal(null)
+    expect(mapped.get('2').parent).to.equal(null)
 
     // First level
-    expect(mapped['1-1'].parent.id).to.equal('1')
-    expect(mapped['1-2'].parent.id).to.equal('1')
+    expect(mapped.get('1-1').parent.id).to.equal('1')
+    expect(mapped.get('1-2').parent.id).to.equal('1')
 
     // Second level
-    expect(mapped['1-1-1'].parent.id).to.equal('1-1')
-    expect(mapped['1-1-2'].parent.id).to.equal('1-1')
-    expect(mapped['1-2-1'].parent.id).to.equal('1-2')
-    expect(mapped['1-2-2'].parent.id).to.equal('1-2')
+    expect(mapped.get('1-1-1').parent.id).to.equal('1-1')
+    expect(mapped.get('1-1-2').parent.id).to.equal('1-1')
+    expect(mapped.get('1-2-1').parent.id).to.equal('1-2')
+    expect(mapped.get('1-2-2').parent.id).to.equal('1-2')
   })
 
   it('should set level to each node', () => {
     const tree = new Tree(testItems)
     const mapped = tree.mapped
 
-    expect(mapped['1'].level).to.equal(1)
-    expect(mapped['1-1'].level).to.equal(2)
-    expect(mapped['1-1-1'].level).to.equal(3)
-    expect(mapped['1-1-2'].level).to.equal(3)
-    expect(mapped['1-2'].level).to.equal(2)
-    expect(mapped['1-2-1'].level).to.equal(3)
-    expect(mapped['1-2-2'].level).to.equal(3)
-    expect(mapped['2'].level).to.equal(1)
+    expect(mapped.get('1').level).to.equal(1)
+    expect(mapped.get('1-1').level).to.equal(2)
+    expect(mapped.get('1-1-1').level).to.equal(3)
+    expect(mapped.get('1-1-2').level).to.equal(3)
+    expect(mapped.get('1-2').level).to.equal(2)
+    expect(mapped.get('1-2-1').level).to.equal(3)
+    expect(mapped.get('1-2-2').level).to.equal(3)
+    expect(mapped.get('2').level).to.equal(1)
   })
 
   it('should throw an error when parent is not in the dataset', () => {
@@ -188,23 +190,23 @@ describe('lib/Tree', () => {
     const mapped = tree.mapped
 
     // Main level
-    expect(getIdsFromSet(mapped['1'].parents)).to.eql([])
-    expect(getIdsFromSet(mapped['1'].children)).to.eql(['1-1', '1-2'])
+    expect(getIdsFromSet(mapped.get('1').parents)).to.eql([])
+    expect(getIdsFromSet(mapped.get('1').children)).to.eql(['1-1', '1-2'])
 
-    expect(getIdsFromSet(mapped['2'].parents)).to.eql([])
-    expect(getIdsFromSet(mapped['2'].children)).to.eql([])
+    expect(getIdsFromSet(mapped.get('2').parents)).to.eql([])
+    expect(getIdsFromSet(mapped.get('2').children)).to.eql([])
 
-    expect(getIdsFromSet(mapped['1-1'].parents)).to.eql(['1'])
-    expect(getIdsFromSet(mapped['1-1'].children)).to.eql(['1-1-1', '1-1-2'])
+    expect(getIdsFromSet(mapped.get('1-1').parents)).to.eql(['1'])
+    expect(getIdsFromSet(mapped.get('1-1').children)).to.eql(['1-1-1', '1-1-2'])
 
-    expect(getIdsFromSet(mapped['1-2'].parents)).to.eql(['1'])
-    expect(getIdsFromSet(mapped['1-2'].children)).to.eql(['1-2-1', '1-2-2'])
+    expect(getIdsFromSet(mapped.get('1-2').parents)).to.eql(['1'])
+    expect(getIdsFromSet(mapped.get('1-2').children)).to.eql(['1-2-1', '1-2-2'])
 
-    expect(getIdsFromSet(mapped['1-1-1'].parents)).to.eql(['1', '1-1'])
-    expect(getIdsFromSet(mapped['1-1-1'].children)).to.eql([])
+    expect(getIdsFromSet(mapped.get('1-1-1').parents)).to.eql(['1', '1-1'])
+    expect(getIdsFromSet(mapped.get('1-1-1').children)).to.eql([])
 
-    expect(getIdsFromSet(mapped['1-1-2'].parents)).to.eql(['1', '1-1'])
-    expect(getIdsFromSet(mapped['1-1-2'].children)).to.eql([])
+    expect(getIdsFromSet(mapped.get('1-1-2').parents)).to.eql(['1', '1-1'])
+    expect(getIdsFromSet(mapped.get('1-1-2').children)).to.eql([])
   })
 
   it('should remap parents and children to each added node', () => {
@@ -212,22 +214,22 @@ describe('lib/Tree', () => {
     const mapped = tree.mapped
 
     // Main level
-    expect(getIdsFromSet(mapped['2'].parents)).to.eql([])
-    expect(getIdsFromSet(mapped['2'].children)).to.eql([])
+    expect(getIdsFromSet(mapped.get('2').parents)).to.eql([])
+    expect(getIdsFromSet(mapped.get('2').children)).to.eql([])
 
     tree.addNode({ id: '2-1', parent: '2' })
     tree.addNode({ id: '2-2', parent: '2' })
 
-    expect(getIdsFromSet(mapped['2'].children)).to.eql(['2-1', '2-2'])
+    expect(getIdsFromSet(mapped.get('2').children)).to.eql(['2-1', '2-2'])
   })
 
   it('should resolve node by id, original item and node', () => {
     const tree = new Tree(testItems)
     const mapped = tree.mapped
 
-    expect(tree.getNode(mapped['1'])).to.equal(mapped['1'])
-    expect(tree.getNode(testItems[0])).to.equal(mapped['1'])
-    expect(tree.getNode('1')).to.equal(mapped['1'])
+    expect(tree.getNode(mapped.get('1'))).to.equal(mapped.get('1'))
+    expect(tree.getNode(testItems[0])).to.equal(mapped.get('1'))
+    expect(tree.getNode('1')).to.equal(mapped.get('1'))
 
     expect(tree.getNode({})).to.eql(undefined)
     expect(tree.getNode('3-2-1')).to.eql(undefined)
@@ -295,11 +297,13 @@ describe('lib/Tree', () => {
   it('should get items', () => {
     const tree = new Tree(testItems)
     tree.getItems()
+      .toArray()
       .forEach((item, i) => {
         expect(item).to.equal(testItems[i])
       })
 
     tree.getItems(true)
+      .toArray()
       .forEach((node, i) => {
         expect(node.item).to.equal(testItems[i])
       })
