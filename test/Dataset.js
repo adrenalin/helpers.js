@@ -7,11 +7,19 @@ describe('lib/dataset', () => {
     expect(d).to.be.an.instanceof(Set)
   })
 
+  it('should have a method toArray', () => {
+    const testData = [1, 2]
+    const d = new Dataset(testData)
+    expect(d).not.to.eql(testData)
+    expect(d.toArray()).to.eql(testData)
+  })
+
   it('should have a method map', () => {
     const testData = [1, 2]
     const d = new Dataset(testData)
     expect(d.map).to.be.a('function')
-    expect(d.map(r => r)).to.eql(testData)
+    expect(d.map(r => r)).to.eql(new Dataset(testData))
+    expect(d.map(r => r).toArray()).to.eql(testData)
   })
 
   it('should have a method filter that returns a new Dataset', () => {
