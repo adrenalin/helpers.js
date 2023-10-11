@@ -76,12 +76,12 @@ describe('lib/dataset', () => {
     const d = new Dataset(values, { indices: ['id'] })
 
     expect(d.size).to.equal(2)
-    expect(Object.keys(d.$.indices.id).length).to.equal(2)
+    expect(Array.from(d.$.indices.id.keys()).length).to.equal(2)
 
     d.clear()
 
     expect(d.size).to.equal(0)
-    expect(Object.keys(d.$.indices.id).length).to.equal(0)
+    expect(Array.from(d.$.indices.id.keys()).length).to.equal(0)
   })
 
   it('should have alias "truncate" for clear', () => {
@@ -93,18 +93,18 @@ describe('lib/dataset', () => {
     const testValue = { id: 1 }
     const d = new Dataset(null, { id: 'id' })
 
-    expect(d.$.mapped[1]).to.eql(undefined)
+    expect(d.$.mapped.get(1)).to.eql(undefined)
 
     d.addToMap(testValue)
-    expect(d.$.mapped[1]).to.eql(testValue)
+    expect(d.$.mapped.get(1)).to.eql(testValue)
   })
 
   it('should add to indices', () => {
     const testValue = { id: 1, indexValue: 2 }
     const d = new Dataset([testValue], { id: 'id', indices: 'indexValue' })
 
-    expect(d.$.indices.id[1]).to.equal(testValue)
-    expect(d.$.indices.indexValue[2]).to.equal(testValue)
+    expect(d.$.indices.id.get(1)).to.equal(testValue)
+    expect(d.$.indices.indexValue.get(2)).to.equal(testValue)
   })
 
   it('should use options for getById', () => {
