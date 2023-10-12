@@ -115,6 +115,11 @@ describe('lib/dataset', () => {
     expect(d.$.indices.indexValue.get(2)).to.equal(testValue)
   })
 
+  it('should have alias "addToIndex" for "addToIndices"', () => {
+    const d = new Dataset()
+    expect(d.addToIndex).to.equal(d.addToIndices)
+  })
+
   it('should use options for getById', () => {
     const testData = [
       { id: 1 },
