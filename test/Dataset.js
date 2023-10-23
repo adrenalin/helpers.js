@@ -373,6 +373,7 @@ describe('lib/dataset', () => {
       new Dataset([10, 11, 12])
     ])
 
+    // Omit empty
     expect(testData.splitIntoChunks(5)).to.eql([
       new Dataset([1, 2, 3]),
       new Dataset([4, 5, 6]),
