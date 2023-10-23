@@ -33,6 +33,9 @@ describe('lib/Worker', () => {
     w.terminate()
 
     expect(w.worker).to.equal(undefined)
+
+    // Should not choke when trying to terminate for the second time
+    w.terminate()
   })
 
   it('should accept an object with path and method as the first argument', async () => {
