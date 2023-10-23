@@ -1,5 +1,6 @@
 const { expect } = require('chai')
 const { Dataset } = require('../')
+const { InvalidArgument } = require('@vapaaradikaali/errors')
 
 describe('lib/dataset', () => {
   it('should extend Set', () => {
@@ -345,5 +346,47 @@ describe('lib/dataset', () => {
   it('should have an alias concat for merge', () => {
     const d1 = new Dataset()
     expect(d1.merge).to.equal(d1.concat)
+  })
+
+  it('should have a method splitIntoChunks', () => {
+    const testData = new Dataset([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+    expect(() => testData.splitIntoChunks()).to.throw(InvalidArgument)
+    expect(() => testData.splitIntoChunks(0)).to.throw(InvalidArgument)
+    expect(() => testData.splitIntoChunks('a')).to.throw(InvalidArgument)
+
+    expect(testData.splitIntoChunks(2)).to.eql([
+      new Dataset([1, 2, 3, 4, 5, 6]),
+      new Dataset([7, 8, 9, 10, 11, 12])
+    ])
+
+    expect(testData.splitIntoChunks(3)).to.eql([
+      new Dataset([1, 2, 3, 4]),
+      new Dataset([5, 6, 7, 8]),
+      new Dataset([9, 10, 11, 12])
+    ])
+
+    expect(testData.splitIntoChunks(4)).to.eql([
+      new Dataset([1, 2, 3]),
+      new Dataset([4, 5, 6]),
+      new Dataset([7, 8, 9]),
+      new Dataset([10, 11, 12])
+    ])
+
+    expect(testData.splitIntoChunks(5)).to.eql([
+      new Dataset([1, 2, 3]),
+      new Dataset([4, 5, 6]),
+      new Dataset([7, 8, 9]),
+      new Dataset([10, 11, 12])
+    ])
+
+    expect(testData.splitIntoChunks(6)).to.eql([
+      new Dataset([1, 2]),
+      new Dataset([3, 4]),
+      new Dataset([5, 6]),
+      new Dataset([7, 8]),
+      new Dataset([9, 10]),
+      new Dataset([11, 12])
+    ])
   })
 })
