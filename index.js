@@ -42,6 +42,7 @@ exports.typecastString = require('./lib/typecastString')
 exports.union = require('./lib/union')
 exports.unique = require('./lib/unique')
 exports.urlName = require('./lib/urlName')
+exports.Worker = require('./lib/Worker')
 
 // Determine the type of config provided
 exports.Config = require('./lib/Config')
