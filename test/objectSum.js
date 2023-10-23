@@ -8,6 +8,7 @@ describe('lib/helpers/objectSum', () => {
 
   it('should sum only numbers', () => {
     expect(() => objectSum([{ foo: 'bar' }, { foo: 1 }])).to.throw(TypeError)
+    expect(objectSum([{ foo: 'bar' }, { foo: 1 }], true)).to.eql({ foo: 'bar' })
   })
 
   it('should traverse nested objects', () => {
@@ -17,5 +18,8 @@ describe('lib/helpers/objectSum', () => {
   it('should throw an InvalidArgument when trying to sum object and scalar', () => {
     expect(() => objectSum({ foo: 1 }, { foo: { bar: 2 } })).to.throw(TypeError)
     expect(() => objectSum({ foo: { bar: 2 } }, { foo: 1 })).to.throw(TypeError)
+
+    expect(objectSum({ foo: 1 }, { foo: { bar: 2 } }, true)).to.eql({ foo: 1 })
+    expect(objectSum({ foo: { bar: 2 } }, { foo: 1 }, true)).to.eql({ foo: { bar: 2 } })
   })
 })
