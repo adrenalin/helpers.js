@@ -1,6 +1,6 @@
 {
   "name": "@vapaaradikaali/helpers.js",
-  "version": "0.40.3",
+  "version": "0.40.4",
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {

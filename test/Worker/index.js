@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const { InternalServerError } = require('@vapaaradikaali/errors')
-const { Worker } = require('../..')
+const Worker = require('../../lib/Worker')
 
 const { WorkerError, WorkerUnresolved, WorkerReject } = Worker.errors
 
