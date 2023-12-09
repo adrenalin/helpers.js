@@ -350,7 +350,7 @@ describe('lib/Tree', () => {
 
     expect(rval).to.equal(tree)
     expect(tree.nodes.size).to.equal(0)
-    expect(Object.keys(tree.mapped).length).to.equal(0)
+    expect(tree.mapped.length).to.equal(0)
   })
 
   it('should have a flush method', () => {
@@ -359,6 +359,6 @@ describe('lib/Tree', () => {
 
     expect(rval).to.equal(tree)
     expect(tree.nodes.size).to.equal(0)
-    expect(Object.keys(tree.mapped).length).to.equal(0)
+    expect(tree.mapped.length).to.equal(0)
   })
 })
