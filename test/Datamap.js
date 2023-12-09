@@ -9,6 +9,13 @@ describe('lib/datamap', () => {
     expect(map.get('foo')).to.equal('bar')
   })
 
+  it('should keep the last set value', () => {
+    const map = new Datamap()
+    map.set('foo', 'bar')
+    map.set('foo', 'foo')
+    expect(map.get('foo')).to.equal('foo')
+  })
+
   it('should accept key-value pairs in the constructor', () => {
     const values = {
       foo: 'bar',
@@ -116,5 +123,74 @@ describe('lib/datamap', () => {
     expect(filtered).to.be.an.instanceof(Datamap)
     expect(filtered.keys()).to.eql(['foo'])
     expect(filtered.get('foo')).to.equal(values.foo)
+  })
+
+  it('should provide an iterable', () => {
+    const values = {
+      foo: 'bar',
+      bar: 'foo'
+    }
+
+    const map = new Datamap(values)
+
+    for (const key of map) {
+      expect(values).to.have.property(key)
+    }
+  })
+
+  it('should provide datamap length and size', () => {
+    const values = {
+      foo: 'bar',
+      bar: 'foo'
+    }
+
+    const map = new Datamap(values)
+
+    expect(map.length).to.eql(2)
+    expect(map.size).to.eql(2)
+  })
+
+  it('should provide slice for cutting the datamap', () => {
+    const values = {
+      foo: 'bar',
+      bar: 'foo',
+      foobar: 'foobar'
+    }
+
+    const map = new Datamap(values)
+
+    const d0 = map.slice()
+    expect(d0.length).to.eql(map.length)
+    expect(d0.values()).to.eql(map.values())
+    expect(d0).not.to.equal(map)
+
+    const d1 = map.slice(0, 1)
+    expect(d1.length).to.equal(1)
+    expect(d1.values()).to.eql([values.foo])
+    expect(d1).not.to.equal(map)
+
+    const d2 = map.slice(1)
+    expect(d2.length).to.equal(2)
+    expect(d2.values()).to.eql([values.bar, values.foobar])
+    expect(d2).not.to.equal(map)
+
+    // Original did not change
+    expect(map.length).to.equal(3)
+  })
+
+  it('should provide methods copy and clone', () => {
+    const values = {
+      foo: 'bar',
+      bar: 'foo',
+      foobar: 'foobar'
+    }
+
+    const map = new Datamap(values)
+    const copy = map.copy()
+
+    expect(map.values()).to.eql(copy.values())
+    expect(map).not.to.equal(copy)
+
+    expect(map.copy).to.equal(map.clone)
   })
 })
