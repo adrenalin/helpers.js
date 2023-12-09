@@ -4,3 +4,9 @@ Helpers
 =======
 
 Miscellaneous helpers for my various JS projects
+
+
+Functions
+---------
+
+- [argparse](./lib/argparse.js)
