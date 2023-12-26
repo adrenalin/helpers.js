@@ -193,4 +193,39 @@ describe('lib/datamap', () => {
 
     expect(map.copy).to.equal(map.clone)
   })
+
+  it('should set auto-index properties', () => {
+    const testObject = {
+      foo: 'bar'
+    }
+
+    const map = new Datamap()
+
+    // No index set
+    expect(() => map.add(testObject)).to.throw(InvalidArgument)
+
+    map.setIndex('foo')
+
+    // No index property defined
+    expect(() => map.add({ bar: 'foo' })).to.throw(InvalidArgument)
+
+    map.add(testObject)
+
+    expect(map.get('bar')).to.equal(testObject)
+  })
+
+  it('should accept a configuration object as an argument', () => {
+    const index = 'test-index-property'
+    const indexValue = 'test-index-value'
+    const value = {
+      [index]: indexValue
+    }
+
+    const options = new Datamap.Options({ index })
+    const datamap = new Datamap(options)
+    expect(datamap.$options.index).to.equal(index)
+
+    datamap.add(value)
+    expect(datamap.get(indexValue)).to.equal(value)
+  })
 })
