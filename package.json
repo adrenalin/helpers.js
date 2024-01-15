@@ -4,7 +4,7 @@
   "description": "Miscellaneous helpers",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc2md -c ./.jsdoc.json ./lib/*.js > README.md",
+    "doc": "jsdoc2md -c ./.jsdoc.json ./lib/*.js --template template.md > README.md",
     "lint": "standard lib/ test/",
     "test": "nyc mocha --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
