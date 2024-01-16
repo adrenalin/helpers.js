@@ -104,6 +104,8 @@ default value is returned.</p></dd>
 <dd><p>Round to precision</p></dd>
 <dt><a href="#sleep">sleep(duration)</a></dt>
 <dd><p>Sleep for the given amount of time</p></dd>
+<dt><a href="#sortObject">sortObject(input)</a></dt>
+<dd><p>Sort an object by key or an array by its values</p></dd>
 <dt><a href="#splitStringIntoChunks">splitStringIntoChunks(input, length, separator, [left])</a> ⇒ <code>string</code></dt>
 <dd><p>Split string into chunks of the given size and merge them with the given
 separator string. Default chunk grouping order is from right to left.</p></dd>
@@ -2167,6 +2169,23 @@ Positive precision allows more decimals, negative rounds to tens
 | --- | --- | --- |
 | duration | <code>number</code> | <p>Sleep time in milliseconds</p> |
 
+<a name="sortObject"></a>
+
+## sortObject(input)
+<p>Sort an object by key or an array by its values</p>
+
+**Kind**: global function
+**Summary**: <p>Sort an object by key or an array by its values</p>.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | <code>\*</code> | <p>Any input</p> |
+
+**Example**
+```js
+sortObject({ foo: 'bar', bar: 'foo' }) // will output {"bar": "foo", "foo": "bar"}
+    sortObject([3, 2, 1]) // will output [1, 2, 3]
+```
 <a name="splitStringIntoChunks"></a>
 
 ## splitStringIntoChunks(input, length, separator, [left]) ⇒ <code>string</code>
